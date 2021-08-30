@@ -311,6 +311,7 @@ Fg.sendMessage(hehe, teks, text)
 const mentions = (teks, memberr, id) => {
 (id == null || id == undefined || id == false) ? Fg.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Fg.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
 			}
+			
 //---- 𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗗𝗘 𝗥𝗘𝗦𝗣𝗨𝗘𝗦𝗧𝗔 𝗙𝗔𝗟𝗦𝗔 ----
 //--respuesta con link
 const replyLink = (teks) => {
@@ -323,14 +324,16 @@ sendEphemeral: false,
                 "body": "",
                 "previewType": "PHOTO",
                 "thumbnailUrl": "https://i.ibb.co/ZW0xBXL/amumu.jpg",
-                "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
+                "thumbnail": gambar2,
+                "sourceUrl": `https://chat.whatsapp.com/G5sXrkhJ0pb0Tu8nhWLaFK`
 },mentionedJid:[sender]}, quoted : mek})
 }
 //******************** 》Advance《 ********************\\
-
+//se elimina!! 
 function monospace(string) {
 return '```' + string + '```'
-}   
+}  
+
 function jsonformat(string) {
 return JSON.stringify(string, null, 2)
 }
@@ -899,92 +902,6 @@ break
 }catch{
 }
 
-
-
-//BUTTON 
-//UPDATE BAILEYS TO LAST VERSION SO THAT FEATURE CAN BE USED
-/*
-switch(butresx){
-case 'OWNER': 
-Fg.sendMessage(from, {displayname: "jeff", vcard: vcard}, MessageType.contact ,{ quoted : sen})
-.then((res) => Fg.sendMessage(from, 'Nih kontak ownerku', text, {quoted: res}))
-break
-
-case 'WM' :
-reply(wait())
-buffer = await getBuffer(`http://lolhuman.herokuapp.com/api/tiktokwm?apikey=${lol}&url=${q3}`)
-Fg.sendMessage(from, buffer, video, {mimetype: 'video/mp4', quoted: mek, caption : monospace(`T I K T O K  W I T H  W M`)})
-break
-
-case 'MUSIC' :
-reply(wait())
-ttms = await fetchJson(`http://zekais-api.herokuapp.com/tiktokmusic?url=${q3}`)
-sendMediaURL(from, ttms.mp3)
-break
-
-case 'NOWM' :
-  reply(wait())
-anu = await fetchJson(`http://lolhuman.herokuapp.com/api/tiktok?apikey=HafzzYourBaka&url=${q3}`, {method: 'get'})
-if (anu.error) return reply(anu.error)
-tt = `「 *TIKTOK NO WM* 」\n\n*Judul:* ${anu.result.title}\n*Keywords:* ${anu.result.keywords}\n*Desc:* ${anu.result.description}`
- buff = await getBuffer(anu.result.link)
- Fg.sendMessage(from, buff, video, {mimetype: 'video/mp4', quoted: mek,caption : tt})
- break
- 
-
-case 'AUDIO': 
-try {
-reply('_Lagu yang anda cari Sedang DiProsess.._')
-let yut = await yts(q3)
-yta(yut.videos[0].url)
-.then((res) => {
-const { dl_link, thumb, title, filesizeF, filesize } = res
-axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-.then((a) => {
-if (Number(filesize) >= 30000) return sendMediaURL(from, thumb, `*P L A Y  M P 3*\n\n${shp} Title : ${title}\n${shp} Ext : MP3\n${shp} Filesize : ${filesizeF}\n${shp} Upload : ${yut.videos[0].ago}\n${shp} Views : ${yut.videos[0].views}\n${shp} Duration : ${yut.videos[0].timestamp}\n${shp} Link : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
-
-const captionis = `*P L A Y  M P 3*\n\n${shp} Title : ${title}\n${shp} Size : ${filesizeF}\n${shp} Views: ${yut.videos[0].views}\n${shp} Duration : ${yut.videos[0].timestamp}\n${shp} URL : ${yut.videos[0].url}\n\n*_Permintaan Anda Sedang Di Prosess!_*`
-//sendMediaURL(from, thumb, captionis)
-sendMediaURL(from, dl_link, '')
-
-})
-})
-.catch((err) => reply(`${err}`))
-} catch (err) {
-sendMess(ownerNumber, 'PlayMp3 Error : ' + err)
-console.log(color('[PlayMp3]', 'red'), err)
-reply(mess.error.api)
-}
-break
-
-case 'VIDEO' :
-try {
-reply(wait())
-let yut = await yts(q3)
-ytv(yut.videos[0].url)
-.then((res) => {
-const { dl_link, thumb, title, filesizeF, filesize } = res
-axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-.then((a) => {
-if (Number(filesize) >= 40000) return sendMediaURL(from, thumb, `*P L A Y  M P 4*\n\n • Judul : ${title}\n • Size : ${filesizeF}\n • Upload : ${yut.videos[0].ago}\n • Ditonton : ${yut.videos[0].views}\n • Duration : ${yut.videos[0].timestamp}\n • Link : ${a.data}\n\n_Ukuran File Terlalu besar, anda bisa download sendiri lewat Link Diatas!!_`)
-                       
-const mp4 = `
-*PLAY VIDEO\n\n Judul : ${title}\n\n Size : ${filesizeF}\n\n Upload : ${yut.videos[0].ago}\n\n Ditonton : ${yut.videos[0].views}\n\n Duration : ${yut.videos[0].timestamp}\n\n Url : ${yut.videos[0].url}`
-//sendMediaURL(from, thumb, mp4)
-sendMediaURL(from, dl_link, mp4)
-limitAdd(sender, limit)
-})
-})
-.catch((err) => reply(`${err}`))
-} catch (err) {
-sendMess(ownerNumber, 'PlayMp4 Error : ' + err)
-console.log(color('[PlayMp4]', 'red'), err)
-reply(mess.error)
-}
-break
-  
-}
-*/
 
 //******************** 》CmdWithPrefix《 ********************\\
 //const antibot = mek.isBaileys
@@ -2595,7 +2512,7 @@ break
 case 'join':
 if (isGroup) return reply('*Fitur Hanya dapat digunakan dalam Private Chat!*')
 if (args.length < 1) return reply(`Kirim perintah *${prefix}join* link grup`)
-if (!isUrl(args[0]) && !args[0].includes('chat.whatsapp.com')) return reply(mess.error.Iv)
+if (!isUrl(args[0]) && !args[0].includes('chat.whatsapp.com')) return reply(mess.link)
 let code = args[0].replace('https://chat.whatsapp.com/', '')
 Fg.acceptInvite(code)
 .then((res) => {
