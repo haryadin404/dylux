@@ -828,7 +828,15 @@ const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stic
 if (!isGroup && isCmd) console.log(color('[•]', 'aqua'), time, color(command , 'white'), 'from', color(sender.split('@')[0] , 'white'),'args :', color(args.length , 'white'))
 if (isCmd && isGroup) console.log(color('[•]', 'aqua'), time, color(command , 'white'), 'from', color(sender.split('@')[0] , 'white'), 'in', color(groupName),'args :', color(args.length , 'white'))
 
+//--- Total comandos
+const cmdadd = () => {
+	hit[0].totalcmd += 1
+	fs.writeFileSync('./data/totalhit.json', JSON.stringify(hit))
+}
+  if (isCmd) cmdadd()
+  const reqcmd = JSON.parse(fs.readFileSync('./data/totalhit.json'))[0].totalcmd
 
+//---
 let authorname = Fg.contacts[from] != undefined ? Fg.contacts[from].vname || Fg.contacts[from].notify : undefined	
 if (authorname != undefined) { } else { authorname = pushname }	
 			
@@ -1261,7 +1269,7 @@ const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.m
 UFree = `${pendaftar.length}`
 UReg = `${reg.length}`
 UPrem = `${premium.length}`
-THit = `${totalhit.length}`
+THit = `${reqcmd}`
 limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
 glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
 blan = `${getBalance(sender, balance)}`
