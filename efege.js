@@ -21,6 +21,8 @@ ProxyAgent,
 GroupSettingChange,
 waChatKey,
 mentionedJid,
+relayWAMessage,
+whatsappID,
 processTime
 } = require("@adiwajshing/baileys")
 
@@ -83,119 +85,89 @@ const setiker = JSON.parse(fs.readFileSync('./data/stick.json'))
 const stcmd = JSON.parse(fs.readFileSync('./data/stickcmd.json'))
 const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
 const stickerdb = JSON.parse(fs.readFileSync("./data/stickerdb.json"))//
-const reg = JSON.parse(fs.readFileSync('./data/register.json'))
-
-//******************** 》Src《 ********************\\
-const pendaftar = JSON.parse(fs.readFileSync('./src/user.json'))
-const totalhit = JSON.parse(fs.readFileSync('./src/totalhit.json'))
+const _user = JSON.parse(fs.readFileSync('./data/register.json'))
 const hit = JSON.parse(fs.readFileSync('./data/totalhit.json'))
-const hitdia = JSON.parse(fs.readFileSync('./src/today.json'))
-//******************** 》Setting《 ********************\\
-menusimpel = false
-owner = "59172945992@s.whatsapp.net"
-ownerN = "59172945992"
-setgrup = "6281226770537-1606097314@g.us"
-wa = '0@s.whatsapp.net'
+
+//-- Help
+const { help } = require('./libreria/menu')
+
+//---Ajustes 
+menusimpel = false //se elimina menu 
+let multi = true
+let nopref = false
+let single = false
+let prefa = '!'
+
 blocked = []
 public = true
-picdetec = false
+
+  //---- 𝗦𝗧𝗔𝗙𝗙 -----
+owner = "59172945992@s.whatsapp.net"
+wa = '0@s.whatsapp.net'
 shp = '⬡'
-nama = 'Fg BOT'
-fake = '@Rapaa021_'
+nama = 'Dylux BOT'
+fake = '@fg98_'
+
+//--anti delete 
 antidel = false
 antical = false
 aread = false
 ngetik = false
 vn = true
 
+//---------𝗥𝗘𝗗𝗘𝗦 𝗦𝗢𝗖𝗜𝗔𝗟𝗘𝗦---------
+const soportefg = 'https://chat.whatsapp.com/G5sXrkhJ0pb0Tu8nhWLaFK' 
 
+//--------𝗔𝗣𝗜𝗞𝗘𝗬----------
 const lolkey = '51762aa98877b6dc21112b1a'
 
-//******************** 》Prefix《 ********************\\
-let multi = true
-let nopref = false
-let single = false
-let prefa = '!'
 
-//******************** 》Path Image《 ********************\\
+//-----fakethumb-----
 gambar1 = fs.readFileSync('./image/emror.jpg')
 gambar2 = fs.readFileSync('./image/senku.jpeg')
 gambar3 = fs.readFileSync('./image/senku.jpg')
 gambar4 = fs.readFileSync('./image/senku2.jpeg')
 fakeg = fs.readFileSync('./image/fake.jpg')
-/*
-Note :
-▪︎ Gambar1 : Pict Error
-▪︎ Gambar2 : Pict Anime Witch
-▪︎ Gambar3 : Pict Anime 
-▪︎ Gambar4 : Pict Kayess
-▪︎ Gambar5 : Pict Cute <3
-*/
 
 
-//******************** 》Game《 ********************\\
+//----Juegos
 let tebakgambar = [];
 let family100 = [];
 let mtk = [];
 let ckl = [];
+//---
+ let {gamewaktu, limitCount } = require('./data/settings')
 
-//******************** 》Apikey《 ********************\\
-/*let {
-    hard,
-    zeks,
-    xtem,
-    lol,
-    tbz,
-    ai
-} = require('./data/key')*/
-    
-let {    
-    gamewaktu,
-    limitCount
-} = require('./data/settings')
+//--Contacto del dueño
+const vcard1 = 'BEGIN:VCARD\n' 
+ + 'VERSION:3.0\n' 
+ + 'FN:FG98\n'
+ + 'ORG:Dueño de DyLuxBot;\n' 
+ + `TEL;type=CELL;type=VOICE;waid=${owner}:+${owner}\n`
+ + 'END:VCARD'
+      
+const vcard2 = 'BEGIN:VCARD\n' 
+ + 'VERSION:3.0\n' 
+ + 'FN:FG98-2\n'
+ + 'ORG:Dueño de DyLuxBot;\n' 
+ + 'TEL;type=CELL;type=VOICE;waid=5493884725288:+54 9 388 472-5288\n'
+ + 'END:VCARD'
+  
 
-//******************** 》Vcard《 ********************\\
-const vcard = 'BEGIN:VCARD\n'
-            + 'VERSION:3.0\n'
-            + 'FN:Fg シ︎\n'
-            + 'ORG:Owner Fg;\n'
-            + 'TEL;type=CELL;type=VOICE;waid=6281804680327:+62 831-1800-241\n'
-            + 'END:VCARD'
-            
+           
 const sleep = async (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-          
+//---menu tutorial        
 module.exports = Fg = async (Fg, mek) => {
 try {
 const { convrt , donld , gem , sess , gc } = require('./libreria/tutorial')
-const { help } = require('./libreria/menu')
-const { menus } = require('./libreria/menuSimpel')
 //---
 
 
 
-//-----
-if (!mek.hasNewMessage) return
-mek = mek.messages.all()[0]
-//smsg(Fg, mek)
-if (!mek.message) return
-if (mek.key && mek.key.remoteJid == 'status@broadcast') return
-mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
+//-- Hora y fecha
 
-m = smsg(Fg, mek)
-global.prefix
-global.blocked
-
-const content = JSON.stringify(mek.message)
-const from = mek.key.remoteJid
-const type = Object.keys(mek.message)[0]
-
-const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
-const mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid : []
-
-//******************** 》Date & Time《 ********************\\
 const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 const datre = new Date().toLocaleDateString()
 const wib = moment.tz('Asia/Jakarta').format('HH : mm : ss')
@@ -266,18 +238,39 @@ case 23: waktoo = "Malam"; break;
 var Tanggal= "" + hari + ", " + tanggal + " " + bulan1 + " " + tahun;
 var Hari= "" + waktoo;
  //-----
+//-----
+if (!mek.hasNewMessage) return
+mek = mek.messages.all()[0]
+//smsg(Fg, mek)
+if (!mek.message) return
+if (mek.key && mek.key.remoteJid == 'status@broadcast') return
+mek.message = (Object.keys(mek.message)[0] === 'ephemeralMessage') ? mek.message.ephemeralMessage.message : mek.message
+
+m = smsg(Fg, mek)
+global.prefix
+global.blocked
+
+const content = JSON.stringify(mek.message)
+const from = mek.key.remoteJid
+const type = Object.keys(mek.message)[0]
+
+const { text, extendedText, contact, location, liveLocation, image, video, sticker, document, audio, product } = MessageType
+const mentionByTag = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.mentionedJid : []
+
+
+
 
 
 //-------
  
 const mentionByReply = type == "extendedTextMessage" && mek.message.extendedTextMessage.contextInfo != null ? mek.message.extendedTextMessage.contextInfo.participant || "" : ""
 const mention = typeof(mentionByTag) == 'string' ? [mentionByTag] : mentionByTag
-		mention != undefined ? mention.push(mentionByReply) : []
+	       mention != undefined ? mention.push(mentionByReply) : []
 const mentionUser = mention != undefined ? mention.filter(n => n) : []
 const cmd = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
 
 
-//******************* 》Prefix《 *******************\\
+//---Multi Prefix 
 if(multi){
 var prefix = /^[°•π÷×¶∆£¢€¥®™✓=|~zZ+×_*!#%^&./\\©^]/.test(cmd) ? cmd.match(/^[°•π÷×¶∆£¢€¥®™✓=|~xzZ+×_*!#,|`÷?;:%^&./\\©^]/gi) : '-'	  
 
@@ -287,18 +280,13 @@ prefix = ''
 
 } else {
 if(single){
-prefix = prefa
-}
-}
-}
-
+prefix = prefa}}}
 
 body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : (type == "stickerMessage") && stickerdb[mek.message.stickerMessage.fileSha256.toString("hex")].text ? prefix + stickerdb[mek.message.stickerMessage.fileSha256.toString("hex")].text : ""
-
+budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 
 var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
 const messagesC = pes.slice(0).trim()
-budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
 q2 = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.singleSelectReply.selectedRowId: ""
 q3 = Object.keys(mek.message)[0] == "buttonsResponseMessage" ? mek.message.buttonsResponseMessage.selectedButtonId : ""
@@ -348,8 +336,7 @@ const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 const itsMe = mek.key.fromMe ? true : false
 
-const isUser = pendaftar.includes(sender)
-const isRegister = reg.includes(sender)
+const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
 const isGroupAdmins = groupAdmins.includes(sender) || false
 const is_welcom = isGroup ? _welcom.includes(from) : false
@@ -375,8 +362,8 @@ finvite = {
 },
 "message": {
 "groupInviteMessage": {
-"groupJid": setgrup,
-"inviteCode": "NgsCIU2lXKh3VHJT",
+"groupJid": "59172945992-1519883511@g.us",
+"inviteCode": "Ly4I2LObSvW8VgOnJjofgA",
 "groupName": groupName,
 "caption": fake,
 "height": 6080,
@@ -548,19 +535,7 @@ return Fg.chatRead(from)
 if (!public){
 if (!isOwner && !itsMe) return
 }
-
-// ******************** 》Hit《 ******************** \\
-if (isCmd && !isUser){
-pendaftar.push(sender)
-fs.writeFileSync('./src/user.json', JSON.stringify(pendaftar))
-} 
-        
-if (isCmd && isGroup) {
-totalhit.push(command)
-fs.writeFileSync('./src/totalhit.json', JSON.stringify(totalhit))
-hitdia.push(command)
-fs.writeFileSync('./src/today.json', JSON.stringify(hitdia))
-}
+//-----------
 
 _prem.expiredCheck(premium)
 
@@ -829,7 +804,7 @@ const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stic
 if (!isGroup && isCmd) console.log(color('[•]', 'aqua'), time, color(command , 'white'), 'from', color(sender.split('@')[0] , 'white'),'args :', color(args.length , 'white'))
 if (isCmd && isGroup) console.log(color('[•]', 'aqua'), time, color(command , 'white'), 'from', color(sender.split('@')[0] , 'white'), 'in', color(groupName),'args :', color(args.length , 'white'))
 
-//--- Total comandos
+//--- Total comandos usados
 const cmdadd = () => {
 	hit[0].totalcmd += 1
 	fs.writeFileSync('./data/totalhit.json', JSON.stringify(hit))
@@ -1155,18 +1130,6 @@ reply(monospace(`Wrong Format!!\n\nExample ${prefix + command} convert\n\nList O
 }
 break
 
-case 'setmenu':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
-if(args[0] == 'simpel'){
-menusimpel = true
-reply('Sucsess')
-}else if(args[0] == 'ori'){
-menusimpel = false
-reply('Sucsess')
-}else{
-reply(`Cara Penggunaan : ${prefix + command} image\n\nTersedia\n •simpel\n •ori`)
-}
-break
 
 case 'caripesan': case 'searchmsg':
 if(!isOwner && !itsMe)return
@@ -1209,7 +1172,7 @@ const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.m
 UFree = `${pendaftar.length}`
 UReg = `${reg.length}`
 UPrem = `${premium.length}`
-THit = `${totalhit.length}`
+THit = `${reqcmd}`
 limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
 glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
 blan = `${getBalance(sender, balance)}`
@@ -1270,7 +1233,7 @@ const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.m
 UFree = `${pendaftar.length}`
 UReg = `${reg.length}`
 UPrem = `${premium.length}`
-THit = `${totalhit.length}`
+THit = `${reqcmd}`
 limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
 glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
 blan = `${getBalance(sender, balance)}`
@@ -2599,20 +2562,7 @@ sendEphemeral: false,
 .then((res) => Fg.sendMessage(from, 'Nih kontak ownerku', text, {quoted: res}))
 break
 
-case 'picdetec': case 'picdetect':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
-if ((args[0]) === 'on'){
-if(picdetec)return reply('_Fitur sudah diaktifkan sebelumnya!_')
-picdetec = true
-reply('*_Succses_*')
-} else if ((args[0]) === 'off'){
-if(!picdetec)return reply('_Fitur sudah diaktifkan sebelumnya!_')
-picdetec = false
-reply('*_Succses_*')
-}else{
-reply(`*Format Error!*\n\n*Example :*\n ▪︎ ${prefix + command} on\n ▪︎ ${prefix + command} off\n\n*Note :*\n • _On : Untuk Me-Aktifkan!_\n • _Off : Untuk Me-NonAktifkan!_`)
-}
-break
+
 
 case 'self':
 if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
