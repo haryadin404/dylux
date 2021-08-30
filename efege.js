@@ -146,7 +146,7 @@ let {
     lol,
     tbz,
     ai
-} = require('./data/key')
+} = require('./data')
     
 let {    
     gamewaktu,
