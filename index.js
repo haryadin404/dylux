@@ -78,7 +78,9 @@ const time_connecting = moment.tz('America/La_Paz').format('HH:mm:ss')
 })
 
 Fg.on('open', () => {
-success('2',`\n[ ✓ ] Connected...`)
+const time_connect = moment.tz('America/La_Paz').format('HH:mm:ss')
+        console.log(color('[FG98]','aqua'), color(`Conectado`, "aqua"))
+        start('')
 })
 await Fg.connect({timeoutMs: 30*1000})
 fs.writeFileSync('./session/FG98.json', JSON.stringify(Fg.base64EncodedAuthInfo(), null, '\t'))
