@@ -217,7 +217,7 @@ const mention = typeof(mentionByTag) == 'string' ? [mentionByTag] : mentionByTag
 	       mention != undefined ? mention.push(mentionByReply) : []
 const mentionUser = mention != undefined ? mention.filter(n => n) : []
 const cmd = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
-const hora = moment.tz('America/La_Paz').format('DD/MM HH:mm:ss')
+const time = moment.tz('America/La_Paz').format('DD/MM HH:mm:ss')
 const hora2 = moment.tz('America/La_Paz').format('HH:mm')
 
 
