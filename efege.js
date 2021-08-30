@@ -278,7 +278,6 @@ const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 
 const itsMe = mek.key.fromMe ? true : false
-const senderNumber = sender.split("@")[0]
 const isOwner = senderNumber == owner || senderNumber == botNumber || mods.includes(senderNumber)
   
 const isVerify = _user.includes(sender)
