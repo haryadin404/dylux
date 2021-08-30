@@ -263,7 +263,6 @@ mess = {
 const totalchat = await Fg.chats.all()
 const botNumber = Fg.user.jid
 const botN = botNumber.replace('@s.whatsapp.net', '') //jadibot
-//const ownerNumber = [`${setting.ownerNumber}@s.whatsapp.net`]
 const isGroup = from.endsWith('@g.us')
 const sender = mek.key.fromMe ? Fg.user.jid : isGroup ? mek.participant : mek.key.remoteJid
 const senderNumber = sender.split("@")[0]
@@ -2464,7 +2463,7 @@ reply(`Pilih on atau off`)
 break
                 
 case 'bc':
-if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!itsMe && !isOwner)return reply(ownerB()) 
 if (!value)return reply(`Reply image , video , atau teks biasa dan Masukan Ingfo`)
 bcc = await Fg.chats.all()
 if (isMedia && !mek.message.imageMessage || isQuotedImage) {
@@ -2508,21 +2507,21 @@ break
 
 
 case 'self':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!itsMe && !isOwner)return reply(ownerB()) 
 if(!public)return reply('*_Fitur sudah diaktifkan sebelumnya!_*')
 public = false
 return reply(  `*Mode : Self*`, text)
 break
 
 case 'public':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!itsMe && !isOwner)return reply(ownerB()) 
 if(public)return reply('*_Fitur sudah diaktifkan sebelumnya_*')
 public = true
 return reply(`*Mode : Public*`, text)
 break
 
 case 'autoread':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!itsMe && !isOwner)return reply(ownerB()) 
 if ((args[0]) === 'on') {
 if(aread)return reply('_Sudah diaktifkan sebelumnya_')
 aread = true
@@ -2752,7 +2751,7 @@ break
 
 case 'banchat':
 if (!isGroup) return reply(group())
-if (!itsMe && !isOwner && !isGroupAdmins)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!itsMe && !isOwner)return reply(ownerB()) 
 //if (!isBotGroupAdmins) return reply(Badmin())
 if (isBanchat) return reply(`udah di ban`)
 bancht.push(from)
@@ -3206,7 +3205,7 @@ break
 //******************** 》Owner Prem《 ********************\\
 
 case 'addprem':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!itsMe && !isOwner)return reply(ownerB()) 
 if (!value)return reply(`*Format Error!*\n\n*Example :*\n• *${prefix + command} @tag 10d*\n\n*Note :*\n• s : detik\n• m : menit\n• h : jam\n• d : hari\n\n*Tq To : ${fake}*`)
 expired = value.split(" ")[1]
 const pnom = {id: `${value.split(" ")[0].replace("@",'')}@s.whatsapp.net`,expired: Date.now() + toMs(expired) }
