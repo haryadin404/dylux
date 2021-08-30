@@ -1269,7 +1269,7 @@ const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.m
 UFree = `${pendaftar.length}`
 UReg = `${reg.length}`
 UPrem = `${premium.length}`
-THit = `${reqcmd}`
+THit = `${totalhit.length}`
 limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
 glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
 blan = `${getBalance(sender, balance)}`
@@ -1296,7 +1296,7 @@ break
 
 
 case 'test': 
-replyWithFakeLink('*Hola!*')
+replyWithFakeLink(`*Hola!* ${reqcmd}`)
 break
 
 case 'runtime':
