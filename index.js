@@ -28,9 +28,9 @@ const ms = require("parse-ms");
 const { getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success } = require('./libreria/functions')
 const { color } = require('./libreria/color')
 fakenomor = '0@s.whatsapp.net'
-const gcrevoke = ["6281804680327-1621430788@g.us"]
+const gcrevoke = ["59172945992-1519883511@g.us"]
 shp = '⬡'
-owner = "6281804680327@s.whatsapp.net"
+owner = "59172945992@s.whatsapp.net"
 spc1 = '         '
 spc2 = '\n                           '
 spc3 = '                   '
@@ -58,7 +58,7 @@ vertivalLayout: 'default',
 width: 80,
 whitespaceBreak: false
 }), 'cyan'))
-console.log(color(`${spc2}[ • BOT Creator By Fgu • ]` ,'cyan'))
+console.log(color(`${spc2}[ • BOT Creator By FG98 • ]` ,'cyan'))
 console.log(color(`${spc4}< ================================================== >`, 'cyan'))
 console.log(color(`${spc3}[•]`, 'aqua'), color(`Nama        : ${fake}`, 'white'))
 console.log(color(`${spc3}[•]`, 'aqua'), color(`Bot Version : 2.1.2`, 'white'))
@@ -70,7 +70,7 @@ Fg.on('qr', () => {
 console.log(color('[','white'), color('!','cyan'), color(']','white'), color('Scan Now This Qr!'))
 })
 
-fs.existsSync('./senku.json') && Fg.loadAuthInfo('./senku.json')
+fs.existsSync('./session/FG98.json') && Fg.loadAuthInfo('./session/FG98.json')
 Fg.on('connecting', () => {
 start('2', '[ ! ] Connecting..')
 })
@@ -79,7 +79,7 @@ Fg.on('open', () => {
 success('2',`\n[ ✓ ] Connected...`)
 })
 await Fg.connect({timeoutMs: 30*1000})
-fs.writeFileSync('./senku.json', JSON.stringify(Fg.base64EncodedAuthInfo(), null, '\t'))
+fs.writeFileSync('./session/FG98.json', JSON.stringify(Fg.base64EncodedAuthInfo(), null, '\t'))
 Fg.on('chat-update', async (message) => {
 require('./efege.js')(Fg, message)
 })
