@@ -323,7 +323,6 @@ sendEphemeral: false,
                 "body": "",
                 "previewType": "PHOTO",
                 "thumbnailUrl": "https://i.ibb.co/ZW0xBXL/amumu.jpg",
-                "thumbnail": gambar2,
                 "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
 },mentionedJid:[sender]}, quoted : mek})
 }
