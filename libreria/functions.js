@@ -4,7 +4,7 @@ const cfonts = require('cfonts')
 const spin = require('spinnies')
 const Crypto = require('crypto')
 
-const wait = async (media) => new Promise(async (resolve, reject) => {
+const _wait = async (media) => new Promise(async (resolve, reject) => {
     const attachmentData = `data:image/jpeg;base64,${media.toString('base64')}`
     const response = await fetch("https://trace.moe/api/search",{method: "POST",body: JSON.stringify({ image: attachmentData }),headers: { "Content-Type": "application/json" }});
     if (!response.ok) reject(`Gambar tidak ditemukan!`);
@@ -139,4 +139,4 @@ const banner = cfonts.render(('FG98'), {
   });
 
 
-module.exports = { wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, start, info, success, banner, close }
+module.exports = { _wait, simih, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, start, info, success, banner, close }
