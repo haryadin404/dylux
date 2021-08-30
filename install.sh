@@ -6,7 +6,6 @@ apt-get install nodejs
 apt-get install libwebp 
 apt-get install mc
 apt-get install ffmpeg
-apt-get install imagemagick
 apt-get install wget
 apt-get install tesseract
 apt-get install nmap
@@ -15,5 +14,5 @@ wget -O ~/../usr/share/tessdata/ind.traineddata "https://github.com/tesseract-oc
 npm i imgbb-uploader
 npm i
 
-echo "\n\n  Se han instalado todas las dependencias, ejecute el comando \"npm start\" para iniciar el bot By: FG98"
+echo "✅ Se han instalado todas las dependencias, ejecute el comando \"npm start\" para iniciar el bot By: FG98💎"
 
