@@ -1,12 +1,11 @@
-exports.help = (prefix,pushname,usrr,tanggal,tag,wa,THit,wib,njing,premm,premi,limm,glimm,blan) => {
+exports.help = (prefix,pushname,usrr,tag,wa,THit,wib,njing,premm,premi,limm,glimm,blan) => {
   let p = 0
-	return `Halo kak ${pushname} ( @${usrr} ) Selamat ${tanggal}👋 
+	return `Halo kak ${pushname} ( @${usrr} ) Selamat 👋 
   *_-BOT INFO-_*
     -Creator Bot : @${tag} 
     -Thanks To : @${waa} 
     -Total Hit : ${THit} 
     -Jam : ${wib} WIB 
-    -Hari : ${tanggal} 
     -Runtime : ${njing} 
  
   *_-USER INFO-_*
