@@ -139,14 +139,14 @@ let mtk = [];
 let ckl = [];
 
 //******************** 》Apikey《 ********************\\
-let {
+/*let {
     hard,
     zeks,
     xtem,
     lol,
     tbz,
     ai
-} = require('./data')
+} = require('./data/key')*/
     
 let {    
     gamewaktu,
