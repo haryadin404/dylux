@@ -328,8 +328,9 @@ sendEphemeral: false,
                 "sourceUrl": `https://chat.whatsapp.com/G5sXrkhJ0pb0Tu8nhWLaFK`
 },mentionedJid:[sender]}, quoted : mek})
 }
-//******************** 》Advance《 ********************\\
-//se elimina!! 
+
+//--Avance
+
 function monospace(string) {
 return '```' + string + '```'
 }  
@@ -337,6 +338,7 @@ return '```' + string + '```'
 function jsonformat(string) {
 return JSON.stringify(string, null, 2)
 }
+//-- juego
 function randomNomor(angka){
 return Math.floor(Math.random() * angka) + 1
 }
@@ -2510,17 +2512,17 @@ reply('https://chat.whatsapp.com/'+linkgc)
 break
  
 case 'join':
-if (isGroup) return reply('*Fitur Hanya dapat digunakan dalam Private Chat!*')
+if (isGroup) return reply(`✳️ Envie el link de tu Grupo\n\n📌 Ejemplo *${prefix + command}* https://chat.whatsapp.com/G5sXrkhJ0pb0Tu8nhWLaFK`)
 if (args.length < 1) return reply(`Kirim perintah *${prefix}join* link grup`)
-//if (!value.includes('chat.whatsapp.com')) return reply(`❎ El link está mal! verifica`)
-if (!isUrl(args[0]) && !args[0].includes('chat.whatsapp.com')) return reply(mess.link)
+if (!value.includes('chat.whatsapp.com')) return reply(`❎ asegúrese de que el enlace sea correcto!\n\n✳️ Para aprender a usar el comando Escriba *${prefix + command}*`)
+//if (!isUrl(args[0]) && !args[0].includes('chat.whatsapp.com')) return reply(mess.link)
 let code = args[0].replace('https://chat.whatsapp.com/', '')
 Fg.acceptInvite(code)
 .then((res) => {
 Fg.sendMessage(res.gid,`*Halo saya ${nama}!*\n_Saya di invit oleh @${sender.split("@")[0]} Untuk masuk ke dalam Group!_\n_Ketik ${prefix}menu untuk Melihat Fitur Bot!_`,text,{contextInfo:{mentionedJid:[sender]},quoted : mek})
 reply(`_Succses Join Group!_`)
 })
-.catch((err) => reply(jsonformat(err)))
+.catch((err) => reply(err))
 break
 
 // Set Description Group ( MyMans APIs )
