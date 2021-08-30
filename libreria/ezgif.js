@@ -365,4 +365,4 @@ function getStikerLine(url) {
      // .catch(a => console.log(a))
 
 
-module.exports = { webp2mp4Url, webp2gifFile, reverseVideoFile, voiceremover }
+module.exports = { webp2mp4Url, webp2gifFile, reverseVideoFile }
