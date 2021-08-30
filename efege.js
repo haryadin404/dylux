@@ -2464,7 +2464,7 @@ reply(`Pilih on atau off`)
 break
                 
 case 'bc':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
 if (!value)return reply(`Reply image , video , atau teks biasa dan Masukan Ingfo`)
 bcc = await Fg.chats.all()
 if (isMedia && !mek.message.imageMessage || isQuotedImage) {
