@@ -73,7 +73,8 @@ console.log(color('[FG98]','aqua'), color("Escanee el codigo QR para conectarse.
 
 fs.existsSync('./session/FG98.json') && Fg.loadAuthInfo('./session/FG98.json')
 Fg.on('connecting', () => {
-start('2', '[ ! ] Connecting..')
+const time_connecting = moment.tz('America/La_Paz').format('HH:mm:ss')
+        console.log(color('[FG98]','aqua'), color("Espere a que se conecte...", "yellow"))
 })
 
 Fg.on('open', () => {
