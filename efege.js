@@ -50,7 +50,7 @@ const exif = new Exif();
 //---- Funcion
 
 const { color, bgcolor } = require('./libreria/color')
-const { wait, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./libreria/functions')
+const { _wait, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./libreria/functions')
 const { isLimit, limitAdd, getLimit, giveLimit, addBalance, kurangBalance, getBalance, isGame, gameAdd, givegame, cekGLimit } = require("./libreria/limit");
 const { fetchJson, fetchText, kyun } = require('./libreria/fetcher')
 const { recognize } = require('./libreria/ocr')
