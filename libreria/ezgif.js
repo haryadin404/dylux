@@ -253,8 +253,8 @@ function webp2gifFile(path) {
      })
 }
 
-
-function voiceremover(pathfile) {
+//
+/*function voiceremover(pathfile) {
      return new Promise((resolve, reject) => {
           const bodyForm = new FormData()
           bodyForm.append('fileName', fs.createReadStream('./src/voice.mp3'))
@@ -284,7 +284,8 @@ function voiceremover(pathfile) {
      })
 }
 
-voiceremover()
+voiceremover()*/
+//
 
 function slineMetadata(id) {
      return new Promise((resolve, reject) => {
