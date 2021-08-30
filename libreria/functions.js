@@ -91,18 +91,18 @@ const getRandom = (ext) => {
 const spinner = { 
   "interval": 120,
   "frames": [
-    "🕐",
-    "🕑",
-    "🕒",
-    "🕓",
-    "🕔",
-    "🕕",
-    "🕖",
-    "🕗",
-    "🕘",
-    "🕙",
-    "🕚",
-    "🕛"
+    "▶",
+    "   ▷",
+    "       ▶",
+    "           ▷",
+    "               ▶",
+    "                   ▷",
+    "                       ▶",
+    "                           ▷",
+    "                               ▶",
+    "                                   ▷",
+    "                                       ▶",
+    "                                           ▷"
   ]}
 
 let globalSpinner;
@@ -130,7 +130,7 @@ const close = (id, text) => {
 	spins.fail(id, {text: text})
 }
 
-const banner = cfonts.render(('Bot-WeA'), {
+const banner = cfonts.render(('FG98'), {
     font: 'block',
     color: 'candy',
     align: 'center',
