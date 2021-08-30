@@ -2512,6 +2512,7 @@ break
 case 'join':
 if (isGroup) return reply('*Fitur Hanya dapat digunakan dalam Private Chat!*')
 if (args.length < 1) return reply(`Kirim perintah *${prefix}join* link grup`)
+if (!value.includes('chat.whatsapp.com')) return reply(`❎ El link está mal! verifica`)
 if (!isUrl(args[0]) && !args[0].includes('chat.whatsapp.com')) return reply(mess.link)
 let code = args[0].replace('https://chat.whatsapp.com/', '')
 Fg.acceptInvite(code)
