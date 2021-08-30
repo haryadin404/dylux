@@ -80,7 +80,7 @@ const glimit = JSON.parse(fs.readFileSync('./data/glimit.json'));
 const left = JSON.parse(fs.readFileSync('./data/left.json'))	
 const limit = JSON.parse(fs.readFileSync('./data/limit.json'));
 const premium = JSON.parse(fs.readFileSync('./data/premium.json'))
-const setting = JSON.parse(fs.readFileSync('./data/settings.json'))
+const confi = JSON.parse(fs.readFileSync('./data/settings.json'))
 const setiker = JSON.parse(fs.readFileSync('./data/stick.json'))
 const stcmd = JSON.parse(fs.readFileSync('./data/stickcmd.json'))
 const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
@@ -102,7 +102,9 @@ blocked = []
 public = true
 
   //---- 𝗦𝗧𝗔𝗙𝗙 -----
-owner = "59172945992@s.whatsapp.net"
+const owner = confi.ownerN
+const mods = confi.mods
+
 wa = '0@s.whatsapp.net'
 shp = '⬡'
 nama = 'Dylux BOT'
@@ -232,7 +234,7 @@ prefix = ''
 } else {
 if(single){
 prefix = prefa }}}
-
+ 
 const body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : (type == "stickerMessage") && stickerdb[mek.message.stickerMessage.fileSha256.toString("hex")].text ? prefix + stickerdb[mek.message.stickerMessage.fileSha256.toString("hex")].text : ""
 const budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 
@@ -241,6 +243,7 @@ const messagesC = pes.slice(0).trim()
 tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
 q2 = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.singleSelectReply.selectedRowId: ""
 q3 = Object.keys(mek.message)[0] == "buttonsResponseMessage" ? mek.message.buttonsResponseMessage.selectedButtonId : ""
+
 butresx = (type === 'buttonsResponseMessage') ? mek.message.buttonsResponseMessage.selectedDisplayText : ''
 
 const command = body.replace(prefix, '').trim().split(/ +/).shift().toLowerCase()
@@ -251,7 +254,7 @@ const arg = chats.slice(command.length + 2, chats.length)
 const argss = body.split(/ +/g)
 
 mess = {
-   	ferr: '❎ Error! \nIntentalo de nuevo mas tarde',
+   	ferr: '❎ Error! \n🔍 Intentalo de nuevo mas tarde',
    error: {
       Iink: '❎ Link invalido, corríjalo e intente de nuevo' } 
  
@@ -259,8 +262,8 @@ mess = {
 
 const totalchat = await Fg.chats.all()
 const botNumber = Fg.user.jid
-const botN = botNumber.replace('@s.whatsapp.net', '')
-const ownerNumber = [`${setting.ownerNumber}@s.whatsapp.net`]
+const botN = botNumber.replace('@s.whatsapp.net', '') //jadibot
+//const ownerNumber = [`${setting.ownerNumber}@s.whatsapp.net`]
 const isGroup = from.endsWith('@g.us')
 const sender = mek.key.fromMe ? Fg.user.jid : isGroup ? mek.participant : mek.key.remoteJid
 const senderNumber = sender.split("@")[0]
@@ -273,8 +276,11 @@ const groupId = isGroup ? groupMetadata.jid : ''
 const groupMembers = isGroup ? groupMetadata.participants : ''
 const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
-const itsMe = mek.key.fromMe ? true : false
 
+const itsMe = mek.key.fromMe ? true : false
+const senderNumber = sender.split("@")[0]
+const isOwner = senderNumber == owner || senderNumber == botNumber || mods.includes(senderNumber)
+  
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
 const isGroupAdmins = groupAdmins.includes(sender) || false
