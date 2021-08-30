@@ -1192,7 +1192,7 @@ blan = `${getBalance(sender, balance)}`
 usrr = `${sender.split("@")[0]}`
 runn = process.uptime()
 njing = `${kyun(runn)}`
-Fg.sendMessage(from, help(prefix,pushname,usrr,tanggal,tag,wa,THit,wib,Tanggal,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
+Fg.sendMessage(from, help(prefix,pushname,usrr,tanggal,tag,wa,THit,wib,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
 "forwardingScore": 1000000000,
 isForwarded: false,
 sendEphemeral: false,
@@ -1206,7 +1206,7 @@ sendEphemeral: false,
 },mentionedJid:[mjid,sender,mjud]}, quoted : mek})
 }
 else if(menusimpel = true){
-reply(menus(prefix, pushname, tanggal, wib, hari, Tanggal))
+reply(menus(prefix, pushname, tanggal, wib, hari))
 }
 break
 
