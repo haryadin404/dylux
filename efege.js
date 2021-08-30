@@ -167,77 +167,28 @@ const { convrt , donld , gem , sess , gc } = require('./libreria/tutorial')
 
 
 //-- Hora y fecha
+function kyun(seconds){
+  function pad(s){
+    return (s < 10 ? '0' : '') + s;
+  }
+  var hours = Math.floor(seconds / (60*60));
+  var minutes = Math.floor(seconds % (60*60) / 60);
+  var seconds = Math.floor(seconds % 60);
 
-const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
-const datre = new Date().toLocaleDateString()
-const wib = moment.tz('Asia/Jakarta').format('HH : mm : ss')
-const wita = moment.tz('Asia/Makassar').format('HH : mm : ss')
-const wit = moment.tz('Asia/Jayapura').format('HH : mm :ss')
-
-var dates = moment().tz('Asia/Jakarta').format("YYYY-MM-DDTHH:mm:ss");
-var date = new Date(dates);
-var tahun = date.getFullYear();
-var bulan1 = date.getMonth();
-var tanggal = date.getDate();
-var hari = date.getDay();
-var haris = date.getDay();
-var jam = date.getHours();
-var menit = date.getMinutes();
-var detik = date.getSeconds();
-var waktoo = date.getHours();
-
-switch(hari) {
-case 0: hari = "Minggu"; break;
-case 1: hari = "Senin"; break;
-case 2: hari = "Selasa"; break;
-case 3: hari = "Rabu"; break;
-case 4: hari = "Kamis"; break;
-case 5: hari = "Jum`at"; break;
-case 6: hari = "Sabtu"; break;
+  return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`
 }
-switch(bulan1) {
-case 0: bulan1 = "Januari"; break;
-case 1: bulan1 = "Februari"; break;
-case 2: bulan1 = "Maret"; break;
-case 3: bulan1 = "April"; break;
-case 4: bulan1 = "Mei"; break;
-case 5: bulan1 = "Juni"; break;
-case 6: bulan1 = "Juli"; break;
-case 7: bulan1 = "Agustus"; break;
-case 8: bulan1 = "September"; break;
-case 9: bulan1 = "Oktober"; break;
-case 10: bulan1 = "November"; break;
-case 11: bulan1 = "Desember"; break;
+function tanggal(){
+myMonths = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+			myDays = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'];
+			var tgl = new Date();
+			var day = tgl.getDate()
+			bulan = tgl.getMonth()
+			var thisDay = tgl.getDay(),
+			thisDay = myDays[thisDay];
+			var yy = tgl.getYear()
+			var year = (yy < 1000) ? yy + 1900 : yy;
+			return `${thisDay}, ${day} - ${myMonths[bulan]} - ${year}`
 }
-switch(waktoo){
-case 0: waktoo = "Malam"; break;
-case 1: waktoo = "Malam"; break;
-case 2: waktoo = "Malam"; break;
-case 3: waktoo = "Malam"; break;
-case 4: waktoo = "Pagi"; break;
-case 5: waktoo = "Pagi"; break;
-case 6: waktoo = "Pagi"; break;
-case 7: waktoo = "Pagi"; break;
-case 8: waktoo = "Pagi"; break;
-case 9: waktoo = "Pagi"; break;
-case 10: waktoo = "Pagi"; break;
-case 11: waktoo = "Siang"; break;
-case 12: waktoo = "Siang"; break;
-case 13: waktoo = "Siang"; break;
-case 14: waktoo = "Siang"; break;
-case 15: waktoo = "Sore"; break;
-case 16: waktoo = "Sore"; break;
-case 17: waktoo = "Sore"; break;
-case 18: waktoo = "Sore"; break;
-case 19: waktoo = "Malam"; break;
-case 20: waktoo = "Malam"; break;
-case 21: waktoo = "Malam"; break;
-case 22: waktoo = "Malam"; break;
-case 23: waktoo = "Malam"; break;
-}
-var Tanggal= "" + hari + ", " + tanggal + " " + bulan1 + " " + tahun;
-var Hari= "" + waktoo;
- //-----
 //-----
 if (!mek.hasNewMessage) return
 mek = mek.messages.all()[0]
@@ -550,7 +501,7 @@ teks = `Verification success\n\nPlease send *#menu* to view menu`
 reply(teks)
 }
 
-if (isCmd && !isRegister) return replyWithFakeLink(`*${waktoo} kak @${sender.split("@")[0]}*\n\nYou are not verified\nReply this chat and send bot password\n\nHint : \nPassword contains 4 digit number\nCek Password : https://instagram.com/021Fgu_`)
+if (isCmd && !isRegister) return replyWithFakeLink(`*${tanggal} kak @${sender.split("@")[0]}*\n\nYou are not verified\nReply this chat and send bot password\n\nHint : \nPassword contains 4 digit number\nCek Password : https://instagram.com/021Fgu_`)
 */
 // ******************** 》GAME《 ******************** \\
 
@@ -1201,7 +1152,7 @@ gbutsan = [
 ]
 gbuttonan = {
 imageMessage: mhan1.message.imageMessage,
-contentText: `${help(prefix,waktoo,tag,waa,UFree,UReg,UPrem,THit,wib,Tanggal,njing,pushname,usrr,premm,premi,limm,glimm,blan)}`,
+contentText: `${help(prefix,tanggal,tag,waa,UFree,UReg,UPrem,THit,wib,Tanggal,njing,pushname,usrr,premm,premi,limm,glimm,blan)}`,
 footerText: 'S E N K U  B O T 椮 岁 与',
 buttons: gbutsan,
 headerType: 4
@@ -1240,7 +1191,7 @@ blan = `${getBalance(sender, balance)}`
 usrr = `${sender.split("@")[0]}`
 runn = process.uptime()
 njing = `${kyun(runn)}`
-Fg.sendMessage(from, help(prefix,pushname,usrr,waktoo,tag,wa,UFree,THit,wib,Tanggal,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
+Fg.sendMessage(from, help(prefix,pushname,usrr,tanggal,tag,wa,UFree,THit,wib,Tanggal,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
 "forwardingScore": 1000000000,
 isForwarded: false,
 sendEphemeral: false,
@@ -1254,7 +1205,7 @@ sendEphemeral: false,
 },mentionedJid:[mjid,sender,mjud]}, quoted : mek})
 }
 else if(menusimpel = true){
-reply(menus(prefix, pushname, waktoo, wib, hari, Tanggal))
+reply(menus(prefix, pushname, tanggal, wib, hari, Tanggal))
 }
 break
 
