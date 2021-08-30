@@ -52,7 +52,7 @@ Fg.version = [2, 2119, 6]
 //enku.browserDescription = [ '[•] Fg', 'Chrome', '3.0' ]
 
 
-//Fg.logger.level = 'warn'
+
 
 const CFonts  = require('cfonts')
 CFonts.say('FG98', {
@@ -66,8 +66,8 @@ CFonts.say(`DyLux By FG98 Ig : @fg98._`, {
   colors: ['yellow']
 })
 
-
-/*Fg.on('qr', () => {
+Fg.logger.level = 'warn' 
+Fg.on('qr', () => {
 console.log(color('[','white'), color('!','cyan'), color(']','white'), color('Scan Now This Qr!'))
 })
 
@@ -83,7 +83,7 @@ await Fg.connect({timeoutMs: 30*1000})
 fs.writeFileSync('./session/FG98.json', JSON.stringify(Fg.base64EncodedAuthInfo(), null, '\t'))
 Fg.on('chat-update', async (message) => {
 require('./efege.js')(Fg, message)
-})*/
+})
 
     
 Fg.on('group-participants-update', async (anu) => {

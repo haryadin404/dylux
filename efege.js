@@ -171,26 +171,7 @@ const { help } = require('./libreria/menu')
 const { menus } = require('./libreria/menuSimpel')
 //---
 
-//--Whatsapp empezar a conectar
-async function starts() {
-	const Fg = new WAConnection()
-	Fg.logger.level = 'warn'
-	Fg.on('qr', () => { 
-		console.log(color('[FG98]','aqua'), color("Escanee el codigo QR para conectarse...", "yellow"))
-	})
-	fs.existsSync('./session/FG98.json') && Fg.loadAuthInfo('./session/FG98.json')
-Fg.on('connecting', () => {
-        const time_connecting = moment.tz('America/La_Paz').format('HH:mm:ss')
-        console.log(color('[FG98]','aqua'), color("Espere a que se conecte...", "yellow"))
-    })
-Fg.on('open', () => {
-        const time_connect = moment.tz('America/La_Paz').format('HH:mm:ss')
-        console.log(color('[FG98]','aqua'), color(`Conectado`, "aqua"))
-        start('')
-    })
-	await Fg.connect({timeoutMs: 30*1000})
-        fs.writeFileSync('./session/FG98.json', JSON.stringify(Fg.base64EncodedAuthInfo(), null, '\t'))
- 
+
 
 //-----
 if (!mek.hasNewMessage) return
