@@ -296,25 +296,37 @@ const isUrl = (url) => {
 return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
 }
 
-// ******************** 》Fake《 ******************** \\
-finvite = {
-"key": {
-"fromMe": false,
-"participant": "0@s.whatsapp.net",
-"remoteJid": "0@s.whatsapp.net"
-},
-"message": {
-"groupInviteMessage": {
-"groupJid": "59172945992-1519883511@g.us",
-"inviteCode": "Ly4I2LObSvW8VgOnJjofgA",
-"groupName": groupName,
-"caption": fake,
-"height": 6080,
-"width": 6000
-}
-}
+ //---- 𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗗𝗘 𝗥𝗘𝗦𝗣𝗨𝗘𝗦𝗧𝗔----
+ const reply = (teks) => {
+Fg.sendMessage(from, teks, text, {quoted:mek })
+			}
+ //---respuesta con thumbnail
+const replyfg = (teks) => {
+Fg.sendMessage(from, teks, text, {quoted:mek,thumbnail : gambar4})
 }
 
+const sendMess = (hehe, teks) => {
+Fg.sendMessage(hehe, teks, text,{thumbnail:gambar4})
+}
+const mentions = (teks, memberr, id) => {
+(id == null || id == undefined || id == false) ? Fg.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Fg.sendMessage(from, teks.trim(), extendedText, {quoted: mek,thumbnail:gambar4, contextInfo: {"mentionedJid": memberr}})
+}
+
+//---- 𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗗𝗘 𝗥𝗘𝗦𝗣𝗨𝗘𝗦𝗧𝗔 𝗙𝗔𝗟𝗦𝗔 ----
+const replyWithFakeLink = (teks) => {
+Fg.sendMessage(from, teks, text,{contextInfo :{text: 'hi',
+"forwardingScore": 1000000000,
+isForwarded: false,
+sendEphemeral: false,
+"externalAdReply": {
+                "title": `•Instagram fg98._`,
+                "body": "",
+                "previewType": "PHOTO",
+                "thumbnailUrl": "https://i.ibb.co/ZW0xBXL/amumu.jpg",
+                "thumbnail": gambar2,
+                "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
+},mentionedJid:[sender]}, quoted : mek})
+}
 //******************** 》Advance《 ********************\\
 
 function monospace(string) {
@@ -330,33 +342,9 @@ const nebal = (angka) => {
 return Math.floor(angka)
 }
 
-const replyWithFakeLink = (teks) => {
-Fg.sendMessage(from, teks, text,{contextInfo :{text: 'hi',
-"forwardingScore": 1000000000,
-isForwarded: false,
-sendEphemeral: false,
-"externalAdReply": {
-                "title": `•Instagram fg98._`,
-                "body": "",
-                "previewType": "PHOTO",
-                "thumbnailUrl": "https://i.ibb.co/ZW0xBXL/amumu.jpg",
-                "thumbnail": gambar2,
-                "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
-},mentionedJid:[sender]}, quoted : mek})
-}
 
-const replyWithFake = (teks) => {
-Fg.sendMessage(from, teks, text,{quoted : finvite})
-}
-const reply = (teks) => {
-Fg.sendMessage(from, teks, text, {quoted:mek,thumbnail : gambar4})
-}
-const sendMess = (hehe, teks) => {
-Fg.sendMessage(hehe, teks, text,{contextInfo: { forwardingScore: 9999, isForwarded: true},thumbnail:gambar4})
-}
-const mentions = (teks, memberr, id) => {
-(id == null || id == undefined || id == false) ? Fg.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Fg.sendMessage(from, teks.trim(), extendedText, {quoted: mek,thumbnail:gambar4, contextInfo: {"mentionedJid": memberr}})
-}
+
+
 
 const sendMediaURL = async(to, url, text="", mids=[]) =>{
 if(mids.length > 0){
@@ -2613,7 +2601,7 @@ let code = args[0].replace('https://chat.whatsapp.com/', '')
 Fg.acceptInvite(code)
 .then((res) => {
 Fg.sendMessage(res.gid,`*Halo saya ${nama}!*\n_Saya di invit oleh @${sender.split("@")[0]} Untuk masuk ke dalam Group!_\n_Ketik ${prefix}menu untuk Melihat Fitur Bot!_`,text,{contextInfo:{mentionedJid:[sender]},quoted : finvite})
-replyWithFake(`_Succses Join Group!_`)
+reply(`_Succses Join Group!_`)
 })
 .catch((err) => reply(jsonformat(err)))
 break
