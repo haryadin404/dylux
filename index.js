@@ -68,7 +68,7 @@ CFonts.say(`DyLux By FG98 Ig : @fg98._`, {
 
 Fg.logger.level = 'warn' 
 Fg.on('qr', () => {
-console.log(color('[','white'), color('!','cyan'), color(']','white'), color('Scan Now This Qr!'))
+console.log(color('[FG98]','aqua'), color("Escanee el codigo QR para conectarse...", "yellow"))
 })
 
 fs.existsSync('./session/FG98.json') && Fg.loadAuthInfo('./session/FG98.json')
