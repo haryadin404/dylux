@@ -2508,7 +2508,7 @@ if(!value)return reply('*Command disertai ID Group!!*')
 linkgc = await Fg.groupInviteCode(`${value}`)
 reply('https://chat.whatsapp.com/'+linkgc)
 break
-
+ 
 case 'join':
 if (isGroup) return reply('*Fitur Hanya dapat digunakan dalam Private Chat!*')
 if (args.length < 1) return reply(`Kirim perintah *${prefix}join* link grup`)
@@ -2517,7 +2517,7 @@ if (!isUrl(args[0]) && !args[0].includes('chat.whatsapp.com')) return reply(mess
 let code = args[0].replace('https://chat.whatsapp.com/', '')
 Fg.acceptInvite(code)
 .then((res) => {
-Fg.sendMessage(res.gid,`*Halo saya ${nama}!*\n_Saya di invit oleh @${sender.split("@")[0]} Untuk masuk ke dalam Group!_\n_Ketik ${prefix}menu untuk Melihat Fitur Bot!_`,text,{contextInfo:{mentionedJid:[sender]},quoted : finvite})
+Fg.sendMessage(res.gid,`*Halo saya ${nama}!*\n_Saya di invit oleh @${sender.split("@")[0]} Untuk masuk ke dalam Group!_\n_Ketik ${prefix}menu untuk Melihat Fitur Bot!_`,text,{contextInfo:{mentionedJid:[sender]},quoted : mek})
 reply(`_Succses Join Group!_`)
 })
 .catch((err) => reply(jsonformat(err)))
@@ -2690,7 +2690,7 @@ if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix
 if ((args[0]) === 'welcome') {
 	if(is_welcom) return reply('udah on')
 	_welcom.push(from)
-	fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
+	fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 	reply(`*_Succses Aktifkan Fitur Welcome!_*`)
 }else if((args[0]) == 'antidelete'){
 if (antidel === true) return
@@ -2719,7 +2719,7 @@ if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix
 if ((args[0]) === 'welcome') {
 if (!is_welcom) return reply('udah off')
 _welcom.splice(from, 1)
-fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
+fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 reply(`*_Succses NonAktifkan Fitur!_*`)
 }else if((args[0]) == 'antidelete'){
 if (antidel === false) return
