@@ -5,9 +5,9 @@ const wait = () => {
 return '*⌛ _Cargando..._ ▬▬▬▭*\n\n*🧘🏻‍♂️ Espere por favor,* esto puede tomar unos segundos.'
 }
 //--
-/*const pagado = () => {
+const pagado = () => {
   return '*💎 -1 Diamante*'
-}*/
+}
 
 //--
 const fdiama = (prefix) => {
