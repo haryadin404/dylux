@@ -1,4 +1,4 @@
-console.log(' A partir de...')
+console.log('> A partir de...')
 
 const
 	{
@@ -40,8 +40,8 @@ spc4 = '               '
 
 require('./efege.js')
 nocache('./efege.js', module => console.log(color(`efege.js is now updated!`)))
-require('./libreria/menu.js')
-nocache('./libreria/menu.js', module => console.log(color(`Menu.js is Now updated!`)))
+require('./help/menu.js')
+nocache('./help/menu.js', module => console.log(color(`Menu.js is Now updated!`)))
 
 const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 const date = new Date().toLocaleDateString()

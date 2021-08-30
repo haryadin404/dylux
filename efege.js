@@ -89,7 +89,7 @@ const _user = JSON.parse(fs.readFileSync('./data/register.json'))
 const hit = JSON.parse(fs.readFileSync('./data/totalhit.json'))
 
 //-- Help
-const { help } = require('./libreria/menu')
+const { help } = require('./help/menu')
 const { wait, stick, errorfg, group, banf, ownerB, premi, userB, admin, Badmin, leveloff, lvlnul, pagado, fdiama, fgnsfw} = require('./help/respon');
 //---Ajustes 
 menusimpel = false //se elimina menu 
