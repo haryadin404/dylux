@@ -290,7 +290,7 @@ const value = args.join(' ')
 const isVote = isGroup ? voting.includes(from) : false
 conts = mek.key.fromMe ? Fg.user.jid : Fg.contacts[sender] || { notify: jid.replace(/@.+/, '') }
 const pushname = mek.key.fromMe ? Fg.user.name : conts.notify || conts.vname || conts.name || '-'
-const gcounti = setting.gcount
+const gcounti = confi.gcount
 const gcount = isPremium ? gcounti.prem : gcounti.user
 
 const isUrl = (url) => {
@@ -2382,8 +2382,8 @@ case 'setshape':
 if (args.length < 1) return
 if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
 shpp = args[0]
-setting.shape.Fg = shpp
-fs.writeFileSync('./data/settings.json', JSON.stringify(setting, null, '\t'))
+confi.shape.Fg = shpp
+fs.writeFileSync('./data/settings.json', JSON.stringify(confi, null, '\t'))
 reply(`Shape berhasil di ubah menjadi : ${shpp}`)
 break
 
