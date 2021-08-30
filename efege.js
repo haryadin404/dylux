@@ -2512,7 +2512,7 @@ break
 case 'join':
 if (isGroup) return reply('*Fitur Hanya dapat digunakan dalam Private Chat!*')
 if (args.length < 1) return reply(`Kirim perintah *${prefix}join* link grup`)
-if (!value.includes('chat.whatsapp.com')) return reply(`❎ El link está mal! verifica`)
+//if (!value.includes('chat.whatsapp.com')) return reply(`❎ El link está mal! verifica`)
 if (!isUrl(args[0]) && !args[0].includes('chat.whatsapp.com')) return reply(mess.link)
 let code = args[0].replace('https://chat.whatsapp.com/', '')
 Fg.acceptInvite(code)
@@ -2589,12 +2589,12 @@ if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pak
 if ((args[0]) === 'on') {
 	if(is_welcom) return reply('udah on')
 	_welcom.push(from)
-	fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
+	fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 	reply(`*_Succses Aktifkan Fitur!_*`)
 } else if ((args[0]) === 'off') {
 	if (!is_welcom) return reply('udah off')
 	_welcom.splice(from, 1)
-	fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
+	fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 reply(`*_Succses NonAktifkan Fitur!_*`)
 } else if ((args[0]) === '-help') {
 mentions(`*Contoh Penggunaan Fitur ${command}*\n*Example :*\n*${prefix + command} on*\n*${prefix + command} off*\n\n*_Thanks To : @${`0`.split("@")[0]}_*`, [`${`0`}@s.whatsapp.net`], true)

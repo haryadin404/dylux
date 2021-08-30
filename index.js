@@ -92,9 +92,9 @@ require('./efege.js')(Fg, message)
 
     
 Fg.on('group-participants-update', async (anu) => {
-if (!welkom.includes(anu.jid)) return
-	const left = JSON.parse(fs.readFileSync('./database/left.json'))	
-	const welkom = JSON.parse(fs.readFileSync('./database/welkom.json'))
+if (!_welcom.includes(anu.jid)) return
+	const left = JSON.parse(fs.readFileSync('./data/left.json'))	
+	const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
       try {
   const mdata = await Fg.groupMetadata(anu.jid)
 	 finvite = {
@@ -148,14 +148,14 @@ let buff = await getBuffer(ppimg)
 Fg.sendMessage(mdata.id, buff, MessageType.image, {quoted : fkontakk,caption: teks, contextInfo: {"mentionedJid": [num]}})
 		
 } else if (anu.action == 'promote') {
-//	const gchange = JSON.parse(fs.readFileSync('./database/gupdated.json'))
+//	const gchange = JSON.parse(fs.readFileSync('./data/gupdated.json'))
 	//if(!gchange.includes(mdata.id)) return
 var thu = await Fg.getStatus(anu.participants[0], MessageType.text)
 num = anu.participants[0]
 teks = `*P R O M O T E - D E T E C T E D*\n\n${shp} Username: @${num.split('@')[0]}\n\n${shp} Bio : ${thu.status}\n\n${shp} Time : ${moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')}\n\n${shp} Group: ${mdata.subject}\n\nDon't break the rules!`
 Fg.sendMessage(mdata.id, teks, MessageType.text, {contextInfo: {"mentionedJid": [num]}, quoted: finvite})
 } else if (anu.action == 'demote') {
-//   const gchange = JSON.parse(fs.readFileSync('./database/gupdated.json'))
+//   const gchange = JSON.parse(fs.readFileSync('./data/gupdated.json'))
 //	if(!gchange.includes(mdata.id)) return
 thu = await Fg.getStatus(anu.participants[0], MessageType.text)
 num = anu.participants[0]
