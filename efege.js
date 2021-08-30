@@ -4,7 +4,7 @@
 //
 //============ FG98 ============//
  
- 
+ //--  Conectar a WhatsApp
 const {
 WAConnection: _WAConnection,
 MessageType,
@@ -23,6 +23,8 @@ waChatKey,
 mentionedJid,
 processTime
 } = require("@adiwajshing/baileys")
+
+//-- Modulos
 const fs = require('fs')
 const qrcode = require('qrcode');
 const imgbb = require('imgbb-uploader')
@@ -39,12 +41,12 @@ const fetch = require('node-fetch')
 const ffmpeg = require('fluent-ffmpeg')
 const lolis = require('lolis.life')
 const loli = new lolis()
-
-//******************** 》Stick WM《 ********************\\
+//--New 
 const Exif = require('./libreria/exif');
 const exif = new Exif();
 
-//******************** 》Function《 ********************\\
+//---- Funcion
+
 const { color, bgcolor } = require('./libreria/color')
 const { wait, getBuffer, h2k, generateMessageID, getGroupAdmins, getRandom, banner, start, info, success, close } = require('./libreria/functions')
 const { isLimit, limitAdd, getLimit, giveLimit, addBalance, kurangBalance, getBalance, isGame, gameAdd, givegame, cekGLimit } = require("./libreria/limit");
@@ -67,26 +69,26 @@ const { jadibot, stopjadibot, listjadibot } = require('./libreria/jadibot')
 const voting = JSON.parse(fs.readFileSync('./data/voting.json'))
 const { addVote, delVote } = require('./libreria/vote')
 
-//******************** 》Database《 ********************\\
-const anlink = JSON.parse(fs.readFileSync('./data/antilink.json'))
+
+//---Data
+const _antilink = JSON.parse(fs.readFileSync('./data/antilink.json'))
 const balance = JSON.parse(fs.readFileSync('./data/balance.json'));
 const bancht = JSON.parse(fs.readFileSync('./data/banchat.json'));
 const glimit = JSON.parse(fs.readFileSync('./data/glimit.json'));
-const key = JSON.parse(fs.readFileSync('./data/key.json'))
 const left = JSON.parse(fs.readFileSync('./data/left.json'))	
 const limit = JSON.parse(fs.readFileSync('./data/limit.json'));
 const premium = JSON.parse(fs.readFileSync('./data/premium.json'))
 const setting = JSON.parse(fs.readFileSync('./data/settings.json'))
 const setiker = JSON.parse(fs.readFileSync('./data/stick.json'))
 const stcmd = JSON.parse(fs.readFileSync('./data/stickcmd.json'))
-const welkom = JSON.parse(fs.readFileSync('./data/welkom.json'))
-const stickerdb = JSON.parse(fs.readFileSync("./data/stickerdb.json"))
+const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
+const stickerdb = JSON.parse(fs.readFileSync("./data/stickerdb.json"))//
 const reg = JSON.parse(fs.readFileSync('./data/register.json'))
 
 //******************** 》Src《 ********************\\
 const pendaftar = JSON.parse(fs.readFileSync('./src/user.json'))
-const tmp_hit = JSON.parse(fs.readFileSync('./src/hit.json'))
-const tmphit = JSON.parse(fs.readFileSync('./src/today.json'))
+const totalhit = JSON.parse(fs.readFileSync('./src/totalhit.json'))
+const hitdia = JSON.parse(fs.readFileSync('./src/today.json'))
 //******************** 》Setting《 ********************\\
 menusimpel = false
 owner = "59172945992@s.whatsapp.net"
@@ -347,9 +349,9 @@ const itsMe = mek.key.fromMe ? true : false
 
 const isUser = pendaftar.includes(sender)
 const isRegister = reg.includes(sender)
-const isAntilink = isGroup ? anlink.includes(from) : false
+const isAntilink = isGroup ? _antilink.includes(from) : false
 const isGroupAdmins = groupAdmins.includes(sender) || false
-const isWelkom = isGroup ? welkom.includes(from) : false
+const is_welcom = isGroup ? _welcom.includes(from) : false
 const isLeft = isGroup ? left.includes(from) : false
 const isBanchat = isGroup ? bancht.includes(from) : false
 const value = args.join(' ')  
@@ -553,10 +555,10 @@ fs.writeFileSync('./src/user.json', JSON.stringify(pendaftar))
 } 
         
 if (isCmd && isGroup) {
-tmp_hit.push(command)
-fs.writeFileSync('./src/hit.json', JSON.stringify(tmp_hit))
-tmphit.push(command)
-fs.writeFileSync('./src/today.json', JSON.stringify(tmphit))
+totalhit.push(command)
+fs.writeFileSync('./src/totalhit.json', JSON.stringify(totalhit))
+hitdia.push(command)
+fs.writeFileSync('./src/today.json', JSON.stringify(hitdia))
 }
 
 _prem.expiredCheck(premium)
@@ -1198,7 +1200,7 @@ const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.m
 UFree = `${pendaftar.length}`
 UReg = `${reg.length}`
 UPrem = `${premium.length}`
-THit = `${tmp_hit.length}`
+THit = `${totalhit.length}`
 limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
 glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
 blan = `${getBalance(sender, balance)}`
@@ -1259,7 +1261,7 @@ const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.m
 UFree = `${pendaftar.length}`
 UReg = `${reg.length}`
 UPrem = `${premium.length}`
-THit = `${tmp_hit.length}`
+THit = `${totalhit.length}`
 limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
 glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
 blan = `${getBalance(sender, balance)}`
@@ -2779,14 +2781,14 @@ if (!isGroup) return reply(mess.only.group)
 if (!isGroupAdmins && !itsMe && !isOwner) return reply(mess.only.admin)
 if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pakai!*\n\n*Example* : \n*${prefix + command} -help*`)
 if ((args[0]) === 'on') {
-	if(isWelkom) return reply('udah on')
-	welkom.push(from)
-	fs.writeFileSync('./data/welkom.json', JSON.stringify(welkom))
+	if(is_welcom) return reply('udah on')
+	_welcom.push(from)
+	fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
 	reply(`*_Succses Aktifkan Fitur!_*`)
 } else if ((args[0]) === 'off') {
-	if (!isWelkom) return reply('udah off')
-	welkom.splice(from, 1)
-	fs.writeFileSync('./data/welkom.json', JSON.stringify(welkom))
+	if (!is_welcom) return reply('udah off')
+	_welcom.splice(from, 1)
+	fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
 reply(`*_Succses NonAktifkan Fitur!_*`)
 } else if ((args[0]) === '-help') {
 mentions(`*Contoh Penggunaan Fitur ${command}*\n*Example :*\n*${prefix + command} on*\n*${prefix + command} off*\n\n*_Thanks To : @${`0`.split("@")[0]}_*`, [`${`0`}@s.whatsapp.net`], true)
@@ -2802,12 +2804,12 @@ if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pak
 if ((args[0]) === 'on') {
 	if (isLeft) return reply('udah on')
 	left.push(from)
-	fs.writeFileSync('./data/left.json', JSON.stringify(welkom))
+	fs.writeFileSync('./data/left.json', JSON.stringify(_welcom))
 	reply(`*_Succses Aktifkan Fitur!_*`)
 } else if ((args[0]) === 'off') {
 	if (!isLeft) return reply('udah off')
 	left.splice(from, 1)
-	fs.writeFileSync('./data/left.json', JSON.stringify(welkom))
+	fs.writeFileSync('./data/left.json', JSON.stringify(_welcom))
 reply(`*_Succses NonAktifkan Fitur!_*`)
 } else if ((args[0]) === '-help') {
 mentions(`*Contoh Penggunaan Fitur ${command}*\n*Example :*\n*${prefix + command} on*\n*${prefix + command} off*\n\n*_Thanks To : @${`0`.split("@")[0]}_*`, [`${`0`}@s.whatsapp.net`], true)
@@ -2822,14 +2824,14 @@ if (!isGroupAdmins && !itsMe && !isOwner) return reply(mess.only.admin)
 if (!isGroup) return reply(mess.only.group)
 if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pakai!*\n\n*Example* : \n*${prefix + command} -help*`)
 if (args[0] == 'on') {
-if (anlink.includes(from)) return reply('*_Sudah Aktif!_*')
-anlink.push(from)
-fs.writeFileSync('./data/antilink.json', JSON.stringify(anlink))
+if (_antilink.includes(from)) return reply('*_Sudah Aktif!_*')
+_antilink.push(from)
+fs.writeFileSync('./data/antilink.json', JSON.stringify(_antilink))
 reply('_Sukses mengaktifkan Antilink Whatsapp digroup ini_')
 } else if (args[0] == 'off') {
-let off = anlink.indexOf(from)
-anlink.splice(off, 1)
-fs.writeFileSync('./data/antilink.json', JSON.stringify(anlink))
+let off = _antilink.indexOf(from)
+_antilink.splice(off, 1)
+fs.writeFileSync('./data/antilink.json', JSON.stringify(_antilink))
 reply('_Sukses menonaktifkan Antilink Whatsapp digroup ini_')
 } else if ((args[0]) === '-help') {
 mentions(`*Contoh Penggunaan Fitur ${command}*\n*Example :*\n*${prefix + command} on*\n*${prefix + command} off*\n\n*_Thanks To : @${`0`.split("@")[0]}_*`, [`${`0`}@s.whatsapp.net`], true)
@@ -2880,18 +2882,18 @@ if(!isBotGroupAdmins)return reply(mess.only.Badmin)
 if(!isGroup)return reply(mess.only.group)
 if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix + command} welcome\n\n*List Opinion!*\n • welcome\n • antilink\n • antidelete\n • banchat`)
 if ((args[0]) === 'welcome') {
-	if(isWelkom) return reply('udah on')
-	welkom.push(from)
-	fs.writeFileSync('./data/welkom.json', JSON.stringify(welkom))
+	if(is_welcom) return reply('udah on')
+	_welcom.push(from)
+	fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
 	reply(`*_Succses Aktifkan Fitur Welcome!_*`)
 }else if((args[0]) == 'antidelete'){
 if (antidel === true) return
 if(antidel)return reply('Sudah diaktifkan sebelumnya!')
 reply('*_Succses Aktifkan Fitur Antidelete!_*')
 }else if((args[0]) === 'antilink'){
-if (anlink.includes(from)) return reply('*_Sudah Aktif!_*')
-anlink.push(from)
-fs.writeFileSync('./data/antilink.json', JSON.stringify(anlink))
+if (_antilink.includes(from)) return reply('*_Sudah Aktif!_*')
+_antilink.push(from)
+fs.writeFileSync('./data/antilink.json', JSON.stringify(_antilink))
 reply('_Sukses mengaktifkan Antilink Whatsapp digroup ini_')
 }else if((args[0]) === 'banchat'){
 if (isBanchat) return reply(`udah di ban`)
@@ -2909,9 +2911,9 @@ if(!isBotGroupAdmins)return reply(mess.only.Badmin)
 if(!isGroup)return reply(mess.only.group)
 if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix + command} welcome\n\n*List Opinion!*\n • welcome\n • antilink\n • antidelete\n • banchat`)
 if ((args[0]) === 'welcome') {
-if (!isWelkom) return reply('udah off')
-welkom.splice(from, 1)
-fs.writeFileSync('./data/welkom.json', JSON.stringify(welkom))
+if (!is_welcom) return reply('udah off')
+_welcom.splice(from, 1)
+fs.writeFileSync('./data/_welcom.json', JSON.stringify(_welcom))
 reply(`*_Succses NonAktifkan Fitur!_*`)
 }else if((args[0]) == 'antidelete'){
 if (antidel === false) return
@@ -2919,9 +2921,9 @@ if(!antidel)return reply('Sudah di NonAktifkan sebelumnya!')
 antidel = false
 reply(`Succes mematikan antidelete`)
 }else if((args[0]) === 'antilink'){
-let offf = anlink.indexOf(from)
-anlink.splice(offf, 1)
-fs.writeFileSync('./data/antilink.json', JSON.stringify(anlink))
+let offf = _antilink.indexOf(from)
+_antilink.splice(offf, 1)
+fs.writeFileSync('./data/antilink.json', JSON.stringify(_antilink))
 reply('_Sukses menonaktifkan Antilink Whatsapp digroup ini_')
 }else if((args[0]) === 'banchat'){
 let ank = bancht.indexOf(from)
@@ -2959,7 +2961,7 @@ if (!isGroup) return reply(mess.only.group)
 		} catch {
 	ppUrl = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
   	}
-y =`*Nama Group : ${groupName}*\n*Dibuat : ${moment(`${groupMetadata.creation}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}*\n*Owner Grup : @${groupMetadata.owner.split('@')[0]}*\n*Total Member : ${groupMembers.length}*\n*Total Admin : ${groupAdmins.length}*\n\n*Welcome : ${isWelkom ? 'Aktif':'NonAktif'}*\n*Left : ${isLeft ? 'Aktif':'NonAktif'}*\n*Antilink : ${isAntilink? 'Aktif':'NonAktif'}*\n\n*Deskripsi Group :*\n ${groupDesc}`
+y =`*Nama Group : ${groupName}*\n*Dibuat : ${moment(`${groupMetadata.creation}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}*\n*Owner Grup : @${groupMetadata.owner.split('@')[0]}*\n*Total Member : ${groupMembers.length}*\n*Total Admin : ${groupAdmins.length}*\n\n*Welcome : ${is_welcom ? 'Aktif':'NonAktif'}*\n*Left : ${isLeft ? 'Aktif':'NonAktif'}*\n*Antilink : ${isAntilink? 'Aktif':'NonAktif'}*\n\n*Deskripsi Group :*\n ${groupDesc}`
 buffer = await getBuffer(ppUrl)
 Fg.sendMessage(from, buffer, image, {quoted: mek,caption:y, contextInfo: {"mentionedJid": [groupMetadata.owner.replace('@c.us', '@s.whatsapp.net')]}})
 break
