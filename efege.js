@@ -1183,7 +1183,6 @@ mjud = wa
 const premm = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
 let cekvipp = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
 const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.minutes} minute ${cekvipp.seconds} second`:'Not Premium'
-UFree = `${pendaftar.length}`
 UReg = `${reg.length}`
 UPrem = `${premium.length}`
 THit = `${reqcmd}`
@@ -1193,7 +1192,7 @@ blan = `${getBalance(sender, balance)}`
 usrr = `${sender.split("@")[0]}`
 runn = process.uptime()
 njing = `${kyun(runn)}`
-Fg.sendMessage(from, help(prefix,pushname,usrr,tanggal,tag,wa,UFree,THit,wib,Tanggal,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
+Fg.sendMessage(from, help(prefix,pushname,usrr,tanggal,tag,wa,THit,wib,Tanggal,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
 "forwardingScore": 1000000000,
 isForwarded: false,
 sendEphemeral: false,
