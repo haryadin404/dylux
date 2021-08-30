@@ -51,17 +51,17 @@ const starts = async (Fg = new WAConnection()) => {
 Fg.version = [2, 2119, 6]
 //enku.browserDescription = [ '[•] Fg', 'Chrome', '3.0' ]
 Fg.logger.level = 'warn'
-console.log(color(figlet.textSync(`${spc1}Fg Bot Wa`, {
+console.log(color(figlet.textSync(`${spc1}FG98`, {
 font: 'Standard',
 horizontalLayout: 'default',
 vertivalLayout: 'default',
 width: 80,
 whitespaceBreak: false
 }), 'cyan'))
-console.log(color(`${spc2}[ • BOT Creator By FG98 • ]` ,'cyan'))
+console.log(color(`${spc2}DyLux By FG98 Ig : @fg98._` ,'cyan'))
 console.log(color(`${spc4}< ================================================== >`, 'cyan'))
-console.log(color(`${spc3}[•]`, 'aqua'), color(`Nama        : ${fake}`, 'white'))
-console.log(color(`${spc3}[•]`, 'aqua'), color(`Bot Version : 2.1.2`, 'white'))
+console.log(color(`${spc3}[•]`, 'aqua'), color(`Nama        : DyLux`, 'white'))
+console.log(color(`${spc3}[•]`, 'aqua'), color(`Bot Version : 4.0.1`, 'white'))
 console.log(color(`${spc3}[•]`, 'aqua'), color(`Status      : Online!`, 'white'))
 console.log(color(`${spc3}[•]`, 'aqua'), color(`Owner       : ${ownerN}`, 'white'))
 console.log(color(`${spc4}< ================================================== >`, 'cyan'))
