@@ -314,7 +314,11 @@ const mentions = (teks, memberr, id) => {
 //---- 𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗗𝗘 𝗥𝗘𝗦𝗣𝗨𝗘𝗦𝗧𝗔 𝗙𝗔𝗟𝗦𝗔 ----
 //--respuesta con link
 const replyLink = (teks) => {
-Fg.sendMessage(from, teks, text,{"externalAdReply": {
+Fg.sendMessage(from, teks, text,{contextInfo :{text: 'hi',
+"forwardingScore": 1000000000,
+isForwarded: false,
+sendEphemeral: false,
+"externalAdReply": {
                 "title": `FG98  ┃ DyLux ᴮᴼᵀ ✨`,
                 "body": "",
                 "previewType": "PHOTO",
