@@ -53,7 +53,7 @@ const { recognize } = require('./libreria/ocr')
 const { exec } = require('child_process')
 const { removeBackgroundFromImageFile } = require('remove.bg')
 const { validmove, setGame } = require("./libreria/tictactoe");
-const { webp2mp4Url, webp2gifFile, reverseVideoFile, voiceremover } = require('./libreria/ezgif')
+const { webp2mp4Url, webp2gifFile, reverseVideoFile } = require('./libreria/ezgif')
 const { yta, ytv } = require("./libreria/ytdl");
 const { fbdl } = require("./libreria/fbdl");
 const { uploadimg } = require('./libreria/uploadimg')
@@ -90,7 +90,7 @@ const tmphit = JSON.parse(fs.readFileSync('./src/today.json'))
 //******************** 》Setting《 ********************\\
 menusimpel = false
 owner = "59172945992@s.whatsapp.net"
-ownerN = "6281804680327"
+ownerN = "59172945992"
 setgrup = "6281226770537-1606097314@g.us"
 wa = '0@s.whatsapp.net'
 blocked = []
