@@ -314,17 +314,13 @@ const mentions = (teks, memberr, id) => {
 //---- 𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗗𝗘 𝗥𝗘𝗦𝗣𝗨𝗘𝗦𝗧𝗔 𝗙𝗔𝗟𝗦𝗔 ----
 //--respuesta con link
 const replyLink = (teks) => {
-Fg.sendMessage(from, teks, text,{contextInfo :{text: 'hi',
-"forwardingScore": 1000000000,
-isForwarded: false,
-sendEphemeral: false,
-"externalAdReply": {
-                "title": `•Instagram fg98._`,
+Fg.sendMessage(from, teks, text,{"externalAdReply": {
+                "title": `FG98  ┃ DyLux ᴮᴼᵀ ✨`,
                 "body": "",
                 "previewType": "PHOTO",
                 "thumbnailUrl": "https://i.ibb.co/ZW0xBXL/amumu.jpg",
                 "thumbnail": gambar2,
-                "sourceUrl": `chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
+                "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
 },mentionedJid:[sender]}, quoted : mek})
 }
 //******************** 》Advance《 ********************\\
