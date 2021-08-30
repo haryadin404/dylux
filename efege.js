@@ -88,6 +88,7 @@ const reg = JSON.parse(fs.readFileSync('./data/register.json'))
 //******************** 》Src《 ********************\\
 const pendaftar = JSON.parse(fs.readFileSync('./src/user.json'))
 const totalhit = JSON.parse(fs.readFileSync('./src/totalhit.json'))
+const hit = JSON.parse(fs.readFileSync('./data/totalhit.json'))
 const hitdia = JSON.parse(fs.readFileSync('./src/today.json'))
 //******************** 》Setting《 ********************\\
 menusimpel = false
