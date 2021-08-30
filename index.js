@@ -1,3 +1,5 @@
+console.log(' A partir de...')
+
 const
 	{
 		WAConnection: _WAConnection,
