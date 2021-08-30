@@ -97,23 +97,8 @@ if (!_welcom.includes(anu.jid)) return
 	const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
       try {
   const mdata = await Fg.groupMetadata(anu.jid)
-	 finvite = {
-    "key": {
-      "fromMe": false,
-      "participant": "0@s.whatsapp.net",
-      "remoteJid": "0@s.whatsapp.net"
-           },
-      "message": {
-       "groupInviteMessage": {
-       "groupJid": anu.jid,
-       "inviteCode": "NgsCIU2lXKh3VHJT",
-       "groupName": mdata.subject,
-       "caption": fake,
-       "height": 6080,
-       "width": 6000
-                               }
-                   }
-            }
+
+
 if (anu.action == 'add') {
 num = anu.participants[0]
 try {
