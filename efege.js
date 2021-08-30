@@ -306,14 +306,14 @@ Fg.sendMessage(from, teks, text, {quoted:mek,thumbnail : gambar4})
 }
 
 const sendMess = (hehe, teks) => {
-Fg.sendMessage(hehe, teks, text,{thumbnail:gambar4})
+Fg.sendMessage(hehe, teks, text)
 }
 const mentions = (teks, memberr, id) => {
-(id == null || id == undefined || id == false) ? Fg.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Fg.sendMessage(from, teks.trim(), extendedText, {quoted: mek,thumbnail:gambar4, contextInfo: {"mentionedJid": memberr}})
-}
-
+(id == null || id == undefined || id == false) ? Fg.sendMessage(from, teks.trim(), extendedText, {contextInfo: {"mentionedJid": memberr}}) : Fg.sendMessage(from, teks.trim(), extendedText, {quoted: mek, contextInfo: {"mentionedJid": memberr}})
+			}
 //---- 𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗗𝗘 𝗥𝗘𝗦𝗣𝗨𝗘𝗦𝗧𝗔 𝗙𝗔𝗟𝗦𝗔 ----
-const replyWithFakeLink = (teks) => {
+//--respuesta con link
+const replyLink = (teks) => {
 Fg.sendMessage(from, teks, text,{contextInfo :{text: 'hi',
 "forwardingScore": 1000000000,
 isForwarded: false,
@@ -324,7 +324,7 @@ sendEphemeral: false,
                 "previewType": "PHOTO",
                 "thumbnailUrl": "https://i.ibb.co/ZW0xBXL/amumu.jpg",
                 "thumbnail": gambar2,
-                "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
+                "sourceUrl": `chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
 },mentionedJid:[sender]}, quoted : mek})
 }
 //******************** 》Advance《 ********************\\
@@ -481,7 +481,7 @@ teks = `Verification success\n\nPlease send *#menu* to view menu`
 reply(teks)
 }
 
-if (isCmd && !isRegister) return replyWithFakeLink(`*${fecha} kak @${sender.split("@")[0]}*\n\nYou are not verified\nReply this chat and send bot password\n\nHint : \nPassword contains 4 digit number\nCek Password : https://instagram.com/021Fgu_`)
+if (isCmd && !isRegister) return replyLink(`*${fecha} kak @${sender.split("@")[0]}*\n\nYou are not verified\nReply this chat and send bot password\n\nHint : \nPassword contains 4 digit number\nCek Password : https://instagram.com/021Fgu_`)
 */
 // ******************** 》GAME《 ******************** \\
 
@@ -1190,7 +1190,7 @@ break
 
 
 case 'test': 
-replyWithFakeLink(`*Hola!* ${reqcmd}`)
+replyLink(`*Hola!* ${reqcmd}`)
 break
 
 case 'runtime':
