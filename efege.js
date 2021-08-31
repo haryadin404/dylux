@@ -607,7 +607,7 @@ const limWin = Math.floor(Math.random() * 20) + 10;
 const limLoose = Math.floor(Math.random() * 10) + 5;
 const chatWon = `*🎮 Tictactoe Game 🎳*
           
-🎉 El ganador es@${winnerJID} 👑
+🎉 El ganador es @${winnerJID} 👑
 `;
             //    giftLimit(winnerJID + "@s.whatsapp.net", limWin);
             //    pushLimit(looseJID + "@s.whatsapp.net", limLoose);
@@ -666,7 +666,7 @@ const linkwa = 'https://chat.whatsapp.com/'
     if (!isBotGroupAdmins) return reply('🤨 Por suerte no soy  admin, asi que no te expulsare')
     if (isGroupAdmins) return reply(`✳️ Los *Admins* son libres 😎`)
     linkgp = await Fg.groupInviteCode (from)
-    if (budy.includes(`${linkwa}${linkgp}`)) return reply('✳️ Menos mal que este enlace es de este grupo v:')
+    if (budy.includes(`${linkwa}${linkgp}`)) return //reply('✳️ Menos mal que este enlace es de este grupo v:')
     if (budy.includes(`https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`)) return reply('✳️ Menos mal que este enlace es del grupo *📲💻ANDROID WORLD🎬🎮* v:')
 		Fg.updatePresence(from, Presence.composing)
 		var Kick = `${sender.split("@")[0]}@s.whatsapp.net`
@@ -881,7 +881,7 @@ break
 
 switch(command) {
 	
-/*case 'help': 
+case 'help': 
 case 'menu':
 if(menusimpel == false){
 tag = owner.split('@')[0]
@@ -916,121 +916,103 @@ sendEphemeral: false,
 else if(menusimpel = true){
 reply(menus(prefix, pushname, hari))
 }
-break*/
-
-//CAN BE USED AFTER UPDATE LAST BAILEYS
-
-case 'menu': 
-case 'help':
-tag = owner.split('@')[0]
-mjid = owner
-waa = wa.split('@')[0]
-mjud = wa
-const premm = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
-let cekvipp = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
-const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.minutes} minute ${cekvipp.seconds} second`:'Not Premium'
-UReg = `${_user.length}`
-UPrem = `${premium.length}`
-THit = `${reqcmd}`
-limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
-glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
-blan = `${getBalance(sender, balance)}`
-usrr = `${sender.split("@")[0]}`
-runn = process.uptime()
-njing = `${kyun(runn)}`
-
-mhan1 = await Fg.prepareMessage(from, gambar1, image, {thumbnail: gambar4})
-buffer = await Fg.prepareMessage(from,gambar1,image)
-mhan1 = await Fg.prepareMessageFromContent(from,{
-"imageMessage": {
-	"url": buffer.message.imageMessage.url,
-	"mimetype": buffer.message.imageMessage.mimetype,
-	"caption": buffer.message.imageMessage.caption,
-	"fileSha256": buffer.message.imageMessage.fileSha256.toString('base64'),
-	"fileLength": 99999999999,
-	"height": buffer.message.imageMessage.height,
-	"width": buffer.message.imageMessage.width,
-	"mediaKey": buffer.message.imageMessage.mediaKey.low,
-	"jpegThumbnail": buffer.message.imageMessage.jpegThumbnail
-}
-}, {quoted:mek,thumbnail : gambar4})
-
-gbutsan = [
-{buttonId: `${prefix}owner`, buttonText: {displayText: 'OWNER'}, type: 1}
-]
-gbuttonan = {
-imageMessage: mhan1.message.imageMessage,
-contentText: `${help(prefix,pushname,usrr,tag,wa,THit,njing,premm,premi,limm,glimm,blan)}`,
-footerText: 'S E N K U  B O T 椮 岁 与',
-buttons: gbutsan,
-headerType: 4
-}
-await Fg.sendMessage(from, gbuttonan, MessageType.buttonsMessage, {contextInfo :{text: 'hi',
-"forwardingScore": 1000000000,
-isForwarded: true,
-sendEphemeral: false,
-"externalAdReply": {
-                "title": `I'm FG98👋`,
-                "body": "",
-                "previewType": "PHOTO",
-                "thumbnailUrl": "https://telegra.ph/file/bbb5eca08130920edbcb4.jpg",
-                "thumbnail": fakeg,
-                "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
-},mentionedJid:[mjid,sender,mjud]},quoted:mek})
 break
 
+
+//--- verificación  api funciona
+case 'verify':
+case 'reg':
+case 'verificar':
+case 'register':
+case 'daftar':
+			if (isVerify) return reply('*✳️ Tu ya te has verificado  😑*')
+					const seriTod = bikinSerial(20)
+					
+				try {
+				ppimg = await Fg.getProfilePicture(`${sender.split('@')[0]}@c.us`)
+				} catch {
+				ppimg = 'https://i.ibb.co/PZNv21q/Profile-FG98.jpg'
+				}
+				fgfoto = 'https://i.ibb.co/Y8SgKyG/3-38707-league-of-legends-evelynn-kda.jpg' //cambia como quieras, puedes subirlo a imgbb.com
+				veri = sender
+				_user.push(sender)
+				fs.writeFileSync('./data/register.json', JSON.stringify(_user))
+				adduserUser(sender, seriTod)
+
+			capt = `╭──「 *VERIFICADO* 」
+├ *Nombre:* _${pushname}_
+├ *Num:* _wa.me/${sender.split("@")[0]}_
+├ *Hora:* _${time}_
+├ *Usuarios Verificados:* _${_user.length}_
+╰─────「 *${Fg.user.name}* 」
+\nVerificación completa usa *${prefix}Help* para ver el Menu`
+
+  let regis = await getBuffer(`http://hadi-api.herokuapp.com/api/card/verify?nama=${encodeURI(pushname)}&member=${_user.length}&seri=123456&pp=${ppimg}&bg=${fgfoto}`)
+                Fg.sendMessage(from, regis, MessageType.image, {quoted: mek, caption: capt, contextInfo: {'mentionedJid': [sender]}})
+                break 
 	
 
 case 'delvote':
+ if (!isVerify) return reply(userB(prefix))
 if(!mek.key.remoteJid) return
-if(isVote) return reply('Tidak ada sesi Voting')
+if(isVote) return reply(`✳️ Sin sesión de votación`)
 delVote(from)
-reply('Sukses Menghapus sesi Voting Di Grup Ini')
+reply(`✳️ Eliminación exitosa de la sesión de votación en este grupo`)
 break
 
-case 'voting': case 'vote':
+case 'voting': 
+case 'vote':
+case 'votacion':
+case 'votación':
+ if (!isVerify) return reply(userB(prefix))
 if(!isGroupAdmins && !itsMe) return 
 if(!isGroup) return reply(group())
-if (isVote) return reply('Sesi Voting Sedang Berlangsung Di Grup Ini')
-if(!value) return reply(`*Voting*\n\n ${prefix + command} @tag target | reason  | 1 (1 = 1 Menit)`)
+if (isVote) return reply(`✳️ Sesión de votación en curso en este grupo`)
+if(!value) return reply(`✳️ *Votación*\n\n 📌 Ejemplo ${prefix + command} @taguser | razón  | 1     (1 = 1 Minutos)`)
 if (mek.message.extendedTextMessage.contextInfo.mentionedJid.length > 0 || mek.message.extendedTextMessage.contextInfo == null) {
 let id = mek.message.extendedTextMessage.contextInfo.mentionedJid[0]
 split = args.join(' ').replace('@', '').split('|')
-if(!Number(split[2])) return reply('masukan angka di baris ke 3\nContoh: 1-9999\n1 = 1 Menit')
-await mentions('Vote ' +'@'+ id.split('@')[0]+' Di Mulai' +'\n\n' + `vote = ✅\ndevote = ❌\n\nAlasan: ${split[1]}`,[id],true)
+if(!Number(split[2])) return reply(`✳️ ingrese un número en la fila 3  Esto la duración de la votación\n📌 Ejemplo : 1-60\n1 = 1 Minuto`)
+await mentions('Voto ' +'@'+ id.split('@')[0]+' Al inicio' +'\n\n' + `vote = ✅\ndevote = ❌\n\nRazón: ${split[1]}`,[id],true)
 addVote(from,split[1],split[0],split[2],reply)
 }
 break
- 
-case 'jadibot':
-if(itsMe) return reply('Tidak bisa jadibot di dalam bot')
-if (isGroup) return reply(`*Fitur Hanya dapat digunakan dalam Private Chat! => wa.me/${botN}?text=${prefix}jadibot*`)
-jadibot(reply,Fg,from, mek)
-break
-    
-case 'stopjadibot':
-if(!itsMe && !isOwner)return reply('tidak bisa stopjadibot kecuali owner')
-stopjadibot(reply)
-break
-    
-case 'listbot':
-let tekss = 'L I S T B O T  S E N K U\n\n'
-let lbt = [];
-for(let i of listjadibot) {
-lbt.push(i.jid)
-tekss += `N a m a : ${i.name}
-T a g : @${i.jid.split('@')[0]}
-D e v i c e: ${i.phone.device_manufacturer}
-M o d e l : ${i.phone.device_model}\n\n`
-}
-mentions(monospace(tekss), lbt, true)
-break
 
-case 'sc': case 'script':
-reply(`Sc ini menggunakan : https://github.com/FgXZ/Bot-Wa`)
+case 'serbot':
+case 'jadibot':
+   if (!isOwner) return reply(ownerB())
+   if(itsMe) return reply(`❎ No puede ser un bot en un bot`)
+    jadibot(reply,Fg,from)
+    break
+    
+    case 'stopbot':
+    case 'stopjadibot':
+    if (!isOwner) return reply(ownerB())
+    stopjadibot(reply)
+    break
+    case 'listbot':
+    case 'listabots':
+    case 'listbots':
+     if (!isVerify) return reply(userB(prefix))
+    let tekss = 'Lista de Bots\n'
+    for(let i of listjadibot) {
+    	
+    tekss += `*Numero* : ${i.jid.split('@')[0]}
+*Nombre* : ${i.name}
+*Dispositivo* : ${i.phone.device_manufacturer}
+*Modelo* : ${i.phone.device_model}\n\n`
+    }
+    reply(tekss)
+    break
+
+case 'sc': 
+case 'script':
+ if (!isVerify) return reply(userB(prefix))
+reply(`📌 Usa este script : https://github.com/FG98F/fgbotv3`)
 break
 
 case 'tutorial':
+ if (!isVerify) return reply(userB(prefix))
 if(args[0] == 'convert'){
 conv = `${convrt(prefix , pushname)}`
 reply(monospace(conv))
@@ -1047,62 +1029,63 @@ reply(monospace(sss))
 gp = `${gc(prefix , pushname)}`
 reply(monospace(gp))
 }else{
-reply(monospace(`Wrong Format!!\n\nExample ${prefix + command} convert\n\nList Opinion\n  • convert\n  • download\n  • session\n  • game\n  • group`))
+reply(`Wrong Format!!\n\nExample ${prefix + command} convert\n\nList Opinion\n  • convert\n  • download\n  • session\n  • game\n  • group`)
 }
 break
 
 
-case 'caripesan': case 'searchmsg':
-if(!isOwner && !itsMe)return
-if (args.length < 1) return reply(`*Format Error!*\n\n*Example :*\n • ${prefix + command} bot|10`)
+case 'buscarmensaje':
+case 'buscarmsg':
+case 'searchmsg':
+if(!isOwner && !itsMe)return reply(ownerB())
+ if (!isVerify) return reply(userB(prefix))
+if (args.length < 1) return reply(`✳️ Ingrese que el mensaje para buscar*\n\n*📌 Ejemplo :*\n • ${prefix + command} hola|2`)
 tekse = args.join('')
 if (tekse.includes("|")) { 
 try {
 var ve = tekse.split("|")[0]
 var za = tekse.split("|")[1]
-if (za > 15) return reply('minimum 15')
+if (za > 10) return reply('❎ Mínimo 10')
 sampai = `${za}`
 batas = parseInt(sampai) + 1
 cok = await Fg.searchMessages(`${ve}`, from, batas,1) 
-if (cok.messages.lenght < 2) return reply('Message Not Found') 
-if (cok.messages.length < parseInt(batas)) reply(`Found Only ${cok.messages.length - 1} Messages`)
+if (cok.messages.lenght < 2) return reply(`❎ Mensaje no encontrado`) 
+if (cok.messages.length < parseInt(batas)) reply(`🔍 Solo encontrado ${cok.messages.length - 1} Mensajes`)
 for (let i=1;i < cok.messages.length;i++) {
 if (cok.messages[i].message) {
-Fg.sendMessage(from, `This Chat!`, text, {quoted: cok.messages[i]}) 
+Fg.sendMessage(from, `✅ Este chat!`, text, {quoted: cok.messages[i]}) 
 }
 }
 } catch(e) {
 console.log(e)
-return reply(`*Pesan Yang Anda Cari Tidak DiTemukan!*`)
+return reply(`*❎ No se encontró el mensaje que buscaba!*`)
 }
 } else {
-reply(`Error`)
+reply(`❎ Lo sentimos Ocurrió un Error`)
 }
 break
 
 
-
-
-
-
-case 'test': 
-replyLink(`*Hola!* ${reqcmd}`)
-break
-
 case 'runtime':
-if (!isGroup) return reply(group())
+if (!isVerify) return reply(userB(prefix))
 uptime = process.uptime()
-anjink =`◪ 𝗥𝘂𝗻𝘁𝗶𝗺𝗲
+runte =`「 *TIEMPO DE EJECUCION* 」
  ${kyun(uptime)}`
-reply(monospace(anjink))
+replyLink(runte)
 break
-
+ 
 case 'status':
+case 'estado':
 const s1 = public ? 'Public': 'Self'
 const s2 = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
 const s3 = antidel ? 'Aktif' : 'NonAktif'
 const s4 = aread ? 'Aktif' : 'NonAktif'
-stat = `*「 𝙎𝙏𝘼𝙏𝙐𝙎 𝘽𝙊𝙏 」*\n\n*${shp} Mode : ${s1}*\n*${shp} Status : ${s2}*\n*${shp} Antidelete : ${s3}*\n*${shp} Auto Read : ${s4}*`
+stat = `*「 𝙎𝙏𝘼𝙏𝙐𝙎 𝘽𝙊𝙏 」*
+
+*Mode : ${s1}*
+*Status : ${s2}*
+*Antidelete : ${s3}*
+*Auto Read : ${s4}*`
 reply(stat)
 break
 		
