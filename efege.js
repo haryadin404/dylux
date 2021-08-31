@@ -751,7 +751,7 @@ let prem_ = '❎'
 			prem_ = '✅'
 			} 
 			if (isOwner) {
-			prem_ = '*VIP*'
+			prem_ = 'VIP'
 			}
 let Welcome_ = 'Off'
 			if (isWelcom) {
@@ -1134,9 +1134,9 @@ const s1 = public ? 'Public': 'Self'
 const s3 = antidel ? 'Aktif' : 'NonAktif'
 const s4 = aread ? 'Aktif' : 'NonAktif'
 stat = `*「 𝙎𝙏𝘼𝙏𝙐𝙎 𝘽𝙊𝙏 」*
-
+prueba : ${botN}
 *Mode : ${s1}*
-*Premium : ${prem_}*
+*Premium* : ${prem_}
 *Antidelete : ${s3}*
 *Auto Read : ${s4}*`
 reply(stat)
