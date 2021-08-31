@@ -750,7 +750,7 @@ let prem_ = '❎'
 			if (isPremium) {
 			prem_ = '✅'
 			} 
-			if (isOwner && ItsMe) {
+			if (isOwner) {
 			prem_ = '*VIP*'
 			}
 let Welcome_ = 'Off'
@@ -1093,7 +1093,7 @@ case 'buscarmsg':
 case 'searchmsg':
 if(!isOwner && !itsMe)return reply(ownerB())
  if (!isVerify) return reply(userB(prefix))
-if (args.length < 1) return reply(`✳️ Ingrese que el mensaje para buscar*\n\n*📌 Ejemplo :*\n • ${prefix + command} hola|2`)
+if (args.length < 1) return reply(`✳️ Ingrese que el mensaje para buscar\n\n*📌 Ejemplo :*\n • ${prefix + command} hola|2`)
 tekse = args.join('')
 if (tekse.includes("|")) { 
 try {
