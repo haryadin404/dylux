@@ -58,7 +58,7 @@ const { exec } = require('child_process')
 const { removeBackgroundFromImageFile } = require('remove.bg')
 const { validmove, setGame } = require("./libreria/tictactoe");
 const { webp2mp4Url, webp2gifFile, reverseVideoFile } = require('./libreria/ezgif')
-const { yta, ytv } = require("./libreria/ytdl");
+const { yta, ytv, igdl, upload} = require("./libreria/fgdl");
 const { fbdl } = require("./libreria/fbdl");
 const { uploadimg } = require('./libreria/uploadimg')
 const { EmojiAPI } = require("emoji-api");
@@ -335,13 +335,11 @@ function monospace(string) {
 return '```' + string + '```'
 }  
 
-function jsonformat(string) {
-return JSON.stringify(string, null, 2)
-}
 //-- juego
 function randomNomor(angka){
 return Math.floor(Math.random() * angka) + 1
 }
+//-buy limit
 const nebal = (angka) => {
 return Math.floor(angka)
 }
@@ -349,7 +347,7 @@ return Math.floor(angka)
 
 
 
-
+//--------𝗬𝗧 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗦--------
 const sendMediaURL = async(to, url, text="", mids=[]) =>{
 if(mids.length > 0){
 text = normalizeMention(to, text, mids)
@@ -364,7 +362,7 @@ request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
 });
 };
 download(url, filename, async function () {
-console.log('done');
+console.log('✅ Enviando');
 let media = fs.readFileSync(filename)
 let type = mime.split("/")[0]+"Message"
 if(mime === "image/gif"){
@@ -380,36 +378,10 @@ fs.unlinkSync(filename)
 });
 }
 
- const uploadImages = (buffData, type) => {
-// eslint-disable-next-line no-async-promise-executor
-return new Promise(async (resolve, reject) => {
-const { ext } = await fromBuffer(buffData)
-const cmd = text.toLowerCase()
-const filePath = 'utils/tmp.' + ext
-const _buffData = type ? await resizeImage(buffData, false) : buffData
-fs.writeFile(filePath, _buffData, { encoding: 'base64' }, (err) => {
-if (err) return reject(err)
-console.log('Uploading image to telegra.ph server...')
-const fileData = fs.readFileSync(filePath)
-const form = new FormData()
-form.append('file', fileData, 'tmp.' + ext)
-fetch('https://telegra.ph/upload', {
-method: 'POST',
-body: form
-})
-.then(res => res.json())
-.then(res => {
-if (res.error) return reject(res.error)
-resolve('https://telegra.ph' + res[0].src)
-})
-.then(() => fs.unlinkSync(filePath))
-.catch(err => reject(err))
-})
-})
-}
-
+ 
+ //----------𝗘𝗠𝗢𝗝𝗜 𝗔 𝗦𝗧𝗜𝗖𝗞𝗘𝗥------------
 		const sendStickerFromUrl = async(to, url) => {
-			console.log(color(time, 'magenta'), color(moment.tz('Asia/Jakarta').format('HH:mm:ss'), "gold"), color('Downloading sticker...'))
+			console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker...'))
 				var names = getRandom('.webp')
 				var namea = getRandom('.png')
 				var download = function (uri, filename, callback) {
@@ -425,7 +397,7 @@ resolve('https://telegra.ph' + res[0].src)
 					exec(`webpmux -set exif ./src/sticker/data.exif ${asw} -o ${asw}`, async (error) => {
 					let media = fs.readFileSync(asw)
 					Fg.sendMessage(to, media, sticker)
-					console.log(color(time, 'magenta'), color(moment.tz('Asia/Jakarta').format('HH:mm:ss'), "gold"), color('Succes send sticker...'))
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('💎 Enviando sticker...'))
 					fs.unlinkSync(asw)
 					fs.unlinkSync(filess)
 					});
