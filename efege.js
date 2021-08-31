@@ -158,6 +158,38 @@ const vcard2 = 'BEGIN:VCARD\n'
 const bikinSerial = (size) => {
             return crypto.randomBytes(size).toString('hex').slice(0, size)
         }
+        
+        //========= 𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗗𝗘 𝗥𝗘𝗚𝗜𝗦𝗧𝗥𝗢 =========\\
+
+const getuserRandomId = () => {
+  return _user[Math.floor(Math.random() * _user.length)].id
+}
+
+const adduserUser = (userid, sender, age, time, serials) => {
+  const obj = {
+id: userid,
+name: sender,
+age: age,
+time: time,
+serial: serials
+  }
+  _user.push(obj)
+  fs.writeFileSync('./data/user.json', JSON.stringify(_user))
+}
+
+const createSerial = (size) => {
+  return crypto.randomBytes(size).toString('hex').slice(0, size)
+}
+
+const checkuserUser = (sender) => {
+  let status = false
+  Object.keys(_user).forEach((i) => {
+if (_user[i].id === sender) {
+  status = true
+}
+  })
+  return status
+}
 //---      
 const sleep = async (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
