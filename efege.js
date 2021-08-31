@@ -154,7 +154,11 @@ const vcard2 = 'BEGIN:VCARD\n'
  + 'END:VCARD'
   
 
-           
+     //  𝙎𝙀𝙍𝙄𝘼𝙇 𝙂𝙀𝙉𝙀𝙍𝘼𝘿𝙊𝙍 
+const bikinSerial = (size) => {
+            return crypto.randomBytes(size).toString('hex').slice(0, size)
+        }
+//---      
 const sleep = async (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -664,7 +668,7 @@ const linkwa = 'https://chat.whatsapp.com/'
 		if (!isGroup) return
 		if (!isAntilink) return
     if (!isBotGroupAdmins) return reply('🤨 Por suerte no soy  admin, asi que no te expulsare')
-    if (isGroupAdmins) return reply(`✳️ Los *Admins* son libres 😎`)
+    if (isGroupAdmins) return //reply(`✳️ Los *Admins* son libres 😎`)
     linkgp = await Fg.groupInviteCode (from)
     if (budy.includes(`${linkwa}${linkgp}`)) return //reply('✳️ Menos mal que este enlace es de este grupo v:')
     if (budy.includes(`https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`)) return reply('✳️ Menos mal que este enlace es del grupo *📲💻ANDROID WORLD🎬🎮* v:')
@@ -926,7 +930,7 @@ case 'verificar':
 case 'register':
 case 'daftar':
 			if (isVerify) return reply('*✳️ Tu ya te has verificado  😑*')
-					const seriTod = bikinSerial(20)
+					const seriTod = bikinSerial(10)
 					
 				try {
 				ppimg = await Fg.getProfilePicture(`${sender.split('@')[0]}@c.us`)
@@ -947,7 +951,7 @@ case 'daftar':
 ╰─────「 *${Fg.user.name}* 」
 \nVerificación completa usa *${prefix}Help* para ver el Menu`
 
-  let regis = await getBuffer(`http://hadi-api.herokuapp.com/api/card/verify?nama=${encodeURI(pushname)}&member=${_user.length}&seri=123456&pp=${ppimg}&bg=${fgfoto}`)
+  let regis = await getBuffer(`http://hadi-api.herokuapp.com/api/card/verify?nama=${encodeURI(pushname)}&member=${_user.length}&seri=${seriTod}&pp=${ppimg}&bg=${fgfoto}`)
                 Fg.sendMessage(from, regis, MessageType.image, {quoted: mek, caption: capt, contextInfo: {'mentionedJid': [sender]}})
                 break 
 	
