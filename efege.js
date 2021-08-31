@@ -939,7 +939,7 @@ usrr = `${sender.split("@")[0]}`
 runn = process.uptime()
 njing = `${kyun(runn)}`
 
-//mhan1 = await Fg.prepareMessage(from, gambar1, image, {thumbnail: gambar4})
+mhan1 = await Fg.prepareMessage(from, gambar1, image, {thumbnail: gambar4})
 buffer = await Fg.prepareMessage(from,gambar1,image)
 mhan1 = await Fg.prepareMessageFromContent(from,{
 "imageMessage": {
@@ -956,7 +956,7 @@ mhan1 = await Fg.prepareMessageFromContent(from,{
 }, {quoted:mek,thumbnail : gambar4})
 
 gbutsan = [
-{buttonId: `${owner}`, buttonText: {displayText: 'OWNER'}, type: 1}
+{buttonId: `${prefix}owner`, buttonText: {displayText: 'OWNER'}, type: 1}
 ]
 gbuttonan = {
 imageMessage: mhan1.message.imageMessage,
