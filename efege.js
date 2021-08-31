@@ -339,9 +339,10 @@ const groupMembers = isGroup ? groupMetadata.participants : ''
 const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 
-const itsMe = mek.key.fromMe ? true : false
+//const itsMe = mek.key.fromMe ? true : false
 const isOwner = senderNumber == owner || senderNumber == botN || mods.includes(senderNumber)
-  
+ const isMods = mods.includes(senderNumber)
+ 
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
 const isGroupAdmins = groupAdmins.includes(sender) || false
@@ -471,7 +472,7 @@ fs.unlinkSync(filename)
             
 //------------ 𝗕𝗔𝗡𝗖𝗛𝗔𝗧 ----------
 if (isBanchat){
-if (!itsMe && !isOwner)return 
+if (!isOwner)return 
 }
 
 if (aread){
@@ -481,7 +482,7 @@ return Fg.chatRead(from)
 
 //----𝗦𝗲𝗹𝗳 / 𝗣𝘂𝗯𝗹𝗶𝗰 -----
 if (!public){
-if (!isOwner && !itsMe) return
+if (!isOwner) return
 }
 //-----------
 
@@ -1019,7 +1020,7 @@ case 'vote':
 case 'votacion':
 case 'votación':
  if (!isVerify) return reply(userB(prefix))
-if(!isGroupAdmins && !itsMe) return 
+if(!isGroupAdmins) return 
 if(!isGroup) return reply(group())
 if (isVote) return reply(`✳️ Sesión de votación en curso en este grupo`)
 if(!value) return reply(`✳️ *Votación*\n\n 📌 Ejemplo ${prefix + command} @taguser | razón  | 1     (1 = 1 Minutos)`)
@@ -1035,7 +1036,6 @@ break
 case 'serbot':
 case 'jadibot':
    if (!isOwner) return reply(ownerB())
-   if(itsMe) return reply(`❎ No puede ser un bot en un bot`)
     jadibot(reply,Fg,from)
     break
     
@@ -1091,7 +1091,7 @@ break
 case 'buscarmensaje':
 case 'buscarmsg':
 case 'searchmsg':
-if(!isOwner && !itsMe)return reply(ownerB())
+if(!isOwner)return reply(ownerB())
  if (!isVerify) return reply(userB(prefix))
 if (args.length < 1) return reply(`✳️ Ingrese que el mensaje para buscar\n\n*📌 Ejemplo :*\n • ${prefix + command} hola|2`)
 tekse = args.join('')
@@ -1130,6 +1130,7 @@ break
  
 case 'status':
 case 'estado':
+if (!isMods) return reply(`solo moderadores del bot`)
 const s1 = public ? 'Public': 'Self'
 const s3 = antidel ? 'Aktif' : 'NonAktif'
 const s4 = aread ? 'Aktif' : 'NonAktif'
@@ -1475,7 +1476,7 @@ fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
 break
 				
 case 'exif':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
 if (args.length < 1) return reply(`Penggunaan ${prefix}exif nama|author`)
 if (!arg.split('|')) return reply(`Penggunaan ${prefix}exif nama|author`)
 exif.create(arg.split('|')[0], arg.split('|')[1])
@@ -2299,7 +2300,7 @@ break
 //******************** 》 OWNER CMD 《 ********************\\
 case 'setshape':
 if (args.length < 1) return
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
 shpp = args[0]
 confi.shape.Fg = shpp
 fs.writeFileSync('./data/settings.json', JSON.stringify(confi, null, '\t'))
@@ -2307,7 +2308,7 @@ reply(`Shape berhasil di ubah menjadi : ${shpp}`)
 break
 
 case 'setprefix':
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
 if (args.length < 1) return reply(`*Format Error!*\n\n*Example :*\n •${prefix + command} multi\n •${prefix + command} nopref\n •${prefix + command} # (Custom!)\n\n*Thanks To : ${fake}*`)
 if((args[0]) == 'multi'){
 if(multi)return reply('_Sudah diaktifkan sebelumnya!_')
@@ -2333,7 +2334,7 @@ reply(`_Succses mengganti Prefix ke ${value}_`)
 break
 			
 case 'clearall':{
-if (!itsMe && !isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
 let chiit = await Fg.chats.all()
 for (let i of chiit){
 Fg.modifyChat(i.jid, 'delete', {
@@ -2351,7 +2352,7 @@ reply('*List Group*\n\n' + txs)
 break
 
 case 'anticall':
-if (!isOwner && !itsMe) return
+if (!isOwner) return
 if (args.length < 1) return reply('Pilih on atau off')
 if (args[0] === "on") {
 if(antical)return reply('Sudah diaktifkan sebelumnya!')
@@ -2367,7 +2368,7 @@ reply(`Pilih on atau off`)
 break
 
 case 'antidelete':
-if (!isOwner && !itsMe) return
+if (!isOwner) return
 if (args.length < 1) return reply('Pilih on atau off')
 if (args[0] === "on") {
 if(antidel)return reply('Sudah diaktifkan sebelumnya!')
@@ -2383,7 +2384,7 @@ reply(`Pilih on atau off`)
 break
                 
 case 'bc':
-if (!itsMe && !isOwner)return reply(ownerB()) 
+if (!isOwner)return reply(ownerB()) 
 if (!value)return reply(`Reply image , video , atau teks biasa dan Masukan Ingfo`)
 bcc = await Fg.chats.all()
 if (isMedia && !mek.message.imageMessage || isQuotedImage) {
@@ -2427,21 +2428,21 @@ break
 
 
 case 'self':
-if (!itsMe && !isOwner)return reply(ownerB()) 
+if (!isOwner)return reply(ownerB()) 
 if(!public)return reply('*_Fitur sudah diaktifkan sebelumnya!_*')
 public = false
 return reply(  `*Mode : Self*`, text)
 break
 
 case 'public':
-if (!itsMe && !isOwner)return reply(ownerB()) 
+if (!isOwner)return reply(ownerB()) 
 if(public)return reply('*_Fitur sudah diaktifkan sebelumnya_*')
 public = true
 return reply(`*Mode : Public*`, text)
 break
 
 case 'autoread':
-if (!itsMe && !isOwner)return reply(ownerB()) 
+if (!isOwner)return reply(ownerB()) 
 if ((args[0]) === 'on') {
 if(aread)return reply('_Sudah diaktifkan sebelumnya_')
 aread = true
@@ -2456,7 +2457,7 @@ reply('on untuk mengaktifkan, off untuk menonaktifkan')
 break
 
 case 'listblock':
-if (!itsMe && !isOwner) return
+if (!isOwner) return
 let blocked = Fg.blocklist.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').filter(v => v != Fg.user.jid)
     Fg.sendMessage(from, `*List Block*` + `\n` + blocked.map((v, i) => `• ${i + 1}. @${v.split`@`[0]}`).join`\n` + `\n`, text,{ contextInfo: { mentionedJid: blocked } })
 	break
@@ -2479,7 +2480,7 @@ break
 
 case 'radd':
 if (!isGroup) return reply(group())
-if (!itsMe && !isGroupAdmins) return reply(admin())
+if (!isGroupAdmins) return reply(admin())
 if (!isBotGroupAdmins) return reply(Badmin())
 if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('Reply pesan yg ingin di Add!')
 mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
@@ -2489,7 +2490,7 @@ break
 
 case 'kick':
 if (!isGroup) return reply(group())
-if (!itsMe && !isGroupAdmins) return reply(admin())
+if (!isGroupAdmins) return reply(admin())
 if(!value)return reply(`*Format Error!*\n\n*Example : ${prefix + command} @tag*`)
 if (!isBotGroupAdmins) return reply(Badmin())
 y = value.split('@')[1] + '@s.whatsapp.net'
@@ -2499,7 +2500,7 @@ break
 
 case 'rkick':
 if (!isGroup) return reply(group())
-if (!itsMe && !isGroupAdmins) return reply(admin())
+if (!isGroupAdmins) return reply(admin())
 if (!isBotGroupAdmins) return reply(Badmin())
 if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return reply('Reply pesan yg ingin di Kick!')
 mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
@@ -2519,7 +2520,7 @@ mentions(teks, groupAdmins, true)
 break
 
 case 'getlink':
-if(!itsMe && !isOwner)return
+if(!isOwner)return
 if(!value)return reply('*Command disertai ID Group!!*')
 linkgc = await Fg.groupInviteCode(`${value}`)
 reply('https://chat.whatsapp.com/'+linkgc)
@@ -2541,7 +2542,7 @@ break
 
 // Set Description Group ( MyMans APIs )
 case 'setdesc': case'setdescgc':
-if (!isOwner && !itsMe && !isGroupAdmins) return reply(admin())
+if (!isOwner && !isGroupAdmins) return reply(admin())
 if(!value)return reply('Mau ganti Deskripsi Group nya apa?')
 if (!isBotGroupAdmins) return reply(Badmin())
 if (!isGroup) return reply(group())
@@ -2551,7 +2552,7 @@ break
 
 // Set Name Group ( MyMans APIs )
 case 'setname': case 'setnamegc':
-if (!isOwner && !itsMe && !isGroupAdmins) return reply(admin())
+if (!isOwner && !isGroupAdmins) return reply(admin())
 if(!value)return reply('Mau ganti Nama GC nya apa?')
 if (!isBotGroupAdmins) return reply(Badmin())
 if (!isGroup) return reply(group())
@@ -2561,14 +2562,14 @@ break
 
 case 'linkgroup': case 'linkgc':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (!isBotGroupAdmins) return reply(Badmin())
 linkgc = await Fg.groupInviteCode(from)
 reply('https://chat.whatsapp.com/'+linkgc)
 break
 
 case 'resetlink': case 'revokelink': case 'revoke':
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (!isBotGroupAdmins) return reply (Badmin())
 Fg.query({ json: ['action', 'inviteReset', from], expect200: true })
 linkgc = await Fg.groupInviteCode(from)
@@ -2577,7 +2578,7 @@ break
 
 case 'leave':
 if(!isGroup)return reply(group())
-if(!isGroupAdmins && !itsMe && !isOwner)return reply(admin())
+if(!isGroupAdmins && !isOwner)return reply(admin())
 sendMess(from,`Bye Bye group ${groupName}`)
 setTimeout(() => {
 Fg.groupLeave(from)
@@ -2585,7 +2586,7 @@ Fg.groupLeave(from)
 break
 					
 case 'infoall': case 'tagall':
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if(!value) return reply('Ingfonya apa?')
 if (!isGroup) return reply(group())
 var nom = mek.participant
@@ -2600,7 +2601,7 @@ break
 					
 case 'welcome':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pakai!*\n\n*Example* : \n*${prefix + command} -help*`)
 if ((args[0]) === 'on') {
 	if(isWelcom) return reply('udah on')
@@ -2621,7 +2622,7 @@ break
 
 case 'left':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pakai!*\n\n*Example* : \n*${prefix + command} -help*`)
 if ((args[0]) === 'on') {
 	if (isLeft) return reply('udah on')
@@ -2642,7 +2643,7 @@ break
 
 case 'antilink':
 if (!isBotGroupAdmins) return reply(Badmin())
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (!isGroup) return reply(group())
 if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pakai!*\n\n*Example* : \n*${prefix + command} -help*`)
 if (args[0] == 'on') {
@@ -2672,7 +2673,7 @@ break
 
 case 'banchat':
 if (!isGroup) return reply(group())
-if (!itsMe && !isOwner)return reply(ownerB()) 
+if (!isOwner)return reply(ownerB()) 
 //if (!isBotGroupAdmins) return reply(Badmin())
 if (isBanchat) return reply(`udah di ban`)
 bancht.push(from)
@@ -2681,7 +2682,7 @@ reply(`Bot berhasil Ban di group ini`)
 break
 
 case 'unbanchat':
-if (!itsMe && !isOwner)return reply(ownerB())
+if (!isOwner)return reply(ownerB())
 if (!isBanchat) return reply(`udah di UnBan`)
 let ubc = bancht.indexOf(from)
 bancht.splice(ubc, 1)
@@ -2699,7 +2700,7 @@ teks += 'Nama Group : ' + met.subject + '\n\n'
 reply(teks)
 break
 case 'enable':
-if(!isGroupAdmins && !isOwner && !itsMe)return reply(admin())
+if(!isGroupAdmins && !isOwner)return reply(admin())
 if(!isBotGroupAdmins)return reply(Badmin())
 if(!isGroup)return reply(group())
 if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix + command} welcome\n\n*List Opinion!*\n • welcome\n • antilink\n • antidelete\n • banchat`)
@@ -2728,7 +2729,7 @@ reply(`*Input (${args[0]}) Tidak Tersedia!!**\n\n*Example :*\n • ${prefix + co
 break
 
 case 'disable':
-if(!isGroupAdmins && !isOwner && !itsMe)return reply(admin())
+if(!isGroupAdmins && !isOwner)return reply(admin())
 if(!isBotGroupAdmins)return reply(Badmin())
 if(!isGroup)return reply(group())
 if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix + command} welcome\n\n*List Opinion!*\n • welcome\n • antilink\n • antidelete\n • banchat`)
@@ -2759,7 +2760,7 @@ break
 
 case 'group': case 'grup':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (!isBotGroupAdmins) return reply(Badmin())
 if (args[0] === 'open') {
  reply(monospace('Succses Open Group!'))
@@ -2790,7 +2791,7 @@ break
 			
 case 'pm': case 'promote':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (!isBotGroupAdmins) return reply(Badmin())
 if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return
 mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
@@ -2800,7 +2801,7 @@ break
 					
 case 'dm': case 'demote':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
+if (!isGroupAdmins && !isOwner) return reply(admin())
 if (!isBotGroupAdmins) return reply(Badmin())
 if (mek.message.extendedTextMessage === undefined || mek.message.extendedTextMessage === null) return
 mentioned = mek.message.extendedTextMessage.contextInfo.mentionedJid
@@ -2914,7 +2915,7 @@ case 'del' : case 'delete': case 'd':
 try{
 if(!isQuotedMsg)return reply('Reply pesan Bot!')
 pp = {id:mek.message.extendedTextMessage.contextInfo.stanzaId, remoteJid: from, fromMe: true}
-if (!isGroupAdmins && !itsMe && !isOwner)return reply(admin())
+if (!isGroupAdmins && !isOwner)return reply(admin())
 Fg.deleteMessage(from,pp)
 } catch(e) {
 reply('reply pesan botnya ')
@@ -2989,7 +2990,7 @@ console.log(e)
 break
 					
 case 'read': case 'sider':
-if (!isGroupAdmins && !itsMe && !isOwner)return reply(admin())
+if (!isGroupAdmins && !isOwner)return reply(admin())
 if (!isGroup) return reply(group())
 if (!isQuotedMsg)return reply('Reply pesan bot')
 infom = await Fg.messageInfo(from, mek.message.extendedTextMessage.contextInfo.stanzaId)
@@ -3005,7 +3006,7 @@ break
 
 case 'hidetag': case 'h':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner)return reply(admin())
+if (!isGroupAdmins && !isOwner)return reply(admin())
 if (!value)return reply('Ingfonya apa?')
 var group = await Fg.groupMetadata(from)
 var member = group['participants']
@@ -3023,7 +3024,7 @@ break
 
 case 'totag':
 if (!isGroup) return reply(group())
-if (!isGroupAdmins && !itsMe && !isOwner)return reply(admin())
+if (!isGroupAdmins && !isOwner)return reply(admin())
 teks = mek.message.extendedTextMessage.contextInfo.quotedMessage.conversation
 var group = await Fg.groupMetadata(from)
 var member = group['participants']
@@ -3140,7 +3141,7 @@ break
 //******************** 》Owner Prem《 ********************\\
 
 case 'addprem':
-if (!itsMe && !isOwner)return reply(ownerB()) 
+if (!isOwner)return reply(ownerB()) 
 if (!value)return reply(`*Format Error!*\n\n*Example :*\n• *${prefix + command} @tag 10d*\n\n*Note :*\n• s : detik\n• m : menit\n• h : jam\n• d : hari\n\n*Tq To : ${fake}*`)
 expired = value.split(" ")[1]
 const pnom = {id: `${value.split(" ")[0].replace("@",'')}@s.whatsapp.net`,expired: Date.now() + toMs(expired) }
@@ -3150,7 +3151,7 @@ reply(`_Succses_`)
 break
 
 case 'delprem':
-  if(!itsMe && !isOwner) return reply('Only Owner!')
+  if(!isOwner) return reply('Only Owner!')
 user = value.split('@')[1] + '@s.whatsapp.net'
 for(let i=0; i<premium.length; i++){
 if(user.includes(premium[i].id)){
@@ -3237,7 +3238,7 @@ reply(monospace(`Pembeliaan game limit sebanyak ${value} berhasil\n\nSisa Balanc
 break
 
 case 'giftlimit':
-if(!itsMe && !isOwner)return
+if(!isOwner)return
 if (!value)return reply(`Example : ${prefix + command} @tag 10`)
 lim = value.split(" ")[1]
 const tag1 = `${value.split(" ")[0].replace("@",'')}@s.whatsapp.net`
