@@ -345,7 +345,7 @@ const isOwner = senderNumber == owner || senderNumber == botNumber || mods.inclu
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
 const isGroupAdmins = groupAdmins.includes(sender) || false
-const is_welcom = isGroup ? _welcom.includes(from) : false
+const isWelcom = isGroup ? _welcom.includes(from) : false
 const isLeft = isGroup ? left.includes(from) : false
 const isBanchat = isGroup ? bancht.includes(from) : false
 const value = args.join(' ')  
@@ -745,6 +745,23 @@ const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stic
 if (!isGroup && isCmd) console.log(color('[FG98]','aqua'), "Pv", color(command, "blue"), "de", (sender.split('@')[0]),  args.length)
 if (isGroup && isCmd) console.log(color('[FG98]','aqua'), "Gp", color(command, "green"), "de", (sender.split('@')[0]), "en", (groupName), args.length)
 
+//----------- 𝗩𝗘𝗥 𝗖𝗔𝗥𝗔𝗖𝗧𝗘𝗥𝗜́𝗦𝗧𝗜𝗖𝗔𝗦---------
+let prem_ = '❎'
+			if (isPremium) {
+			prem_ = '✅'
+			} 
+			if (isOwner && ItsMe) {
+			prem_ = '*VIP*'
+			}
+let Welcome_ = 'Off'
+			if (isWelcom) {
+			Welcome_ = 'On'
+			}
+let AntiLink_ = 'Off'
+			if (isAntilink) {
+			AntiLink_ = 'On'
+			}
+			
 //--- Total comandos usados
 const cmdadd = () => {
 	hit[0].totalcmd += 1
@@ -1114,13 +1131,12 @@ break
 case 'status':
 case 'estado':
 const s1 = public ? 'Public': 'Self'
-const s2 = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
 const s3 = antidel ? 'Aktif' : 'NonAktif'
 const s4 = aread ? 'Aktif' : 'NonAktif'
 stat = `*「 𝙎𝙏𝘼𝙏𝙐𝙎 𝘽𝙊𝙏 」*
 
 *Mode : ${s1}*
-*Status : ${s2}*
+*Premium : ${prem_}*
 *Antidelete : ${s3}*
 *Auto Read : ${s4}*`
 reply(stat)
@@ -2587,12 +2603,12 @@ if (!isGroup) return reply(group())
 if (!isGroupAdmins && !itsMe && !isOwner) return reply(admin())
 if (args.length < 1) return reply(`*Input Error!*\n*Buka Tutorial untuk cara pakai!*\n\n*Example* : \n*${prefix + command} -help*`)
 if ((args[0]) === 'on') {
-	if(is_welcom) return reply('udah on')
+	if(isWelcom) return reply('udah on')
 	_welcom.push(from)
 	fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 	reply(`*_Succses Aktifkan Fitur!_*`)
 } else if ((args[0]) === 'off') {
-	if (!is_welcom) return reply('udah off')
+	if (!isWelcom) return reply('udah off')
 	_welcom.splice(from, 1)
 	fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 reply(`*_Succses NonAktifkan Fitur!_*`)
@@ -2688,7 +2704,7 @@ if(!isBotGroupAdmins)return reply(Badmin())
 if(!isGroup)return reply(group())
 if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix + command} welcome\n\n*List Opinion!*\n • welcome\n • antilink\n • antidelete\n • banchat`)
 if ((args[0]) === 'welcome') {
-	if(is_welcom) return reply('udah on')
+	if(isWelcom) return reply('udah on')
 	_welcom.push(from)
 	fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 	reply(`*_Succses Aktifkan Fitur Welcome!_*`)
@@ -2717,7 +2733,7 @@ if(!isBotGroupAdmins)return reply(Badmin())
 if(!isGroup)return reply(group())
 if (args.length < 1) return reply(`*Format Salah!*\n\n*Example :*\n • ${prefix + command} welcome\n\n*List Opinion!*\n • welcome\n • antilink\n • antidelete\n • banchat`)
 if ((args[0]) === 'welcome') {
-if (!is_welcom) return reply('udah off')
+if (!isWelcom) return reply('udah off')
 _welcom.splice(from, 1)
 fs.writeFileSync('./data/welcom.json', JSON.stringify(_welcom))
 reply(`*_Succses NonAktifkan Fitur!_*`)
@@ -2767,7 +2783,7 @@ if (!isGroup) return reply(group())
 		} catch {
 	ppUrl = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
   	}
-y =`*Nama Group : ${groupName}*\n*Dibuat : ${moment(`${groupMetadata.creation}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}*\n*Owner Grup : @${groupMetadata.owner.split('@')[0]}*\n*Total Member : ${groupMembers.length}*\n*Total Admin : ${groupAdmins.length}*\n\n*Welcome : ${is_welcom ? 'Aktif':'NonAktif'}*\n*Left : ${isLeft ? 'Aktif':'NonAktif'}*\n*Antilink : ${isAntilink? 'Aktif':'NonAktif'}*\n\n*Deskripsi Group :*\n ${groupDesc}`
+y =`*Nama Group : ${groupName}*\n*Dibuat : ${moment(`${groupMetadata.creation}` * 1000).tz('Asia/Jakarta').format('DD/MM/YYYY HH:mm:ss')}*\n*Owner Grup : @${groupMetadata.owner.split('@')[0]}*\n*Total Member : ${groupMembers.length}*\n*Total Admin : ${groupAdmins.length}*\n\n*Welcome : ${isWelcom ? 'Aktif':'NonAktif'}*\n*Left : ${isLeft ? 'Aktif':'NonAktif'}*\n*Antilink : ${isAntilink? 'Aktif':'NonAktif'}*\n\n*Deskripsi Group :*\n ${groupDesc}`
 buffer = await getBuffer(ppUrl)
 Fg.sendMessage(from, buffer, image, {quoted: mek,caption:y, contextInfo: {"mentionedJid": [groupMetadata.owner.replace('@c.us', '@s.whatsapp.net')]}})
 break
