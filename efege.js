@@ -64,7 +64,6 @@ const { uploadimg } = require('./libreria/uploadimg')
 const { EmojiAPI } = require("emoji-api");
 const emoji = new EmojiAPI()
 const _prem = require("./libreria/premium");
-const { addSticker, delCommand, listCommand } = require('./libreria/stickcmd.js')
 const game = require("./libreria/game");
 const { smsg } = require('./libreria/simple')
 const { jadibot, stopjadibot, listjadibot } = require('./libreria/jadibot')
@@ -685,7 +684,7 @@ const linkwa = 'https://chat.whatsapp.com/'
 
 
 
-//---𝗔𝗡𝗧𝗜 𝗗𝗘𝗟𝗘𝗧𝗘------
+//---𝗔𝗡𝗧𝗜 𝗗𝗘??𝗘𝗧𝗘------
 if (vn) {
 await Fg.updatePresence(from, Presence.recording)
 } else if (ngetik) {
