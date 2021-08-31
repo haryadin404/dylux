@@ -340,7 +340,7 @@ const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 
 const itsMe = mek.key.fromMe ? true : false
-const isOwner = senderNumber == owner || senderNumber == botNumber || mods.includes(senderNumber)
+const isOwner = senderNumber == owner || senderNumber == botN || mods.includes(senderNumber)
   
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
