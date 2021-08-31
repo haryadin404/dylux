@@ -633,16 +633,27 @@ reply(`✳️ No hay sesión en curso`);
       
 
 //-------𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗔𝗡𝗧𝗜 𝗟𝗜𝗡𝗞 𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣------
-if (isGroup && !mek.key.fromMe && isAntilink) {
-if (budy.includes("://chat.whatsapp.com/")) {
-if (isGroupAdmins) return reply('Your is Admin!! Bot not Found kick You :D')
-console.log(color('[KICK]', 'red'), color('Received a link!', 'yellow'))
-reply(`「 *ANTILINK GROUP DETECTOR* 」\n\n_Link Group terdeteksi!!_\n_Kamu akan di kick dari Group!!_`)
-setTimeout(() => {
-Fg.groupRemove(from, [sender])
-}, 2000);
-}
-}
+const linkwa = 'https://chat.whatsapp.com/'
+		if (budy.includes(`${linkwa}`)){
+		if (!isGroup) return
+		if (!isAntilink) return
+    if (!isBotGroupAdmins) return reply('🤨 Por suerte no soy  admin, asi que no te expulsare')
+    if (isGroupAdmins) return reply(`✳️ Los *Admins* son libres 😎`)
+    linkgp = await Fg.groupInviteCode (from)
+    if (budy.includes(`${linkwa}${linkgp}`)) return reply('✳️ Menos mal que este enlace es de este grupo v:')
+    if (budy.includes(`https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`)) return reply('✳️ Menos mal que este enlace es del grupo *📲💻ANDROID WORLD🎬🎮* v:')
+		Fg.updatePresence(from, Presence.composing)
+		var Kick = `${sender.split("@")[0]}@s.whatsapp.net`
+		setTimeout( () => {
+		reply('Adios')
+		}, 1100)
+		setTimeout( () => {
+		Fg.groupRemove(from, [Kick]).catch((e) => {console.log(`*ERROR:* ${e}`)}) 
+					}, 1000)
+		setTimeout( () => {
+		reply(`❎ No permitimos enlaces de otros grupos!\nLo siento *${pushname}* seras expulsado`)
+		}, 0)
+	}
 
 if (vn) {
 await Fg.updatePresence(from, Presence.recording)
