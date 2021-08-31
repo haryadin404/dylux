@@ -405,30 +405,8 @@ fs.unlinkSync(filename)
 				});
 			}
 
-const sendStickerUrl = async(to, url) => {
-console.log(color(time, 'magenta'), color(moment.tz('Asia/Jakarta').format('HH:mm:ss'), "gold"), color('Downloading sticker...'))
-var names = getRandom('.webp')
-var namea = getRandom('.png')
-var download = function (uri, filename, callback) {
-request.head(uri, function (err, res, body) {
-request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
-});
-};
-download(url, namea, async function () {
-let filess = namea
-let asw = names
-require('./libreria/exif.js')
-exec(`ffmpeg -i ${filess} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${asw}`, (err) => {
-exec(`webpmux -set exif ./sticker/data.exif ${asw} -o ${asw}`, async (error) => {
-let media = fs.readFileSync(asw)
-Fg.sendMessage(from, media, sticker, {quoted: mek})
-console.log(color(time, 'magenta'), color(moment.tz('Asia/Jakarta').format('HH:mm:ss'), "gold"), color('Succes send sticker...'))  
-});
-});
-});
-}
             
-//******************* 》banchat《 ********************\\
+//------------ 𝗕𝗔𝗡𝗖𝗛𝗔𝗧 ----------
 if (isBanchat){
 if (!itsMe && !isOwner)return 
 }
@@ -438,7 +416,7 @@ return Fg.chatRead(from)
 }
 
 
-// ******************** 》Self/Public《 ******************** \\
+//----𝗦𝗲𝗹𝗳 / 𝗣𝘂𝗯𝗹𝗶𝗰 -----
 if (!public){
 if (!isOwner && !itsMe) return
 }
@@ -447,20 +425,9 @@ if (!isOwner && !itsMe) return
 _prem.expiredCheck(premium)
 
 
-// ******************** 》Register《 ******************** \\
-/*
-if(chats.startsWith('5274')){
-if (isRegister) return reply(`*Anda telah Daftar Sebelumnya!*`)
-reg.push(sender)
-fs.writeFileSync('./data/register.json', JSON.stringify(reg))
-teks = `Verification success\n\nPlease send *#menu* to view menu`
-reply(teks)
-}
+/*====================================================================*/
 
-if (isCmd && !isRegister) return replyLink(`*${fecha} kak @${sender.split("@")[0]}*\n\nYou are not verified\nReply this chat and send bot password\n\nHint : \nPassword contains 4 digit number\nCek Password : https://instagram.com/021Fgu_`)
-*/
-// ******************** 》GAME《 ******************** \\
-
+//-----𝗚𝗔𝗠𝗘𝗦---
 game.cekWaktuFam(Fg, family100)
 game.cekWaktuTG(Fg, tebakgambar)
 game.cekWaktuMtk(Fg, mtk)
@@ -470,7 +437,7 @@ if (game.isMtk(from, mtk)){
 if (chats.toLowerCase().includes(game.getJawabanMtk(from, mtk))){
 var htgm3 = randomNomor(1000)
 addBalance(sender, htgm3, balance)
-await reply(`*Selamat jawaban kamu benar*\n*Jawaban :* ${game.getJawabanMtk(from, mtk)}\n*Hadiah :* $${htgm3}\n\nIngin bermain lagi? kirim *${prefix}math*`)
+await reply(`*✅ Felicidades tu respuesta es correcta*\n*‣ Respuesta :* ${game.getJawabanMtk(from, mtk)}\n*‣ Regalo :* $${htgm3}\n\nQuieres jugar de nuevo? Escribe *${prefix}math*`)
 mtk.splice(game.getMtkPosi(from, mtk), 1)
 }
 }
@@ -479,7 +446,7 @@ if (game.isCkl(from, ckl)){
 if (chats.toLowerCase().includes(game.getJawabanCkl(from, ckl))){
 var htgm2 = randomNomor(1000)
 addBalance(sender, htgm2, balance)
-await reply(`*Selamat jawaban kamu benar*\n*Jawaban :* ${game.getJawabanCkl(from, ckl)}\n*Hadiah :* $${htgm2}\n\nIngin bermain lagi? kirim *${prefix}caklontong*`)
+await reply(`*✅ Felicidades tu respuesta es correcta*\n*‣ Respuesta :* ${game.getJawabanCkl(from, ckl)}\n*‣ Regalo :* $${htgm2}\n\nQuieres jugar de nuevo? Escribe *${prefix}caklontong*`)
 ckl.splice(game.getCklPosi(from, ckl), 1)
 }
 }
@@ -488,7 +455,7 @@ if (game.isTebakGambar(from, tebakgambar)){
 if (chats.toLowerCase().includes(game.getJawabanTG(from, tebakgambar))){
 var htgm = randomNomor(1000)
 addBalance(sender, htgm, balance)
-await reply(`*Selamat jawaban kamu benar*\n*Jawaban :* ${game.getJawabanTG(from, tebakgambar)}\n*Hadiah :* $${htgm}\n\nIngin bermain lagi? kirim *${prefix}tebakgambar*`)
+await reply(`*✅ Felicidades tu respuesta es correcta*\n*‣ Respuesta :* ${game.getJawabanTG(from, tebakgambar)}\n*‣ Regalo :* $${htgm}\n\nQuieres jugar de nuevo? Escribe *${prefix}tebakgambar*`)
 tebakgambar.splice(game.getTGPosi(from, tebakgambar), 1)
 }
 }
@@ -499,30 +466,31 @@ for (let i of anjuy){
 if (chats.toLowerCase().includes(i)){
 var htgm1 = randomNomor(1000)
 addBalance(sender, htgm1 , balance)
-await reply(`*Jawaban benar*\n*Jawaban :* ${i}\n*Hadiah :* $${htgm1}\n\n*Jawaban yang blum tertebak :* ${anjuy.length - 1}`)
+await reply(`*✅ Respuesta correcta*\n*‣ Respuesta :* ${i}\n*‣ Regalo :* $${htgm1}\n\n*Respuesta imprevista :* ${anjuy.length - 1}`)
 var anug = anjuy.indexOf(i)
 anjuy.splice(anug, 1)
 }
 }
 if (anjuy.length < 1){
-Fg.sendMessage(from, `Semua jawaban sudah tertebak\nKirim *${prefix}family100* untuk bermain lagi`, text)
+Fg.sendMessage(from, `🎉 Todas las respuestas han sido adivinadas\nEscribe *${prefix}family100* Para jugar de nuevo`, text)
 family100.splice(game.getfamposi(from, family100), 1)
 }
 }
-// *************** 》 Tictactoe BY MRHRTZ《 *************** \\
+
+//----------𝗧𝗜𝗖𝗧𝗔𝗖𝗧𝗢𝗘--------
 const cmde = budy.toLowerCase().split(" ")[0] || "";
 let arrNum = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 if (fs.existsSync(`./libreria/tictactoe/db/${from}.json`)) {
 const boardnow = setGame(`${from}`);
 if (budy == "Cex") return reply("why");
 if (
-budy.toLowerCase() == "y" ||
-budy.toLowerCase() == "yes" ||
-budy.toLowerCase() == "ya"
+budy.toLowerCase() == "s" ||
+budy.toLowerCase() == "si" ||
+budy.toLowerCase() == "Si"
 ) {
 if (boardnow.O == sender.replace("@s.whatsapp.net", "")) {
 if (boardnow.status)
-return reply(`Game telah dimulai sebelumnya!`);
+return reply(`✳️ El juego ha comenzado antes!`);
 const matrix = boardnow._matrix;
 boardnow.status = true;
 fs.writeFileSync(`./libreria/tictactoe/db/${from}.json`,JSON.stringify(boardnow, null, 2)
@@ -530,17 +498,17 @@ fs.writeFileSync(`./libreria/tictactoe/db/${from}.json`,JSON.stringify(boardnow,
 const chatAccept = `T I C T A C T O E  G A M E
 
 INFO :
-  Player ❎ : @${boardnow.X}
-  Player ⭕ : @${boardnow.O}
+  Jugador ❎ : @${boardnow.X}
+  Jugador2 ⭕ : @${boardnow.O}
                
      ${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
      ${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
      ${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
      
-Giliran @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
+Girar @${boardnow.turn == "X" ? boardnow.X : boardnow.O}
 
-Ketik nyerah untuk Menyerah!
-Ketik ${prefix}delttc untuk Menghapus sesi game!
+Escriba *rendirse* para dejar de jugar!
+Escriba ${prefix}delttc para eliminar la sesión del juego!
 `;
 Fg.sendMessage(from, monospace(chatAccept), MessageType.text, {
 quoted: mek,
@@ -552,7 +520,7 @@ boardnow.O + "@s.whatsapp.net",
 },
 });
 } else {
-Fg.sendMessage(from,`Opsi ini hanya untuk @${boardnow.O} !`,
+Fg.sendMessage(from,`❎ Esta opción es solo para @${boardnow.O} !`,
 MessageType.text, {quoted: mek,
 contextInfo: {
 mentionedJid: [boardnow.O + "@s.whatsapp.net"],
@@ -563,13 +531,13 @@ mentionedJid: [boardnow.O + "@s.whatsapp.net"],
 } else if (
 budy.toLowerCase() == "n" ||
 budy.toLowerCase() == "no" ||
-budy.toLowerCase() == "tidak"
+budy.toLowerCase() == "No"
 ) {
 if (boardnow.O == sender.replace("@s.whatsapp.net", "")) {
 if (boardnow.status)
-return reply(`Game telah dimulai sebelumnya!`);
+return reply(`✳️ El juego ha comenzado antes!`);
 fs.unlinkSync(`./libreria/tictactoe/db/${from}.json`);
-Fg.sendMessage(from,`Sayangnya tantangan @${boardnow.X} ditolak ❎😕`,
+Fg.sendMessage(from,`📌 Desafortunadamente el desafío @${boardnow.X} a sido rechazado 😕`,
 MessageType.text, {quoted: mek,
 contextInfo: {
 mentionedJid: [boardnow.X + "@s.whatsapp.net"],
@@ -577,7 +545,7 @@ mentionedJid: [boardnow.X + "@s.whatsapp.net"],
 }
 );
 } else {
-Fg.sendMessage(from,`Opsi ini hanya untuk @${boardnow.O} !`,MessageType.text, {quoted: mek,
+Fg.sendMessage(from,`❎ Esta opción es solo para @${boardnow.O} !`,MessageType.text, {quoted: mek,
 contextInfo: {
 mentionedJid: [boardnow.O + "@s.whatsapp.net"],
 },
@@ -589,7 +557,7 @@ mentionedJid: [boardnow.O + "@s.whatsapp.net"],
 
 if (arrNum.includes(cmde)) {
 const boardnow = setGame(`${from}`);
-if (!boardnow.status) return reply(`Sepertinya lawan anda belum menerima / menolak tantangan.`)
+if (!boardnow.status) return reply(`✳️ Parece que tu oponente no ha recibido / rechazar el desafío.`)
 if (
 (boardnow.turn == "X" ? boardnow.X : boardnow.O) !=
 sender.replace("@s.whatsapp.net", "")
@@ -601,7 +569,7 @@ if (moving.isWin) {
 if (moving.winner == "SERI") {
 const chatEqual = `*🎮 Tictactoe Game 🎳*
           
-Game berakhir seri 😐
+El juego termina en empate 😐
 `;
 reply(chatEqual);
 fs.unlinkSync(`./libreria/tictactoe/db/${from}.json`);
@@ -613,7 +581,7 @@ const limWin = Math.floor(Math.random() * 20) + 10;
 const limLoose = Math.floor(Math.random() * 10) + 5;
 const chatWon = `*🎮 Tictactoe Game 🎳*
           
-Telah dimenangkan oleh @${winnerJID} 😎👑
+🎉 El ganador es@${winnerJID} 👑
 `;
             //    giftLimit(winnerJID + "@s.whatsapp.net", limWin);
             //    pushLimit(looseJID + "@s.whatsapp.net", limLoose);
@@ -630,17 +598,17 @@ fs.unlinkSync(`./libreria/tictactoe/db/${from}.json`);
 const chatMove = `T I C T A C T O E  G A M E
 
 INFO
-  Player ❎ : @${moving.X}
-  Player ⭕ : @${moving.O}
+  Jugador ❎ : @${moving.X}
+  Jugador2 ⭕ : @${moving.O}
 
      ${matrix[0][0]}  ${matrix[0][1]}  ${matrix[0][2]}
      ${matrix[1][0]}  ${matrix[1][1]}  ${matrix[1][2]}
      ${matrix[2][0]}  ${matrix[2][1]}  ${matrix[2][2]}
      
-Giliran : @${moving.turn == "X" ? moving.X : moving.O}
+Girar : @${moving.turn == "X" ? moving.X : moving.O}
 
-Ketik nyerah untuk Menyerah!
-Ketik ${prefix}delttc untuk Menghapus sesi game!
+Escribe *rendirse* para dejar de jugar
+Escribe ${prefix}delttc para eliminar la sesión del juego!
 `;
 Fg.sendMessage(from, monospace(chatMove), MessageType.text, {quoted: mek,contextInfo: {
 mentionedJid: [
@@ -652,19 +620,19 @@ moving.O + "@s.whatsapp.net",
 }
 }
 
-if ((senderNumber) && ["Nyerah", "nyerah"].includes(budy) && !isCmd) {
+if ((senderNumber) && ["Rendirse", "rendirse"].includes(budy) && !isCmd) {
 orangnye = sender
-teks = `@${orangnye.split("@")[0]} Menyerah\n_Yahaha cupu abiez_`
+teks = `@${orangnye.split("@")[0]} Rendirse\n_jajaja xd_`
 if (fs.existsSync("./libreria/tictactoe/db/" + from + ".json")) {
 fs.unlinkSync("./libreria/tictactoe/db/" + from + ".json");
 mentions(teks,[sender],true)
   } else {
-reply(`Tidak ada sesi yg berlangsung`);
+reply(`✳️ No hay sesión en curso`);
   }
 }
       
 
-//******************** 》AntiLink Gc《 ********************\\
+//-------𝗙𝗨𝗡𝗖𝗜𝗢́𝗡 𝗔𝗡𝗧𝗜 𝗟𝗜𝗡𝗞 𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣------
 if (isGroup && !mek.key.fromMe && isAntilink) {
 if (budy.includes("://chat.whatsapp.com/")) {
 if (isGroupAdmins) return reply('Your is Admin!! Bot not Found kick You :D')
