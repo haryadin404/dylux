@@ -82,7 +82,7 @@ const limit = JSON.parse(fs.readFileSync('./data/limit.json'));
 const premium = JSON.parse(fs.readFileSync('./data/premium.json'))
 const confi = JSON.parse(fs.readFileSync('./data/settings.json'))
 const setiker = JSON.parse(fs.readFileSync('./data/stick.json'))
-const stcmd = JSON.parse(fs.readFileSync('./data/stickcmd.json'))
+const scommand = JSON.parse(fs.readFileSync('./data/stickcmd.json'))
 const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
 const stickerdb = JSON.parse(fs.readFileSync("./data/stickerdb.json"))//
 const _user = JSON.parse(fs.readFileSync('./data/register.json'))
@@ -192,8 +192,36 @@ myMonths = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","S
 			return `${thisDay}, ${day} - ${myMonths[bulan]} - ${year}`
 }
 
+//-------𝗦𝗧𝗜𝗖𝗞𝗘𝗥 𝗖𝗢𝗠𝗔𝗡𝗗𝗢𝗦-----
+const addCmd = (id, command) => {
+    const obj = { id: id, chats: command }
+    scommand.push(obj)
+    fs.writeFileSync('./data/stickcmd.json', JSON.stringify(scommand))
+}
 
+const getCommandPosition = (id) => {
+    let position = null
+    Object.keys(scommand).forEach((i) => {
+        if (scommand[i].id === id) {
+            position = i
+        }
+    })
+    if (position !== null) {
+        return position
+    }
+}
 
+const getCmd = (id) => {
+    let position = null
+    Object.keys(scommand).forEach((i) => {
+        if (scommand[i].id === id) {
+            position = i
+        }
+    })
+    if (position !== null) {
+        return scommand[position].chats
+    }
+}
 
 
 //----------------------------------------------------------
@@ -235,7 +263,7 @@ prefix = ''
 if(single){
 prefix = prefa }}}
  
-const body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : (type == "stickerMessage") && stickerdb[mek.message.stickerMessage.fileSha256.toString("hex")].text ? prefix + stickerdb[mek.message.stickerMessage.fileSha256.toString("hex")].text : ""
+const body = (type === 'listResponseMessage' && mek.message.listResponseMessage.title) ? mek.message.listResponseMessage.title : (type === 'buttonsResponseMessage' && mek.message.buttonsResponseMessage.selectedButtonId) ? mek.message.buttonsResponseMessage.selectedButtonId : (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption.startsWith(prefix) ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption.startsWith(prefix) ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text.startsWith(prefix) ? mek.message.extendedTextMessage.text : (type == 'stickerMessage') && (getCmd(mek.message.stickerMessage.fileSha256.toString('base64')) !== null && getCmd(mek.message.stickerMessage.fileSha256.toString('base64')) !== undefined) ? getCmd(mek.message.stickerMessage.fileSha256.toString('base64')) : ""
 const budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 
 var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
@@ -655,27 +683,17 @@ const linkwa = 'https://chat.whatsapp.com/'
 		}, 0)
 	}
 
+
+
+//---𝗔𝗡𝗧𝗜 𝗗𝗘𝗟𝗘𝗧𝗘------
 if (vn) {
 await Fg.updatePresence(from, Presence.recording)
 } else if (ngetik) {
 await Fg.updatePresence(from, Presence.composing)
 }
 
-// function ANTI viewOnce
-if (isGroup && m.mtype == 'viewOnceMessage'){
-var msg = {...mek}
-msg.message = mek.message.viewOnceMessage.message
-msg.message[Object.keys(msg.message)[0]].viewOnce = false
-reply('ViewOnce detected!')
-Fg.copyNForward(from, msg)
-}
 
-// *************** 》 Responder Sticker《 *************** \\
-if (setiker.includes(messagesC)){
-namastc = messagesC
-buffer = fs.readFileSync(`./src/stick/${namastc}.webp`)
-Fg.sendMessage(from, buffer, sticker, {quoted:mek })
-}
+
 
 colors = ['red','white','black','blue','yellow','green']
 const isMedia = (type === 'imageMessage' || type === 'videoMessage')
@@ -2987,30 +3005,44 @@ break
 
 //******************** 》 STORAGE 《 ********************\\
                      
-case 'addcmd': 
+//--------𝗦𝗧𝗜𝗖𝗞𝗘𝗥 𝗖𝗢𝗠𝗔𝗡𝗗𝗢--------
+              case 'addcmd': 
 case 'setcmd':
-if (!isQuotedSticker) return reply('*Format Error! Command Harus disertai Sticker!*')
-if(!value) return reply(`*Format salah!!*\n\n*Reply sticker dengan caption!..*\n\n*Example :*\n${prefix + command} help`)
-if (value.includes(`#`)) return reply(`Tidak dapat disertai Prefix..`)
-ceemd = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
-scmd = await Fg.downloadMediaMessage(ceemd)
-stcmd.push(`${value}`)
-fs.writeFileSync(`./src/stickcmd/${value}.webp`, scmd)
-tesnya = mek.quoted.fileSha256.toString("hex")
-addSticker(tesnya, value, stickerdb)
-reply(`Berhasil menyimpan Sticker Dengan Command : ${value}`)
+case 'stickcmd':
+if (!isOwner && !mek.key.fromMe) return reply(ownerB())
+if (isQuotedSticker) {
+if (!value) return reply(`✳️ Responde a un sticker con *${prefix + command}* _${prefix}comando_\n\n📌 Ejemplo *${prefix + command}* ${prefix}menu`)
+var kodenya = mek.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.fileSha256.toString('base64')
+addCmd(kodenya, value)
+reply("✅ Comando guardado")
+} else {
+reply(`✅ Responde a un sticker con *${prefix + command}* _${prefix}comando_\n\n📌 Ejemplo *${prefix + command}* ${prefix}menu`)
+}
 break
-
-case 'listcmd':
-case 'listcommand':
-listCommand(stickerdb, reply, monospace)
-break
-
 case 'delcmd':
-if (!isQuotedSticker) return reply('*Reply Sticker Yang Ingin Dihapus!!*')
-tess = mek.quoted.fileSha256.toString("hex")
-delCommand(tess, stickerdb)
-reply('Command Sticker Tersebut Di Hapus')
+case 'delstickcmd':
+if (!isOwner && !mek.key.fromMe) return reply(ownerB())
+if (!isQuotedSticker) return reply(`✳️ Responde al sticker comando para eliminar\n\n📌 Uso del comamdo : ${prefix + command} tagsticker`)
+var kodenya = mek.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.fileSha256.toString('base64')
+scommand.splice(getCommandPosition(kodenya), 1)
+fs.writeFileSync('./data/stickcmd.json', JSON.stringify(scommand))
+reply("✅ Comando eliminado")
+break
+case 'listcmd':
+case 'liststickcmd':
+if (!isOwner && !mek.key.fromMe) return reply(ownerB())
+let teksnyee = `「 *LISTA DE STICKER CMD* 」`
+let cemde = [];
+for (let i of scommand) {
+cemde.push(i.id)
+teksnyee += `
+
+❉─────────────────────❉ 
+*🔮 ID :* ${i.id}
+*🛡️ Comando :* ${i.chats}
+❉─────────────────────❉`
+}
+reply(teksnyee)
 break
 
 case 'getstik': case 'getstikcmd': case 'getcmd':
