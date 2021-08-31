@@ -705,8 +705,8 @@ const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stic
 
 
 //---𝗖𝗢𝗠𝗔𝗡𝗗𝗢𝗦 𝗘𝗡 𝗖𝗢𝗡𝗦𝗢𝗟𝗔
-if (!isGroup && isCmd) console.log(color('[FG98]','aqua'), color(command , 'blue'), 'from', color(sender.split('@')[0] , 'white'),'args :', color(args.length , 'white'))
-if (isCmd && isGroup) console.log(color('[FG98]','aqua'), color(command , 'green'), 'from', color(sender.split('@')[0] , 'white'), 'en', color(groupName),'args :', color(args.length , 'gold'))
+if (!isGroup && isCmd) console.log(color('[FG98]','aqua'), "Pv", color(command, "blue"), "de", (sender.split('@')[0]),  args.length)
+if (isGroup && isCmd) console.log(color('[FG98]', "white"), "Gp", color(command, "yellow"), "de", color(sender.split('@')[0], "en", color(groupName, "blue"), args.length)
 
 //--- Total comandos usados
 const cmdadd = () => {
