@@ -44,6 +44,7 @@ const ffmpeg = require('fluent-ffmpeg')
 const lolis = require('lolis.life')
 const loli = new lolis()
 //--New 
+const crypto = require('crypto');
 const Exif = require('./libreria/exif');
 const exif = new Exif();
 
