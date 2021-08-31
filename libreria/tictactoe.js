@@ -1,15 +1,15 @@
 const fs = require('fs')
-const dbdir = 'Created_By_MRHRTZ'
+const dbdir = 'Creado por FG98'
 
 function defineSave(db, obj, session) {
 mine = db
-const dbdir = `./lib/tictactoe/db/${session}.json`
+const dbdir = `./libreria/tictactoe/db/${session}.json`
 fs.writeFileSync(dbdir, JSON.stringify(obj, null, 2))
 }
 
 function setGame(session) {
 const matrix = []
-const dbdir = `./lib/tictactoe/db/${session}.json`
+const dbdir = `./libreria/tictactoe/db/${session}.json`
 if (!fs.existsSync(dbdir)) {
 matrix[0] = ["1️⃣", "2️⃣", "3️⃣"]
 matrix[1] = ["4️⃣", "5️⃣", "6️⃣"]
@@ -129,10 +129,10 @@ function move(x, y, sessionS) {
      const session = sessionS
      const moving = setGame(session)
      if (moving.isWin) {
-          return { status: false, message: 'Game telah dimenangkan oleh ' + moving.winner }
+          return { status: false, message: 'El juego ha sido ganado por ' + moving.winner }
      }
-     if (moving._matrix[x][y] == '❎') return { status: false, message: 'Titik ini telah diisi oleh ❎' }
-     if (moving._matrix[x][y] == '⭕') return { status: false, message: 'Titik ini telah diisi oleh ⭕' }
+     if (moving._matrix[x][y] == '❎') return { status: false, message: 'Este punto ha sido llenado por ❎' }
+     if (moving._matrix[x][y] == '⭕') return { status: false, message: 'Este punto ha sido llenado por ⭕' }
      if (moving.turn == 'X') {
           moving._matrix[x][y] = '❎'
           moving.nine_push.push('❎')
