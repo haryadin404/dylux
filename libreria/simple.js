@@ -121,7 +121,7 @@ exports.WAConnection = _WAConnection => {
       return new Promise((resolve, reject) => {
         let tries = 0
         let on = (...args) => {
-          if (++tries > maxTries) reject('Max tries reached')
+          if (++tries > maxTries) reject('Intentos máximos alcanzados')
           else if (is()) {
             this.off(eventName, on)
             resolve(...args)
@@ -149,7 +149,7 @@ END:VCARD
     async getFile(path) {
       let res
 	  	let data = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (res = await fetch(path)).buffer() : fs.existsSync(path) ? fs.readFileSync(path) : typeof path === 'string' ? path : Buffer.alloc(0)
-      if (!Buffer.isBuffer(data)) throw new TypeError('Result is not a buffer')
+      if (!Buffer.isBuffer(data)) throw new TypeError('El resultado no es un buffer')
       let type = await FileType.fromBuffer(data) || {
         mime: 'application/octet-stream',
         ext: '.bin'
@@ -333,7 +333,7 @@ exports.smsg = (conn, m, hasParent) => {
 }
 
 exports.logic = (check, inp, out) => {
-	if (inp.length !== out.length) throw new Error('Input and Output must have same length')
+	if (inp.length !== out.length) throw new Error('La entrada y la salida deben tener la misma longitud')
 	for (let i in inp) if (util.isDeepStrictEqual(check, inp[i])) return out[i]
 	return null
 }
