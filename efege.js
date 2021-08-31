@@ -83,7 +83,6 @@ const confi = JSON.parse(fs.readFileSync('./data/settings.json'))
 const setiker = JSON.parse(fs.readFileSync('./data/stick.json'))
 const scommand = JSON.parse(fs.readFileSync('./data/stickcmd.json'))
 const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
-const stickerdb = JSON.parse(fs.readFileSync("./data/stickerdb.json"))//
 const _user = JSON.parse(fs.readFileSync('./data/register.json'))
 const hit = JSON.parse(fs.readFileSync('./data/totalhit.json'))
 
@@ -684,7 +683,7 @@ const linkwa = 'https://chat.whatsapp.com/'
 
 
 
-//---𝗔𝗡𝗧𝗜 𝗗𝗘??𝗘𝗧𝗘------
+//---𝗔𝗡𝗧𝗜 𝗗𝗘𝗟𝗘𝗧𝗘------
 if (vn) {
 await Fg.updatePresence(from, Presence.recording)
 } else if (ngetik) {
