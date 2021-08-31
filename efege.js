@@ -692,8 +692,10 @@ await Fg.updatePresence(from, Presence.composing)
 
 
 
-
+//---Colores 
 colors = ['red','white','black','blue','yellow','green']
+
+//---Tipo de mensaje 
 const isMedia = (type === 'imageMessage' || type === 'videoMessage')
 const isQuotedMsg = type === 'extendedTextMessage' && content.includes('Message')
 const isQuotedImage = type === 'extendedTextMessage' && content.includes('imageMessage')
@@ -702,9 +704,9 @@ const isQuotedVideo = type === 'extendedTextMessage' && content.includes('videoM
 const isQuotedSticker = type === 'extendedTextMessage' && content.includes('stickerMessage')
 
 
-
-if (!isGroup && isCmd) console.log(color('[•]', 'aqua'), time, color(command , 'white'), 'from', color(sender.split('@')[0] , 'white'),'args :', color(args.length , 'white'))
-if (isCmd && isGroup) console.log(color('[•]', 'aqua'), time, color(command , 'white'), 'from', color(sender.split('@')[0] , 'white'), 'in', color(groupName),'args :', color(args.length , 'white'))
+//---𝗖𝗢𝗠𝗔𝗡𝗗𝗢𝗦 𝗘𝗡 𝗖𝗢𝗡𝗦𝗢𝗟𝗔
+if (!isGroup && isCmd) console.log(color('[FG98]','aqua'), color(command , 'blue'), 'from', color(sender.split('@')[0] , 'white'),'args :', color(args.length , 'white'))
+if (isCmd && isGroup) console.log(color('[FG98]','aqua'), color(command , 'green'), 'from', color(sender.split('@')[0] , 'white'), 'en', color(groupName),'args :', color(args.length , 'gold'))
 
 //--- Total comandos usados
 const cmdadd = () => {
