@@ -8,7 +8,7 @@
 
 const fs = require('fs')
 const packID = 'com.snowcorp.stickerly.android.stickercontentprovider b5e7275f-f1de-4137-961f-57becfad34f2'
-const playstore = 'https://play.google.com/store/apps/details?id=com.stickify.stickermaker'
+const playstore = 'https://play.google.com/store/apps/details?id=com.marsvard.stickermakerforwhatsapp'
 const itunes = 'https://itunes.apple.com/app/sticker-maker-studio/id1443326857'
 
 /**
@@ -51,7 +51,7 @@ module.exports = class Exif {
         const buffer = Buffer.concat([f, ff, fff, ffff])
         fs.writeFile(`./sticker/${filename}.exif`, buffer, (err) => {
             if (err) return console.error(err)
-            console.log('Success!')
+            console.log('✅ Enviando')
         })
     }
 }
