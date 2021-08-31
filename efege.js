@@ -266,7 +266,7 @@ const budy = (type === 'conversation') ? mek.message.conversation : (type === 'e
 
 var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
 const messagesC = pes.slice(0).trim()
-tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
+const tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
 q2 = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.singleSelectReply.selectedRowId: ""
 q3 = Object.keys(mek.message)[0] == "buttonsResponseMessage" ? mek.message.buttonsResponseMessage.selectedButtonId : ""
 
@@ -716,12 +716,14 @@ const cmdadd = () => {
   if (isCmd) cmdadd()
   const reqcmd = JSON.parse(fs.readFileSync('./data/totalhit.json'))[0].totalcmd
 
-//---
+//------------------------
 let authorname = Fg.contacts[from] != undefined ? Fg.contacts[from].vname || Fg.contacts[from].notify : undefined	
 if (authorname != undefined) { } else { authorname = pushname }	
 			
+			
+//-------------𝗦𝗧𝗜𝗖𝗞𝗘𝗥 𝗠𝗔𝗞𝗘𝗥 Lexa---------
 function addMetadata(packname, author) {	
-if (!packname) packname = 'WABot'; if (!author) author = 'Bot';	
+if (!packname) packname = 'FG98'; if (!author) author = 'Bot';	
 author = author.replace(/[^a-zA-Z0-9]/g, '');	
 let name = `${author}_${packname}`
 if (fs.existsSync(`./data/stickers/${name}.exif`)) return `./data/stickers/${name}.exif`
@@ -758,24 +760,24 @@ fs.writeFile(`./data/stickers/${name}.exif`, buffer, (err) => {	return `./data/s
 })	
 }
 
-
+//----𝗩𝗢𝗧𝗔𝗖𝗜𝗢𝗡𝗘𝗦
 
 if(isGroup && !isVote) {
 if (budy.toLowerCase() === 'vote'){
-let vote = JSON.parse(fs.readFileSync(`./database/fgvote/${from}.json`))
-let _votes = JSON.parse(fs.readFileSync(`./database/vote/${from}.json`))  
+let vote = JSON.parse(fs.readFileSync(`./data/fgvote/${from}.json`))
+let _votes = JSON.parse(fs.readFileSync(`./data/vote/${from}.json`))  
 let fil = vote.map(v => v.participant)
-let id_vote = sender ? sender : '6281804680327@s.whatsapp.net'
+let id_vote = sender ? sender : `${owner}@s.whatsapp.net`
 if(fil.includes(id_vote)) {
-return mentions('@'+sender.split('@')[0]+' Anda sudah vote', fil, true)
+return mentions('@'+sender.split('@')[0]+' Has votado', fil, true)
 } else {
 vote.push({
 participant: id_vote,
 voting: '✅'
 })
-fs.writeFileSync(`./database/fgvote/${from}.json`,JSON.stringify(vote))
+fs.writeFileSync(`./data/fgvote/${from}.json`,JSON.stringify(vote))
 let _p = []
-let _vote = '*Vote* '+ '@'+ _votes[0].votes.split('@')[0] + `\n\n*Alasan*: ${_votes[0].reason}\n*Jumlah Vote* : ${vote.length} Vote\n*Durasi* : ${_votes[0].durasi} Menit\n\n` 
+let _vote = '*Voto* '+ '@'+ _votes[0].votes.split('@')[0] + `\n\n*Razón*: ${_votes[0].reason}\n*Numero de votos* : ${vote.length} Votos\n*Duración* : ${_votes[0].durasi} Minutos\n\n` 
 for(let i = 0; i < vote.length; i++) {
 _vote +=  `@${vote[i].participant.split('@')[0]}\n*Vote* : ${vote[i].voting}\n\n`
 _p.push(vote[i].participant)
@@ -784,20 +786,20 @@ _p.push(_votes[0].votes)
 mentions(_vote,_p,true)   
 }
 } else if (budy.toLowerCase() === 'devote'){
-const vote = JSON.parse(fs.readFileSync(`./database/fgvote/${from}.json`))
-let _votes = JSON.parse(fs.readFileSync(`./database/vote/${from}.json`))  
+const vote = JSON.parse(fs.readFileSync(`./data/fgvote/${from}.json`))
+let _votes = JSON.parse(fs.readFileSync(`./data/vote/${from}.json`))  
 let fil = vote.map(v => v.participant)
-let id_vote = sender ? sender : '6281804680327@s.whatsapp.net'
+let id_vote = sender ? sender : `${owner}@s.whatsapp.net`
 if(fil.includes(id_vote)) {
-return mentions('@'+sender.split('@')[0]+' Anda sudah vote', fil, true)
+return mentions('@'+sender.split('@')[0]+' Has votado', fil, true)
 } else {
 vote.push({
 participant: id_vote,
 voting: '❌'
 })
-fs.writeFileSync(`./database/fgvote/${from}.json`,JSON.stringify(vote))
+fs.writeFileSync(`./data/fgvote/${from}.json`,JSON.stringify(vote))
 let _p = []
-let _vote = '*Vote* '+ '@'+ _votes[0].votes.split('@')[0] + `\n\n*Alasan*: ${_votes[0].reason}\n*Jumlah Vote* : ${vote.length} Vote\n*Durasi* : ${_votes[0].durasi} Menit\n\n` 
+let _vote = '*Voto* '+ '@'+ _votes[0].votes.split('@')[0] + `\n\n*Razón*: ${_votes[0].reason}\n*Numero de votos* : ${vote.length} Votos\n*Duración* : ${_votes[0].durasi} Minutos\n\n` 
 for(let i = 0; i < vote.length; i++) {
 _vote +=  `@${vote[i].participant.split('@')[0]}\n*Vote* : ${vote[i].voting}\n\n`
 _p.push(vote[i].participant)
@@ -810,6 +812,7 @@ mentions(_vote,_p,true)
 
 //******************** 》listMessage《 ********************\\
 try{
+	
 switch(tmplt){
 case '+62':
 reply(wait())
@@ -874,10 +877,110 @@ break
 }
 
 
-//******************** 》CmdWithPrefix《 ********************\\
-//const antibot = mek.isBaileys
-// (antibot === true) return
-switch(command) { 
+//-- 𝗖𝗢𝗠𝗔𝗡𝗗𝗢𝗦
+
+switch(command) {
+	
+/*case 'help': 
+case 'menu':
+if(menusimpel == false){
+tag = owner.split('@')[0]
+mjid = owner
+waa = wa.split('@')[0]
+mjud = wa
+const premm = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
+let cekvipp = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
+const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.minutes} minute ${cekvipp.seconds} second`:'Not Premium'
+UReg = `${_user.length}`
+UPrem = `${premium.length}`
+THit = `${reqcmd}`
+limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
+glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
+blan = `${getBalance(sender, balance)}`
+usrr = `${sender.split("@")[0]}`
+runn = process.uptime()
+njing = `${kyun(runn)}`
+Fg.sendMessage(from, help(prefix,pushname,usrr,tag,wa,THit,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
+"forwardingScore": 1000000000,
+isForwarded: false,
+sendEphemeral: false,
+"externalAdReply": {
+                "title": `Hallo ${pushname}\nS e n. (@021Fgu_) •Instagram Story's`,
+                "body": "",
+                "previewType": "PHOTO",
+                "thumbnailUrl": "https://telegra.ph/file/bbb5eca08130920edbcb4.jpg",
+                "thumbnail": gambar3,
+                "sourceUrl": `chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
+},mentionedJid:[mjid,sender,mjud]}, quoted : mek})
+}
+else if(menusimpel = true){
+reply(menus(prefix, pushname, hari))
+}
+break*/
+
+//CAN BE USED AFTER UPDATE LAST BAILEYS
+
+case 'menu': 
+case 'help':
+tag = owner.split('@')[0]
+mjid = owner
+waa = wa.split('@')[0]
+mjud = wa
+const premm = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
+let cekvipp = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
+const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.minutes} minute ${cekvipp.seconds} second`:'Not Premium'
+UReg = `${_user.length}`
+UPrem = `${premium.length}`
+THit = `${reqcmd}`
+limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
+glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
+blan = `${getBalance(sender, balance)}`
+usrr = `${sender.split("@")[0]}`
+runn = process.uptime()
+njing = `${kyun(runn)}`
+
+//mhan1 = await Fg.prepareMessage(from, gambar1, image, {thumbnail: gambar4})
+buffer = await Fg.prepareMessage(from,gambar1,image)
+mhan1 = await Fg.prepareMessageFromContent(from,{
+"imageMessage": {
+	"url": buffer.message.imageMessage.url,
+	"mimetype": buffer.message.imageMessage.mimetype,
+	"caption": buffer.message.imageMessage.caption,
+	"fileSha256": buffer.message.imageMessage.fileSha256.toString('base64'),
+	"fileLength": 99999999999,
+	"height": buffer.message.imageMessage.height,
+	"width": buffer.message.imageMessage.width,
+	"mediaKey": buffer.message.imageMessage.mediaKey.low,
+	"jpegThumbnail": buffer.message.imageMessage.jpegThumbnail
+}
+}, {quoted:mek,thumbnail : gambar4})
+
+gbutsan = [
+{buttonId: `${owner}`, buttonText: {displayText: 'OWNER'}, type: 1}
+]
+gbuttonan = {
+imageMessage: mhan1.message.imageMessage,
+contentText: `${help(prefix,pushname,usrr,tag,wa,THit,njing,premm,premi,limm,glimm,blan)}`,
+footerText: 'S E N K U  B O T 椮 岁 与',
+buttons: gbutsan,
+headerType: 4
+}
+await Fg.sendMessage(from, gbuttonan, MessageType.buttonsMessage, {contextInfo :{text: 'hi',
+"forwardingScore": 1000000000,
+isForwarded: true,
+sendEphemeral: false,
+"externalAdReply": {
+                "title": `I'm FG98👋`,
+                "body": "",
+                "previewType": "PHOTO",
+                "thumbnailUrl": "https://telegra.ph/file/bbb5eca08130920edbcb4.jpg",
+                "thumbnail": fakeg,
+                "sourceUrl": `https://chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
+},mentionedJid:[mjid,sender,mjud]},quoted:mek})
+break
+
+	
+
 case 'delvote':
 if(!mek.key.remoteJid) return
 if(isVote) return reply('Tidak ada sesi Voting')
@@ -978,102 +1081,8 @@ reply(`Error`)
 break
 
 
-/* CAN BE USED AFTER UPDATE LAST BAILEYS
-case 'menu': case 'help':
-tag = owner.split('@')[0]
-mjid = owner
-waa = wa.split('@')[0]
-mjud = wa
-const premm = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
-let cekvipp = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
-const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.minutes} minute ${cekvipp.seconds} second`:'Not Premium'
-UFree = `${pendaftar.length}`
-UReg = `${reg.length}`
-UPrem = `${premium.length}`
-THit = `${reqcmd}`
-limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
-glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
-blan = `${getBalance(sender, balance)}`
-usrr = `${sender.split("@")[0]}`
-runn = process.uptime()
-njing = `${kyun(runn)}`
-
-//mhan1 = await Fg.prepareMessage(from, gambar1, image, {thumbnail: gambar4})
-buffer = await Fg.prepareMessage(from,gambar1,image)
-mhan1 = await Fg.prepareMessageFromContent(from,{
-"imageMessage": {
-	"url": buffer.message.imageMessage.url,
-	"mimetype": buffer.message.imageMessage.mimetype,
-	"caption": buffer.message.imageMessage.caption,
-	"fileSha256": buffer.message.imageMessage.fileSha256.toString('base64'),
-	"fileLength": 99999999999,
-	"height": buffer.message.imageMessage.height,
-	"width": buffer.message.imageMessage.width,
-	"mediaKey": buffer.message.imageMessage.mediaKey.low,
-	"jpegThumbnail": buffer.message.imageMessage.jpegThumbnail
-}
-}, {quoted:mek,thumbnail : gambar4})
-
-gbutsan = [
-{buttonId: 'OWNER', buttonText: {displayText: 'OWNER'}, type: 1}
-]
-gbuttonan = {
-imageMessage: mhan1.message.imageMessage,
-contentText: `${help(prefix,fecha,tag,waa,UFree,UReg,UPrem,THit,wib,fecha,njing,pushname,usrr,premm,premi,limm,glimm,blan)}`,
-footerText: 'S E N K U  B O T 椮 岁 与',
-buttons: gbutsan,
-headerType: 4
-}
-await Fg.sendMessage(from, gbuttonan, MessageType.buttonsMessage, {contextInfo :{text: 'hi',
-"forwardingScore": 1000000000,
-isForwarded: true,
-sendEphemeral: false,
-"externalAdReply": {
-                "title": `I'm Fg-BOT👋`,
-                "body": "",
-                "previewType": "PHOTO",
-                "thumbnailUrl": "https://telegra.ph/file/bbb5eca08130920edbcb4.jpg",
-                "thumbnail": fakeg,
-                "sourceUrl": ``
-},mentionedJid:[mjid,sender,mjud]},quoted:mek})
-break*/
 
 
-case 'help': case 'menu':
-if(menusimpel == false){
-tag = owner.split('@')[0]
-mjid = owner
-waa = wa.split('@')[0]
-mjud = wa
-const premm = `${isOwner ? 'Owner' : isPremium ? 'Premium' : 'Free'}`
-let cekvipp = ms(_prem.getPremiumExpired(sender, premium) - Date.now())
-const premi = isPremium ? `${cekvipp.days} day ${cekvipp.hours} hour ${cekvipp.minutes} minute ${cekvipp.seconds} second`:'Not Premium'
-UReg = `${_user.length}`
-UPrem = `${premium.length}`
-THit = `${reqcmd}`
-limm = `${isPremium ? 'Unlimited' : `${getLimit(sender, limitCount, limit)}/${limitCount}`}`
-glimm = `${cekGLimit(sender, gcount, glimit)}/${gcount}`
-blan = `${getBalance(sender, balance)}`
-usrr = `${sender.split("@")[0]}`
-runn = process.uptime()
-njing = `${kyun(runn)}`
-Fg.sendMessage(from, help(prefix,pushname,usrr,tag,wa,THit,njing,premm,premi,limm,glimm,blan), text,{contextInfo :{text: 'hi',
-"forwardingScore": 1000000000,
-isForwarded: false,
-sendEphemeral: false,
-"externalAdReply": {
-                "title": `Hallo ${pushname}\nS e n. (@021Fgu_) •Instagram Story's`,
-                "body": "",
-                "previewType": "PHOTO",
-                "thumbnailUrl": "https://telegra.ph/file/bbb5eca08130920edbcb4.jpg",
-                "thumbnail": gambar3,
-                "sourceUrl": `chat.whatsapp.com/Ly4I2LObSvW8VgOnJjofgA`
-},mentionedJid:[mjid,sender,mjud]}, quoted : mek})
-}
-else if(menusimpel = true){
-reply(menus(prefix, pushname, hari))
-}
-break
 
 
 case 'test': 
