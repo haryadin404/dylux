@@ -10,7 +10,7 @@ const toMs = require('ms')
 const addPremiumUser = (userId, expired, _dir) => {
     const obj = { id: userId, expired: Date.now() + toMs(expired) }
     _dir.push(obj)
-    fs.writeFileSync('./database/premium.json', JSON.stringify(_dir))
+    fs.writeFileSync('./data/premium.json', JSON.stringify(_dir))
 }
 
 /**
@@ -78,9 +78,9 @@ const expiredCheck = (_dir) => {
             }
         })
         if (position !== null) {
-            console.log(`Premium expired: ${_dir[position].id}`)
+            console.log(`⌛ Premium vencida : ${_dir[position].id}`)
             _dir.splice(position, 1)
-            fs.writeFileSync('./database/premium.json', JSON.stringify(_dir))
+            fs.writeFileSync('./data/premium.json', JSON.stringify(_dir))
         }
     }, 1000)
 }
