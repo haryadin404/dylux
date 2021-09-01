@@ -462,7 +462,7 @@ fs.unlinkSync(filename)
 					exec(`ffmpeg -i ${filess} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${asw}`, (err) => {
 					exec(`webpmux -set exif ./src/sticker/data.exif ${asw} -o ${asw}`, async (error) => {
 					let media = fs.readFileSync(asw)
-					Fg.sendMessage(to, media, sticker)
+					Fg.sendMessage(to, media, sticker,{quoted:mek})
 					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('💎 Enviando sticker...'))
 					fs.unlinkSync(asw)
 					fs.unlinkSync(filess)
@@ -1307,7 +1307,7 @@ qes = args.join(' ')
 emoji.get(`${qes}`).then(emoji => {
 teks = `${emoji.images[4].url}`
 sendStickerFromUrl(from,`${teks}`)	
-console.log('✳️Terminado' )
+console.log('  ✅ emoji a sticker ' )
 })
 .catch((err) => {
             reply('❎ Por favor ingrese solo un emoji'); 
