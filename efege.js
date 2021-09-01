@@ -911,30 +911,7 @@ mentions(_vote,_p,true)
 try{
 	
 switch(tmplt){
-case '+62':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupan?apikey=ItsMeVean`)
-break
-case 'santuy':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupansantuy?apikey=ItsMeVean`)
-break
-case 'bocil':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanbocil?apikey=ItsMeVean`)
-break
-case 'ukhti':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanukhty?apikey=ItsMeVean`)
-break
-case 'rikagusriani':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanrikagusriani?apikey=ItsMeVean`)
-break
-case 'ghea':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanghea?apikey=ItsMeVean`)
-break
+
 
 case 'MP3':
 reply(wait())
@@ -1782,55 +1759,49 @@ po1 = Fg.prepareMessageFromContent(from, {
   }
   ]
 }}, {quoted : mek}) 
-Fg.relayWAMessage(po1, {waitForAck: true})
-limitAdd(sender, limit)
-break
-case 'asupan2':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if(!isGroup)return reply(group())
-let po2 = Fg.prepareMessageFromContent(from, {
-  "listMessage":{
-"title": "*Asupan Lista :v*",
-"description": `\nElija una de las tomas a continuación..`,
-"buttonText": "Click Aquí!",
-"listType": "SINGLE_SELECT",
-"sections": [
-  {
-  "title": "Asupan",
-      "rows" :[
-        {
-          "title": "+62",
-          "rowId": ""
-        },
-        { 
-          "title": "santuy",
-          "rowId": ""
-        },
-        {
-          "title": "bocil",
-          "rowId": ""
-        },
-        {
-          "title": "rikagusriani",
-          "rowId": ""
-        },
-        {
-          "title": "ghea",
-          "rowId": ""
-        }
-        ]
-  }
-  ]
-}}, {}) 
-Fg.relayWAMessage(po2)
+Fg.relayWAMessage(po1)
 limitAdd(sender, limit)
 break
 
+
+//--asupan
+case '+625':
+reply(wait())
+sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupan?apikey=ItsMeVean`)
+break
+case '+62':
+              if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
+                   
+            reply(wait())
+            ojan = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupan?apikey=ItsMeVean`)
+     		pideo = await getBuffer(ojan.result.url)
+        
+	    	Fg.sendMessage(from, pideo, video, {quoted: mek, caption: '✅Aquí tienes'})
+			await limitAdd(sender)
+            break
+            
+case 'santuy':
+reply(wait())
+sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupansantuy?apikey=ItsMeVean`)
+break
+case 'bocil':
+reply(wait())
+sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanbocil?apikey=ItsMeVean`)
+break
+case 'ukhti':
+reply(wait())
+sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanukhty?apikey=ItsMeVean`)
+break
 case 'rikagusriani':
 reply(wait())
 sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanrikagusriani?apikey=ItsMeVean`)
 break
-
+case 'ghea':
+reply(wait())
+sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanghea?apikey=ItsMeVean`)
+break
+//--
 case 'tod':
 reply(`Sebelum bermain berjanjilah akan melaksanakan apapun perintah yang diberikan.\n\nSilahkan Pilih:\n➥ ${prefix}truth\n➥ ${prefix}dare`)
 break
