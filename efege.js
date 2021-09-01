@@ -307,7 +307,7 @@ const budy = (type === 'conversation') ? mek.message.conversation : (type === 'e
 
 var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
 const messagesC = pes.slice(0).trim()
-tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
+const tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
 q2 = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.singleSelectReply.selectedRowId: ""
 q3 = Object.keys(mek.message)[0] == "buttonsResponseMessage" ? mek.message.buttonsResponseMessage.selectedButtonId : ""
 
@@ -1784,6 +1784,51 @@ po1 = Fg.prepareMessageFromContent(from, {
 }}, {quoted : mek}) 
 Fg.relayWAMessage(po1, {waitForAck: true})
 limitAdd(sender, limit)
+break
+case 'asupan2':
+if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+if(!isGroup)return reply(group())
+let po2 = Fg.prepareMessageFromContent(from, {
+  "listMessage":{
+"title": "*Asupan Lista :v*",
+"description": `\nElija una de las tomas a continuación..`,
+"buttonText": "Click Aquí!",
+"listType": "SINGLE_SELECT",
+"sections": [
+  {
+  "title": "Asupan",
+      "rows" :[
+        {
+          "title": "+62",
+          "rowId": ""
+        },
+        { 
+          "title": "santuy",
+          "rowId": ""
+        },
+        {
+          "title": "bocil",
+          "rowId": ""
+        },
+        {
+          "title": "rikagusriani",
+          "rowId": ""
+        },
+        {
+          "title": "ghea",
+          "rowId": ""
+        }
+        ]
+  }
+  ]
+}}, {}) 
+Fg.relayWAMessage(pp2)
+limitAdd(sender, limit)
+break
+
+case 'rikagusriani':
+reply(wait())
+sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanrikagusriani?apikey=ItsMeVean`)
 break
 
 case 'tod':
