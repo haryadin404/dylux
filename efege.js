@@ -112,7 +112,7 @@ fake = '@fg98_'
 //--anti delete 
 antidel = false
 antical = false
-aread = false
+aread = false  //leer automáticamente 
 ngetik = false
 vn = true
 
@@ -759,13 +759,17 @@ let public_ = 'Privado'
            if (public){
            public_ = 'Publico'
           }
-let Welcome_ = 'Off'
+let antidel_ = 'Inactivo'
+           if (antidel){
+           public_ = 'Activo'
+          }
+let Welcome_ = 'Inactivo'
 			if (isWelcom) {
-			Welcome_ = 'On'
+			Welcome_ = 'Activo'
 			}
-let AntiLink_ = 'Off'
+let AntiLink_ = 'Inactivo'
 			if (isAntilink) {
-			AntiLink_ = 'On'
+			AntiLink_ = 'Activo'
 			}
 			
 //--- Total comandos usados
@@ -1135,107 +1139,92 @@ break
  
 case 'status':
 case 'estado':
-const s1 = public ? 'Public': 'Self'
-const s3 = antidel ? 'Aktif' : 'NonAktif'
-const s4 = aread ? 'Aktif' : 'NonAktif'
-stat = `*「 𝙎𝙏𝘼𝙏𝙐𝙎 𝘽𝙊𝙏 」*
-*Mode : ${s1}*
-*Premium* : ${prem_}
-*Modo* : ${public_}
-*Antidelete : ${s3}*
-*Auto Read : ${s4}*`
+if (!isVerify) return reply(userB(prefix))
+stat = `*「 ESTADO DEL BOT 」*
+*🛡️ Modo* : ${public_}
+*🚫 Antidelete* : ${antidel_}`
 reply(stat)
 break
 		
 			           
-case 'ping':
-var groups = Fg.chats.array.filter(v => v.jid.endsWith('g.us'))
-var private = Fg.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
-const chatsIds = await Fg.chats.all()
+case 'speed':
+case 'ping': 
+if (!isVerify) return reply(userB(prefix))
 const timestamp = speed();
-const latensi = speed() - timestamp 
-p0 =` Loaded Message
-                
-- [ ${totalchat.length} ]  Total Chat
-- [ ${groups.length} ] Group Chat
-- [ ${private.length} ] Private Chat
-- [ ${Fg.user.phone.device_manufacturer} ] HANDPHONE
-- [ ${Fg.user.phone.wa_version} ] WA Version
-- [ Baileys ] Libary
-
-Speed : ${latensi.toFixed(4)} Second`
-reply(monospace(p0))
+const latensi = speed() - timestamp
+uptime = process.uptime()
+reply(`🟢 *Velocidad* : ${latensi.toFixed(4)} _Segundos_`)
 break
 
-//******************** 》CONVERT《 ********************\\
+//𝗦𝗧𝗜𝗖𝗞𝗘𝗥 𝗠𝗔𝗞𝗘𝗥 
 									
-case 'gifstiker': 
-case 's':
-case 'stickergif': 
+case 'stiker': 
+case 's': 
+case 'stikergif':
 case 'sticker': 
-case 'stiker':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+case 'stickergif': 
+case 'sgif':
+  if (!isVerify) return reply(userB(prefix))
 if (isMedia && !mek.message.videoMessage || isQuotedImage) {
-let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-let media = await Fg.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
-await ffmpeg(`${media}`)
-.input(media)
-.on('start', function (cmd) {
-console.log(`Started : ${cmd}`)
-})
-.on('error', function (err) {
-console.log(`Error : ${err}`)
-fs.unlinkSync(media)
-reply(mess.error)
-})
-.on('end', function () {
-console.log('Sucsess convert to sticker...')
-exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-if (error) return reply(mess.error)
-Fg.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
-fs.unlinkSync(media)	
-fs.unlinkSync(`./sticker/${sender}.webp`)	
-})
-})
-.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-.toFormat('webp')
-.save(`./sticker/${sender}.webp`)
-	} else if ((isMedia && mek.message.videoMessage.fileLength < 10000000 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
-let encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : sen
-let media = await Fg.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
-reply(wait())
-await ffmpeg(`${media}`)
-.inputFormat(media.split('.')[4])
-.on('start', function (cmd) {
-console.log(`Started : ${cmd}`)
-})
-.on('error', function (err) {
-console.log(`Error : ${err}`)
-fs.unlinkSync(media)
-let tipe = media.endsWith('.mp4') ? 'video' : 'gif'
-reply(mess.error)
-})
-.on('end', function () {
-console.log('Sucsess convert to sticker...')
-exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-if (error) return reply(mess.error)
-Fg.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
-fs.unlinkSync(media)
-fs.unlinkSync(`./sticker/${sender}.webp`)
-})
-})
-.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-.toFormat('webp')
-.save(`./sticker/${sender}.webp`)
-} else if ((args[0])) {
-sendStickerUrl(from,`${args[0]}`)	
-} else  {
-reply(`*Format Error!*\n\n*Example :*\n• *_Kirim gambar dengan Caption ${prefix}sticker_*\n• *_Kirim Video dengan Caption ${prefix}stickergif (Max 10detik)_*\n\n*NOTE :*\n*_Bisa digunakan dengan Reply gambar/video_*`)
-}
-limitAdd(sender, limit)
-break
+                    let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+                    let media = await Fg.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
+                    await ffmpeg(`${media}`)
+							.input(media)
+							.on('start', function (cmd) {
+								console.log(`✅ Empezada : ${cmd}`)
+							})
+							.on('error', function (err) {
+								console.log(`❎ Error : ${err}`)
+								fs.unlinkSync(media)
+								reply(mess.error.api)
+							})
+							.on('end', function () {
+								console.log('✅ Listo')
+								exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
+                                    if (error) return reply(mess.error.api)
+									Fg.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted: mek})
+									
+                                    fs.unlinkSync(media)	
+									fs.unlinkSync(`./sticker/${sender}.webp`)	
+								})
+							})
+							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+							.toFormat('webp')
+							.save(`./sticker/${sender}.webp`)
+                } else if ((isMedia && dev.message.videoMessage.fileLength < 10000000 || isQuotedVideo && dev.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
+                    let encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+                    let media = await Fg.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
+					reply(wait()) 
+                        await ffmpeg(`${media}`)
+							.inputFormat(media.split('.')[4])
+							.on('start', function (cmd) {
+								console.log(`Started : ${cmd}`)
+							})
+							.on('error', function (err) {
+								console.log(`❎ Error : ${err}`)
+								fs.unlinkSync(media)
+								let tipe = media.endsWith('.mp4') ? 'video' : 'gif'
+								reply(mess.error.api)
+							})
+							.on('end', function () {
+								console.log('✅ Listo')
+								exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
+									if (error) return reply(mess.error.api)
+									Fg.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), sticker, {quoted:mek})
+									
+                                    fs.unlinkSync(media)
+									fs.unlinkSync(`./sticker/${sender}.webp`)
+								})
+							})
+							.addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
+							.toFormat('webp')
+							.save(`./sticker/${sender}.webp`)
+                } else {
+                    reply(`Kirim gambar/video dengan caption ${prefix}sticker atau tag gambar/video yang sudah dikirim\nNote : Durasi video maximal 10 detik`)
+                }
 
-case 'stickwm': case 'swm':
+case 'stickwm': 
+case 'swm':
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if (isMedia && !mek.message.videoMessage || isQuotedImage) {
 let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : sen
