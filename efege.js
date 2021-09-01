@@ -128,8 +128,8 @@ const lolkey = '51762aa98877b6dc21112b1a'
 
 //-----fakethumb-----
 gambar1 = fs.readFileSync('./image/emror.jpg')
-gambar2 = fs.readFileSync('./image/senku.jpeg')
-gambar3 = fs.readFileSync('./image/senku.jpg')
+gambar2 = fs.readFileSync('./image/Fg.jpeg')
+gambar3 = fs.readFileSync('./image/Fg.jpg')
 gambar4 = fs.readFileSync('./image/senku2.jpeg')
 fakeg = fs.readFileSync('./image/fake.jpg')
 
@@ -1353,6 +1353,27 @@ console.log('  ✅ emoji a sticker ' )
             })
 limitAdd(sender, limit)
 break
+
+case 'exif':
+if (!isOwner)return reply(ownerB())
+if (args.length < 1) return reply(`✳️ Uso del comamdo \n\n📌 ${prefix + command} nombre|autor`)
+if (!arg.split('|')) return reply(`✳️ Uso del comamdo \n\n📌 ${prefix + command} nombre|autor`)
+exif.create(arg.split('|')[0], arg.split('|')[1])
+reply(`✅ Nombre y autor guardado\n\n📌Use el comando ${prefix}stickfg`)
+break
+	        
+case 'stickfg':
+if (!isQuotedSticker) return reply(`Reply sticker dengan caption *${prefix}colong*`)
+const encmediia = JSON.parse(JSON.stringify(sen).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+const meidia = await Fg.downloadAndSaveMediaMessage(encmediia, `./sticker/${sender}`)
+exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
+if (error) return reply('error')
+Fg.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), MessageType.sticker, {quoted: mek})
+fs.unlinkSync(media)
+fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
+})
+break
+
 //-----
 
    case  'trigger': 
@@ -1636,12 +1657,15 @@ case 'tovid':
 case 'tomp4':
 case 'amp4': 
 case 'tovideo':
+if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if ((isMedia && !mek.message.videoMessage || isQuotedSticker) && args.length == 0) {
+	reply(wait())
             ger = isQuotedSticker ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
             owgi = await Fg.downloadAndSaveMediaMessage(ger)
             webp2mp4File(owgi).then(res=>{
-            	reply(wait())
+            	
             sendMediaURL(from,res.result,'✅ Aquí tienes')
             })
             }else {
@@ -1653,6 +1677,9 @@ limitAdd(sender, limit)
 break
 						 
 case 'togif':
+case 'agif':
+if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if (!isQuotedSticker) return reply('Reply stiker nya')
 if (mek.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.isAnimated == true)
@@ -1662,10 +1689,19 @@ memek = await webp2gifFile(media)
 reply(wait())
 console.log(memek)
 anu = await getBuffer(memek.result)
-Fg.sendMessage(from, anu, video, {mimetype: 'video/gif', caption: 'Nih..', quoted: mek})
+Fg.sendMessage(from, anu, video, {mimetype: 'video/gif', caption: '✅ Aquí tienes', quoted: mek})
 limitAdd(sender, limit)
 break
 						
+						case 'attp2':  
+                  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())     
+                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
+                    reply(wait())
+                
+                    anu1 = await getBuffer(`https://pecundang.herokuapp.com/api/texttopng?teks=${value}`)
+                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
+                    break
 case 'ttp':            
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if (!value)return reply(`Example : ${prefix + command} Fg`)
@@ -3289,7 +3325,7 @@ break
 
 //******************** 》Limit《 ********************\\
 
-case 'balance': case 'topbalance':
+case 'topbalance':
 if(!isGroup)return reply(group())
 Fg.updatePresence(from, Presence.composing)
 let txot = `*── 「 TOP BALANCE 」 ──*\n\n`
