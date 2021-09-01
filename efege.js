@@ -1182,7 +1182,7 @@ Fg.sendMessage(from, st, sticker, {quoted: mek})
 const encmedia2 = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.
 contextInfo : mek
 const media2 = await Fg.downloadAndSaveMediaMessage(encmedia2, `./sticker/${sender}`)
-const packname101 = `🔮DyLux Bot\n\n\n💎 FG98`  //animados
+const packname101 = `DyLux Bot\n\n\nFG98`  //animados
 const author101 = args.join(' ')
 exif.create(packname101, author101, `stickwm_${sender}`)
 reply(wait())
