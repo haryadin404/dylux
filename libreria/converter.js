@@ -3,7 +3,7 @@ const path = require('path')
 const { spawn } = require('child_process')
 
 /**
- * Convert Audio to Playable WhatsApp Audio
+ * Convertir audio en audio reproducible de WhatsApp
  * @param {Buffer} buffer Audio Buffer
  * @param {String} ext File Extension 
  */
@@ -33,7 +33,7 @@ function toAudio(buffer, ext) {
 }
 
 /**
- * Convert Audio to Playable WhatsApp PTT
+ * Convertir audio a PTT de WhatsApp reproducible
  * @param {Buffer} buffer Audio Buffer
  * @param {String} ext File Extension 
  */
@@ -63,7 +63,7 @@ function toPTT(buffer, ext) {
 }
 
 /**
- * Convert Audio to Playable WhatsApp Video
+ * Convertir audio a video reproducible de WhatsApp
  * @param {Buffer} buffer Video Buffer
  * @param {String} ext File Extension 
  */
