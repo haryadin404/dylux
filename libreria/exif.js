@@ -1,9 +1,7 @@
 /** 
- * Originally created by cwke
- * Reuploaded by Waxaranai
- * Recoded by SlavyanDesu
+ * Original  creado por FG98 
  *
- * GitHub is an open-source community, so why are you so triggered when someone shared some simple code?
+ * GitHub es una comunidad de código abierto, entonces, ¿por qué te molesta tanto cuando alguien comparte un código simple?
  */
 
 const fs = require('fs')
