@@ -1692,89 +1692,57 @@ anu = await getBuffer(memek.result)
 Fg.sendMessage(from, anu, video, {mimetype: 'video/gif', caption: '✅ Aquí tienes', quoted: mek})
 limitAdd(sender, limit)
 break
+						//---
+						case 'ttp':  
+                  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())     
+                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix}ttp* DyLux`)
+                    reply(wait())
+                    F = body.slice(5)
+                    anu1 = await getBuffer(`https://lolhuman.herokuapp.com/api/ttp3?apikey=${lolkey}&text=${F}`)
+                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
+                    break
+
+	case 'attp':
+	              if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+					if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
+					  reply(wait())
+					reply(pagado())
+					var teks = encodeURIComponent(args.join(' '))
+					const attp = await getBuffer(`https://api.xteam.xyz/attp?file&text=${teks}`)
+					Fg.sendMessage(from, attp, sticker, {quoted: mek})
+					  limitAdd(sender, limit)
+break
+					
+					case 'attp2':  
+                  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())     
+                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
+                    reply(wait())
+                    F = body.slice(7)
+                    anu1 = await getBuffer(`https://lolhuman.herokuapp.com/api/attp?apikey=${lolkey}&text=${F}`)
+                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
+                    break
 						
-						case 'p1':  
-                  if (!isVerify) return reply(userB(prefix))
-  if (isBanned) return reply(banf())     
-                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
-                    reply(wait())
-                
-                    anu1 = await getBuffer(`https://pecundang.herokuapp.com/api/texttopng?teks=${value}`)
-                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
-                    break
-                    case 'p2':  
-                  if (!isVerify) return reply(userB(prefix))
-  if (isBanned) return reply(banf())     
-                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
-                    reply(wait())
-                
-                    anu1 = await getBuffer(`https://pecundang.herokuapp.com/api/ttpcolor?teks=${value}&color=black`)
-                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
-                    break
-                    case 'p3':  
-                  if (!isVerify) return reply(userB(prefix))
-  if (isBanned) return reply(banf())     
-                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
-                    reply(wait())
-                
-                    anu1 = await getBuffer(`https://pecundang.herokuapp.com/api/attp?teks=${value}`)
-                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
-                    break
-case 'ttp':            
+case 'toimage': 
+case 'toimg':
+case 'aimg':
+case 'aimagen':
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!value)return reply(`Example : ${prefix + command} Fg`)
-buffer = `https://pecundang.herokuapp.com/api/texttopng?teks=${value}`
-reply(wait())
-sendStickerUrl(from, buffer)
-limitAdd(sender, limit)
-break
-	
-case 'ttp2':                     
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!value)return reply(`Example : ${prefix + command} Fg`)
-buffer = `https://pecundang.herokuapp.com/api/ttpcolor?teks=${value}&color=black`
-reply(wait())
-sendStickerUrl(from, buffer)
-limitAdd(sender, limit)
-break
-	
-case 'ttp3':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!value)return reply(`Example : ${prefix + command} Fg`)
-buffer = `https://pecundang.herokuapp.com/api/attp?teks=${value}`
-reply(wait())
-sendStickerUrl(from, buffer)
-limitAdd(sender, limit)
-break
-						
-case 'toimage': case 'toimg':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isQuotedSticker) return reply('❎ reply stickernya um ❎')
-reply(wait())
-encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-media = await Fg.downloadAndSaveMediaMessage(encmedia)
-ran = getRandom('.png')
-exec(`ffmpeg -i ${media} ${ran}`, async(err) => {
-fs.unlinkSync(media)
-if (err) return reply('❎ Gagal, pada saat mengkonversi sticker ke gambar ❎')
-bup = fs.readFileSync(ran)
-buffer = await Fg.prepareMessage(from,bup,image)
-coba = await Fg.prepareMessageFromContent(from,{
-"imageMessage": {
-	"url": buffer.message.imageMessage.url,
-	"mimetype": buffer.message.imageMessage.mimetype,
-	"caption": 'Nih Bang...',
-	"fileSha256": buffer.message.imageMessage.fileSha256.toString('base64'),
-	"fileLength": 99999999999,
-	"height": buffer.message.imageMessage.height,
-	"width": buffer.message.imageMessage.width,
-	"mediaKey": buffer.message.imageMessage.mediaKey.low,
-	"jpegThumbnail": buffer.message.imageMessage.jpegThumbnail
-}
-}, {quoted:mek,caption : 'Nih bang..'})
-Fg.relayWAMessage(coba)
-fs.unlinkSync(ran)
-})
+if (!isQuotedSticker) return reply(`STICKER a IMAGEN\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n✳️ Responde a un sticker con el comando\n\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n*ALIAS DEL COMAMDO*\n\n${prefix}toimg\n${prefix}aimg`)
+					reply(wait())
+					encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
+					media = await Fg.downloadAndSaveMediaMessage(encmedia)
+					ran= getRandom('.png')
+					exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+						fs.unlinkSync(media)
+						if (err) return reply(' ❎ Error al convertir Sticker a imagen ')
+						buffer = fs.readFileSync(ran)
+						Fg.sendMessage(from, buffer, image, {quoted: mek, caption: '✅ Aqui tienes'})
+						fs.unlinkSync(ran)
+					})
 limitAdd(sender, limit)
 break
 
