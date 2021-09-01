@@ -4,7 +4,7 @@ const {
 } = require("@adiwajshing/baileys");
 const toMs = require('ms');
 
-// TEBAK GAMBAR
+// ADIVINA LA IMAGEN
 const addgambar = (chatId, jawaban, expired, _db) => {
     let obi = { id: chatId, jawaban: jawaban, expired: Date.now() + toMs(`${expired}s`) }
     _db.push(obi)
