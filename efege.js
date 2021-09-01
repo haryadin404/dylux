@@ -473,7 +473,7 @@ fs.unlinkSync(filename)
 					});
 				});
 			}
-//-------
+//------- 
 const sendStickerUrl = async(to, url) => {
 console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker..'))
 var names = getRandom('.webp')
@@ -490,7 +490,7 @@ require('./libreria/exif.js')
 exec(`ffmpeg -i ${filess} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${asw}`, (err) => {
 exec(`webpmux -set exif ./sticker/data.exif ${asw} -o ${asw}`, async (error) => {
 let media = fs.readFileSync(asw)
-senku.sendMessage(from, media, sticker, {quoted: mek})
+Fg.sendMessage(from, media, sticker, {quoted: mek})
 console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('💎 Enviando sticker..'))  
 });
 });
