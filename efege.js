@@ -1822,7 +1822,7 @@ let po2 = Fg.prepareMessageFromContent(from, {
   }
   ]
 }}, {}) 
-Fg.relayWAMessage(pp2)
+Fg.relayWAMessage(po2)
 limitAdd(sender, limit)
 break
 
