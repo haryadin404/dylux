@@ -762,7 +762,7 @@ let public_ = 'Privado'
           }
 let antidel_ = 'Inactivo'
            if (antidel){
-           public_ = 'Activo'
+           antidel_ = 'Activo'
           }
 let Welcome_ = 'Inactivo'
 			if (isWelcom) {
@@ -1294,52 +1294,24 @@ reply(`  *STICKER MAKER*\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n\
 limitAdd(sender, limit)
 break
 
-case 'sticknobg': 
-case 'snobg': 
-case 'stickernobg':
-if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
-const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : sen
-filePath = await Fg.downloadAndSaveMediaMessage(encmedia)
-file_name = getRandom('.png')
-file_name = getRandom('.webp')
-request({
-url: `https://api.lolhuman.xyz/api/removebg?apikey=${lolkey}`,
-method: 'POST',
-formData: {
-"img": fs.createReadStream(filePath)
-},
-encoding: "binary"
-}, function(error, response, body) {
-fs.unlinkSync(filePath)
-fs.writeFileSync(file_name, body, "binary")
-ffmpeg(`./${file_name}`)
-.input(file_name)
-.on('error', function(err) {
-console.log(err)
-fs.unlinkSync(file_name)
-})
-.on('end', function() {
-Fg.sendMessage(from, fs.readFileSync(file_name), sticker, { quoted: mek})
-fs.unlinkSync(file_name)
-})
-.addOutputOptions([`-vcodec`, `libwebp`, `-vf`, `scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`])
-.toFormat('webp')
-.save(file_name)
-});
-  } else {
-reply(`*Format Error!*\n\n*Example :*\n• *_Kirim gambar dengan Caption ${prefix + command}_*\n\n*NOTE :*\n*_Bisa digunakan dengan Reply gambar_*`)
-}
-break
                     
 case 'emoji':
+                   case 'semoji':
+                   case 'smoji':
+                   case 'jumbo':
+if (!isVerify) return reply(userB(prefix))
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!value) return reply(`Example : ${prefix + command} 😗`)
+if (args.length < 1) return reply(`*EMOJI A STICKER*\n──────────────\n✳️ Ingrese el emoji\n\n📌 Ejemplo : *${prefix + command}* 😜\n\n\nAlias del comando\n${prefix}emoji\n${prefix}semoji\n${prefix}jumbo\n${prefix}smoji`)
+reply(wait()) 
 qes = args.join(' ')
 emoji.get(`${qes}`).then(emoji => {
 teks = `${emoji.images[4].url}`
 sendStickerFromUrl(from,`${teks}`)	
-console.log(teks)
+console.log('✳️Terminado' )
 })
+.catch((err) => {
+            reply('❎ Por favor ingrese solo un emoji'); 
+            })
 limitAdd(sender, limit)
 break
 
