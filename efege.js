@@ -1723,7 +1723,6 @@ limitAdd(sender, limit)
 break
 
 case 'asupan':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if(!isGroup)return reply(group())
 po1 = Fg.prepareMessageFromContent(from, {
   "listMessage":{
@@ -1736,23 +1735,11 @@ po1 = Fg.prepareMessageFromContent(from, {
   "title": "Asupan",
       "rows" :[
         {
-          "title": "+62",
+          "title": "indonesia",
           "rowId": ""
         },
         { 
-          "title": "santuy",
-          "rowId": ""
-        },
-        {
-          "title": "bocil",
-          "rowId": ""
-        },
-        {
-          "title": "rikagusriani",
-          "rowId": ""
-        },
-        {
-          "title": "ghea",
+          "title": "indonesia2",
           "rowId": ""
         }
         ]
@@ -1760,47 +1747,32 @@ po1 = Fg.prepareMessageFromContent(from, {
   ]
 }}, {quoted : mek}) 
 Fg.relayWAMessage(po1)
-limitAdd(sender, limit)
 break
 
 
 //--asupan
-case '+625':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupan?apikey=ItsMeVean`)
-break
-case '+62':
+case 'indonesia':
               if (!isVerify) return reply(userB(prefix))
                    if (isBanned) return reply(banf())
-                   
+              if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
             reply(wait())
-            ojan = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupan?apikey=ItsMeVean`)
-     		
-        
-	    	Fg.sendMessage(from, ojan, video, {quoted: mek, caption: '✅Aquí tienes'})
-			await limitAdd(sender)
+            ojan = await fetchJson(`https://janbotz-api.herokuapp.com/api/asupan/santuy?apikey=ojan`)
+     		pideo = await getBuffer(ojan.result.url)
+	    	Fg.sendMessage(from, pideo, video, {quoted: mek, caption: '✅Aquí tienes'})
+			limitAdd(sender, limit)
             break
-            
-case 'santuy':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupansantuy?apikey=ItsMeVean`)
-break
-case 'bocil':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanbocil?apikey=ItsMeVean`)
-break
-case 'ukhti':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanukhty?apikey=ItsMeVean`)
-break
-case 'rikagusriani':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanrikagusriani?apikey=ItsMeVean`)
-break
-case 'ghea':
-reply(wait())
-sendMediaURL(from,`https://dapuhy-api.herokuapp.com/api/asupan/asupanghea?apikey=ItsMeVean`)
-break
+          
+          case 'indonesia2':
+			   if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
+                    if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+            reply(wait())
+                    get_result = await fetchJson(`http://api.lolhuman.xyz/api/asupan?apikey=${lolkey}`)
+                    buffer = await getBuffer(get_result.result)
+                    
+                   Fg.sendMessage(from, buffer, video, { quoted: mek})
+                   limitAdd(sender, limit)
+                    break
 //--
 case 'tod':
 reply(`Sebelum bermain berjanjilah akan melaksanakan apapun perintah yang diberikan.\n\nSilahkan Pilih:\n➥ ${prefix}truth\n➥ ${prefix}dare`)
