@@ -2,13 +2,13 @@ const { fetchJson, fetchBase64 } = require('../utils/fetcher')
 const fs = require('fs-extra')
 
 /**
- * Get meme from random subreddit
+ * Obtener meme de subreddit aleatorio
  *
  * @param  {String} _subreddit
  * @return  {Promise} Return meme from dankmemes, wholesomeanimemes, wholesomememes, AdviceAnimals, MemeEconomy, memes, terriblefacebookmemes, teenagers, historymemes
  */
 const random = async (_subreddit) => new Promise((resolve, reject) => {
-    const subreddits = ['dankmemes', 'wholesomeanimemes', 'wholesomememes', 'AdviceAnimals', 'MemeEconomy', 'memes', 'terriblefacebookmemes', 'teenagers', 'historymemes', 'okbuddyretard', 'nukedmemes']
+    const subreddits = ['memesHumedos', 'memesSanos', 'memesSaludables', 'AnimalesAsesoramiento', 'MemeEconomy', 'memes', 'memesRandom', 'adolescentes', 'historiamemes', 'okbuddyretard', 'nukedmemes']
     const randSub = subreddits[Math.random() * subreddits.length | 0]
     console.log('looking for memes on ' + randSub)
     fetchJson('https://meme-api.herokuapp.com/gimme/' + randSub)
@@ -20,7 +20,7 @@ const random = async (_subreddit) => new Promise((resolve, reject) => {
 })
 
 /**
- * create custom meme
+ * crear memes personalizados
  * @param  {String} imageUrl
  * @param  {String} topText
  * @param  {String} bottomText
