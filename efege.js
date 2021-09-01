@@ -89,7 +89,7 @@ const hit = JSON.parse(fs.readFileSync('./data/totalhit.json'))
 
 //-- Help
 const { help } = require('./help/menu')
-const { wait, stick, errorfg, group, banf, ownerB, premi, userB, admin, Badmin, leveloff, lvlnul, pagado, fdiama, fgnsfw} = require('./help/respon');
+const { wait, stick, errorfg, group, banf, ownerB, modsB, premi, userB, admin, Badmin, leveloff, lvlnul, fdiama, fgnsfw} = require('./help/respon');
 //---Ajustes 
 menusimpel = false //se elimina menu 
 let multi = true
@@ -283,7 +283,8 @@ const mention = typeof(mentionByTag) == 'string' ? [mentionByTag] : mentionByTag
 const mentionUser = mention != undefined ? mention.filter(n => n) : []
 const cmd = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
 const time = moment.tz('America/La_Paz').format('DD/MM HH:mm:ss')
-const hora2 = moment.tz('America/La_Paz').format('HH:mm')
+const hora = moment.tz('America/La_Paz').format('HH:mm')
+const hora2 = moment.tz('America/La_Paz').format('HH:mm:ss')
 
 
 //---Multi Prefix 
@@ -325,7 +326,7 @@ mess = {
 
 const totalchat = await Fg.chats.all()
 const botNumber = Fg.user.jid
-const botN = botNumber.replace('@s.whatsapp.net', '') //jadibot
+const botNumero = botNumber.replace('@s.whatsapp.net', '') //sólo número del bot
 const isGroup = from.endsWith('@g.us')
 const sender = mek.key.fromMe ? Fg.user.jid : isGroup ? mek.participant : mek.key.remoteJid
 const senderNumber = sender.split("@")[0]
@@ -340,8 +341,8 @@ const groupAdmins = isGroup ? getGroupAdmins(groupMembers) : ''
 const isBotGroupAdmins = groupAdmins.includes(botNumber) || false
 
 //const itsMe = mek.key.fromMe ? true : false
-const isOwner = senderNumber == owner || senderNumber == botN 
- const isMods = mods.includes(senderNumber)
+const isOwner = senderNumber == owner || senderNumber == botNumero
+const isMods = mods.includes(senderNumber)
  
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
@@ -754,6 +755,10 @@ let prem_ = '❎'
 			if (isOwner) {
 			prem_ = 'VIP'
 			}
+let public_ = 'Privado'
+           if (public){
+           public_ = 'Publico'
+          }
 let Welcome_ = 'Off'
 			if (isWelcom) {
 			Welcome_ = 'On'
@@ -997,7 +1002,7 @@ case 'daftar':
 			capt = `╭──「 *VERIFICADO* 」
 ├ *Nombre:* _${pushname}_
 ├ *Num:* _wa.me/${sender.split("@")[0]}_
-├ *Hora:* _${time}_
+├ *Hora:* _${hora2}_
 ├ *Usuarios Verificados:* _${_user.length}_
 ╰─────「 *${Fg.user.name}* 」
 \nVerificación completa usa *${prefix}Help* para ver el Menu`
@@ -1069,21 +1074,21 @@ case 'tutorial':
  if (!isVerify) return reply(userB(prefix))
 if(args[0] == 'convert'){
 conv = `${convrt(prefix , pushname)}`
-reply(monospace(conv))
+reply(conv)
 }else if(args[0] == 'download'){
 don = `${donld(prefix , pushname)}`
-reply(monospace(don))
+reply(don)
 }else if(args[0] == 'game'){
 gm = `${gem(prefix , pushname)}`
-reply(monospace(gm))
+reply(gm)
 }else if(args[0] == 'session'){
 sss = `${sess(prefix , pushname)}`
-reply(monospace(sss))
+reply(sss)
 }else if(args[0] == 'group'){
 gp = `${gc(prefix , pushname)}`
-reply(monospace(gp))
+reply(gp)
 }else{
-reply(`Wrong Format!!\n\nExample ${prefix + command} convert\n\nList Opinion\n  • convert\n  • download\n  • session\n  • game\n  • group`)
+reply(`✳️ Formato erróneo!!\n\nExample ${prefix + command} group\n\n Opciones\n  • convert\n  • download\n  • session\n  • game\n  • group`)
 }
 break
 
@@ -1130,14 +1135,13 @@ break
  
 case 'status':
 case 'estado':
-if (!isMods) return reply(`solo moderadores del bot`)
 const s1 = public ? 'Public': 'Self'
 const s3 = antidel ? 'Aktif' : 'NonAktif'
 const s4 = aread ? 'Aktif' : 'NonAktif'
 stat = `*「 𝙎𝙏𝘼𝙏𝙐𝙎 𝘽𝙊𝙏 」*
-prueba : ${botN}
 *Mode : ${s1}*
 *Premium* : ${prem_}
+*Modo* : ${public_}
 *Antidelete : ${s3}*
 *Auto Read : ${s4}*`
 reply(stat)
