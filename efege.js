@@ -47,6 +47,7 @@ const loli = new lolis()
 const crypto = require('crypto');
 const {convertSticker} = require("./libreria/swm.js") 
 const Exif = require('./libreria/exif');
+const { webp2mp4File} = require('./libreria/webp2mp4')
 const exif = new Exif();
 
 //---- Funcion
@@ -1547,42 +1548,34 @@ fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
 })
 break
 				
-case 'exif':
-if (!isOwner)return mentions(`*❎ Esta orden es especial para @${owner} !*`, [`${owner}@s.whatsapp.net`], true)
-if (args.length < 1) return reply(`✳️ Uso del comamdo ${prefix +command} nombre|autor`)
-if (!arg.split('|')) return reply(`📌Ejemplo ${prefix + command}nombre|autor`)
-exif.create(arg.split('|')[0], arg.split('|')[1])
-reply('✅ Listo')
-break
-	        
-case 'colong':
-if (!isQuotedSticker) return reply(`Reply sticker dengan caption *${prefix}colong*`)
-const encmediia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-const meidia = await Fg.downloadAndSaveMediaMessage(encmediia, `./sticker/${sender}`)
-exec(`webpmux -set exif ./sticker/data.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
-if (error) return reply('error')
-Fg.sendMessage(from, fs.readFileSync(`./sticker/${sender}.webp`), MessageType.sticker, {quoted: mek})
-fs.unlinkSync(media)
-fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
-})
-break
 
-case 'url2img':
+case 'urltoimg':
+case 'urlaimg':
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!value)return reply('Url nya mana?')
+if (!value)return reply('✳️ Ingrese un link de una imagen junto al comando')
 reply(wait())
 sendMediaURL(from,`${value}`)
 limitAdd(sender, limit)
 break
 
-case 'img2url':
+case 'tourl':
+case 'aurl':
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 var encmedia  = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 var media = await  Fg.downloadAndSaveMediaMessage(encmedia)
 var imgbb = require('imgbb-uploader')
 imgbb('e4bb5222011a8521cc60ce61a2aa1f98', media)
 .then(data => {
-var caps = `❒ 「 *IMGBB TO URL* 」\n\n➸ *ID :* ${data.id}\n➸  *MimeType :* ${data.image.mime}\n➸ *Extension :* ${data.image.extension}\n➸ *URL :* ${data.display_url}`
+var caps = `❒ 「 *IMAGEN A URL* 」
+
+➸ *ID :* ${data.id}
+➸  *Tipo :* ${data.image.mime}
+➸ *Extension :* ${data.image.extension}
+➸ *URL :* ${data.display_url}`
 			ibb = fs.readFileSync(media)
 Fg.sendMessage(from, ibb, image, { quoted: mek, caption: caps })
 })
@@ -1591,9 +1584,26 @@ throw err
 })
 limitAdd(sender, limit)
 break
+case 'tourl2':
+case 'aurl2':
+if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
+            if ((isMedia && !mek.message.videoMessage || isQuotedImage || isQuotedVideo ) && args.length == 0) {
+            boij = isQuotedImage || isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+            owgi = await Fg.downloadMediaMessage(boij)
+            fgurl = await upload(owgi)
+            reply(fgurl)
+            } else {
+            reply('✳️Responde a un video o imagen')
+            }
+            break	
 
-case 'tovn': case 'getvn':
-if (!isQuotedAudio && !isQuotedVideo) return reply('Tag audio/vn/video nya!')
+case 'tovn': 
+case 'toav':
+case 'toaudio':
+if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
+if (!isQuotedAudio && !isQuotedVideo) return reply(`✳️ Responde a un audio o vídeo`)
 encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 media = await Fg.downloadAndSaveMediaMessage(encmedia)
 hah = fs.readFileSync(media)
@@ -1601,10 +1611,13 @@ Fg.sendMessage(from, hah, audio, {mimetype: 'audio/mp4', ptt: true,quoted : mek}
 fs.unlinkSync(media)
 break
 
-case 'tomp3': case 'getmp3':
+case 'tomp3': 
+case 'amp3':
+if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 Fg.updatePresence(from, Presence.composing)
-if (!isQuotedVideo && !isQuotedAudio) return reply(`Format salah!!\nExample : Reply video dengan caption ${prefix + command}`)
+if (!isQuotedVideo && !isQuotedAudio) return reply(`MP4 a MP3\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n\n🎥 Envia un video con el comando *${prefix + command}* o etiqueta un video  que se haya enviado`)
 reply(wait())
 encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
 media = await Fg.downloadAndSaveMediaMessage(encmedia)
@@ -1619,16 +1632,23 @@ fs.unlinkSync(ran)
 limitAdd(sender, limit)
 break
 									
-case 'tovid': case 'tovideo':
+case 'tovid':
+case 'tomp4':
+case 'amp4': 
+case 'tovideo':
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isQuotedSticker) return reply('Reply stiker nya')
-if (mek.message.extendedTextMessage.contextInfo.quotedMessage.stickerMessage.isAnimated == true)
-encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.xtInfo
-media = await Fg.downloadAndSaveMediaMessage(encmedia)
-memek = await webp2gifFile(media)
-reply(wait())
-console.log(memek)
-sendMediaURL(from, memek.result, 'Nih..')
+if ((isMedia && !mek.message.videoMessage || isQuotedSticker) && args.length == 0) {
+            ger = isQuotedSticker ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
+            owgi = await Fg.downloadAndSaveMediaMessage(ger)
+            webp2mp4File(owgi).then(res=>{
+            	reply(wait())
+            sendMediaURL(from,res.result,'✅ Aquí tienes')
+            })
+            }else {
+            reply('✳️ Responde a un sticker animado')
+            }
+            fs.unlinkSync(owgi)
+            
 limitAdd(sender, limit)
 break
 						 
