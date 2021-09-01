@@ -18,6 +18,6 @@ exports.fbdl = async(url) => {
         token: ''
     })
     let res = await resu.json()
-    let result = { status: true, creator: `Senku`, result: res }
+    let result = { status: true, creator: `FG98`, result: res }
     return result
 }
