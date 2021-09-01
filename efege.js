@@ -77,6 +77,7 @@ const { addVote, delVote } = require('./libreria/vote')
 const _antilink = JSON.parse(fs.readFileSync('./data/antilink.json'))
 const balance = JSON.parse(fs.readFileSync('./data/balance.json'));
 const bancht = JSON.parse(fs.readFileSync('./data/banchat.json'));
+const ban = JSON.parse(fs.readFileSync('./data/banned.json'));
 const glimit = JSON.parse(fs.readFileSync('./data/glimit.json'));
 const left = JSON.parse(fs.readFileSync('./data/left.json'))	
 const limit = JSON.parse(fs.readFileSync('./data/limit.json'));
@@ -357,6 +358,8 @@ conts = mek.key.fromMe ? Fg.user.jid : Fg.contacts[sender] || { notify: jid.repl
 const pushname = mek.key.fromMe ? Fg.user.name : conts.notify || conts.vname || conts.name || '-'
 const gcounti = confi.gcount
 const gcount = isPremium ? gcounti.prem : gcounti.user
+//nuevo fg
+const isBanned = ban.includes(sender)
 
 const isUrl = (url) => {
 return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
@@ -1024,6 +1027,7 @@ case 'daftar':
 
 case 'delvote':
  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if(!mek.key.remoteJid) return
 if(isVote) return reply(`✳️ Sin sesión de votación`)
 delVote(from)
@@ -1035,6 +1039,7 @@ case 'vote':
 case 'votacion':
 case 'votación':
  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if(!isGroupAdmins) return 
 if(!isGroup) return reply(group())
 if (isVote) return reply(`✳️ Sesión de votación en curso en este grupo`)
@@ -1063,6 +1068,7 @@ case 'jadibot':
     case 'listabots':
     case 'listbots':
      if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
     let tekss = 'Lista de Bots\n'
     for(let i of listjadibot) {
     	
@@ -1077,11 +1083,13 @@ case 'jadibot':
 case 'sc': 
 case 'script':
  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 reply(`📌 Usa este script : https://github.com/FG98F/fgbotv3`)
 break
 
 case 'tutorial':
  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if(args[0] == 'convert'){
 conv = `${convrt(prefix , pushname)}`
 reply(conv)
@@ -1108,6 +1116,7 @@ case 'buscarmsg':
 case 'searchmsg':
 if(!isOwner)return reply(ownerB())
  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (args.length < 1) return reply(`✳️ Ingrese que el mensaje para buscar\n\n*📌 Ejemplo :*\n • ${prefix + command} hola|2`)
 tekse = args.join('')
 if (tekse.includes("|")) { 
@@ -1137,6 +1146,7 @@ break
 
 case 'runtime':
 if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 uptime = process.uptime()
 runte =`「 *TIEMPO DE EJECUCION* 」
  ${kyun(uptime)}`
@@ -1146,6 +1156,7 @@ break
 case 'status':
 case 'estado':
 if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 stat = `*「 ESTADO DEL BOT 」*
 *🛡️ Modo* : ${public_}
 *🚫 Antidelete* : ${antidel_}`
@@ -1156,6 +1167,7 @@ break
 case 'speed':
 case 'ping': 
 if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 const timestamp = speed();
 const latensi = speed() - timestamp
 uptime = process.uptime()
@@ -1171,6 +1183,7 @@ case 'sticker':
 case 'stickergif': 
 case 'sgif':  
   if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isMedia && !mek.message.videoMessage || isQuotedImage) {
 const encmedia1 = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
 const dlfile1 = await Fg.downloadMediaMessage(encmedia1)
@@ -1226,6 +1239,7 @@ case 'stiker2':
     case 's2':
     case 'sgif2':
         if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if (isMedia && !mek.message.videoMessage || isQuotedImage) {
 let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
@@ -1300,6 +1314,7 @@ case 'emoji':
                    case 'smoji':
                    case 'jumbo':
 if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if (args.length < 1) return reply(`*EMOJI A STICKER*\n──────────────\n✳️ Ingrese el emoji\n\n📌 Ejemplo : *${prefix + command}* 😜\n\n\nAlias del comando\n${prefix}emoji\n${prefix}semoji\n${prefix}jumbo\n${prefix}smoji`)
 reply(wait()) 
@@ -1314,64 +1329,178 @@ console.log('  ✅ emoji a sticker ' )
             })
 limitAdd(sender, limit)
 break
+//-----
 
-case 'stickwasted':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (mek.message.extendedTextMessage != undefined || mek.message.extendedTextMessage != null) {
-ger = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-reply(wait())
-owgi = await Fg.downloadMediaMessage(ger)
-await fs.writeFileSync(`./stickwasted.jpeg`, owgi)
-var imgbb = require('imgbb-uploader')
-anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", './stickwasted.jpeg')
-teks = `${anu.display_url}`
-sendStickerFromUrl(from, `https://hardianto-chan.herokuapp.com/api/creator/imagemaker?endPoint=wasted&imgUrl=${teks}&apikey=hardianto`, mek)
-fs.unlinkSync('./stickwasted.jpeg')
-}
-limitAdd(sender, limit)
-break
-
-
-
-case 'size':
-if (args.length < 1) return reply('Masukan angkanya')
-filsize = args[0]
-costick = await Fg.prepareMessageFromContent(from,{
-"stickerMessage": {
-"url": m.quoted.url,
-"fileSha256": m.quoted.fileSha256.toString('base64'),
-"fileEncSha256": m.quoted.fileEncSha256.toString('base64'),
-"mediaKey": m.quoted.mediaKey.toString('base64'),
-"mimetype": m.quoted.mimetype,
-"height": m.quoted.height,
-"width": m.quoted.width,
-"directPath": m.quoted.directPath,
-"fileLength": filsize,
-"mediaKeyTimestamp": m.quoted.mediaKeyTimestamp.low,
-"isAnimated": m.quoted.isAnimated
-}
-}, {quoted:mek})
-Fg.relayWAMessage(costick)
-break
-
-case 'sizeimg':
-if (args.length < 1) return reply('Masukan angkanya')
-filsizei = args[0]
-costick3 = await Fg.prepareMessageFromContent(from,{
-"imageMessage": {
-	"url": m.quoted.url,
-	"mimetype": m.quoted.mimetype,
-	"caption": m.quoted.caption,
-	"fileSha256": m.quoted.fileSha256.toString('base64'),
-	"fileLength": filsizei,
-	"height": m.quoted.height,
-	"width": m.quoted.width,
-	"mediaKey": m.quoted.mediaKey.low,
-	"jpegThumbnail": m.quoted.jpegThumbnail
-}
-}, {quoted:mek})
-Fg.relayWAMessage(costick3)
-break
+   case  'trigger': 
+       case 'triggered':
+					case 'ger':
+					case 'motivado':
+					case 'motivada':
+					 if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+					var imgbb = require('imgbb-uploader')
+					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+					ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+					reply(wait())
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker...'))
+					owgi = await  Fg.downloadAndSaveMediaMessage(ger)
+					anu = await imgbb("3b8594f4cb11895f4084291bc655e510", owgi)
+					teks = `${anu.display_url}`
+					ranp = getRandom('.gif')
+					rano = getRandom('.webp')
+					anu1 = `https://some-random-api.ml/canvas/triggered?avatar=${teks}`
+					exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+					fs.unlinkSync(ranp)
+					if (err) return reply(mess.error.stick)
+					Fg.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('📤 Enviando sticker...'))
+					fs.unlinkSync(rano)
+					})
+					} else {
+					reply('✳️ Envia o responde a una imagen')
+					}
+					break
+		case  'sgay':
+		case  'gay2':
+		if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+					var imgbb = require('imgbb-uploader')
+					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+					ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+					reply(wait())
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker...'))
+					owgi = await  Fg.downloadAndSaveMediaMessage(ger)
+					anu = await imgbb("3b8594f4cb11895f4084291bc655e510", owgi)
+					teks = `${anu.display_url}`
+					ranp = getRandom('.gif')
+					rano = getRandom('.webp')
+					anu1 = `https://some-random-api.ml/canvas/gay?avatar=${teks}`
+					exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+					fs.unlinkSync(ranp)
+					if (err) return reply(mess.error.stick)
+					Fg.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('📤 Enviando sticker...'))
+					fs.unlinkSync(rano)
+					})
+					} else {
+					reply('✳️ Envia o responde a una imagen')
+					}
+					break
+		
+		case  'passed':
+		case  'aprobado':
+		if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+					var imgbb = require('imgbb-uploader')
+					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+					ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+					reply(wait())
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker...'))
+					owgi = await  Fg.downloadAndSaveMediaMessage(ger)
+					anu = await imgbb("3b8594f4cb11895f4084291bc655e510", owgi)
+					teks = `${anu.display_url}`
+					ranp = getRandom('.gif')
+					rano = getRandom('.webp')
+					anu1 = `https://some-random-api.ml/canvas/passed?avatar=${teks}`
+					exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+					fs.unlinkSync(ranp)
+					if (err) return reply(mess.error.stick)
+					Fg.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('📤 Enviando sticker...'))
+					fs.unlinkSync(rano)
+					})
+					} else {
+					reply('✳️ Envia o responde a una imagen')
+					}
+					break
+					
+		case  'jail':
+		case  'scelda':
+		case  'celda':
+		case  'carcel':
+		case 'scarcel':
+		if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+					var imgbb = require('imgbb-uploader')
+					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+					ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+					reply(wait())
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker...'))
+					owgi = await  Fg.downloadAndSaveMediaMessage(ger)
+					anu = await imgbb("3b8594f4cb11895f4084291bc655e510", owgi)
+					teks = `${anu.display_url}`
+					ranp = getRandom('.gif')
+					rano = getRandom('.webp')
+					anu1 = `https://some-random-api.ml/canvas/jail?avatar=${teks}`
+					exec(`wget ${anu1} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+					fs.unlinkSync(ranp)
+					if (err) return reply(mess.error.stick)
+					Fg.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('📤 Enviando sticker...'))
+					fs.unlinkSync(rano)
+					})
+					} else {
+					reply('✳️ Envia o responde a una imagen')
+					}
+					break
+		
+		case  'wasted':
+		case  'desperdiciado':
+		case  'desperdiciada':
+		if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+					var imgbb = require('imgbb-uploader')
+					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+					ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+					reply(wait())
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker...'))
+					owgi = await  Fg.downloadAndSaveMediaMessage(ger)
+					anu = await imgbb("3b8594f4cb11895f4084291bc655e510", owgi)
+					teks = `${anu.display_url}`
+					ranp = getRandom('.gif')
+					rano = getRandom('.webp')
+					anu2 = `https://some-random-api.ml/canvas/wasted?avatar=${teks}`
+					exec(`wget ${anu2} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+					fs.unlinkSync(ranp)
+					if (err) return reply(mess.error.stick)
+					Fg.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('📤 Enviando sticker...'))
+					fs.unlinkSync(rano)
+					})
+					
+					} else {
+					reply('✳️ Envia o responde a una imagen')
+					}
+					break 
+		
+					
+					case 'red':
+					case 'rojo':
+		if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+					var imgbb = require('imgbb-uploader')
+					if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
+					ger = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
+					reply(wait())
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker...'))
+					owgi = await  Fg.downloadAndSaveMediaMessage(ger)
+					anu = await imgbb("3b8594f4cb11895f4084291bc655e510", owgi)
+					teks = `${anu.display_url}`
+					ranp = getRandom('.gif')
+					rano = getRandom('.webp')
+					anu8 = `https://some-random-api.ml/canvas/red?avatar=${teks}`
+					exec(`wget ${anu8} -O ${ranp} && ffmpeg -i ${ranp} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${rano}`, (err) => {
+					fs.unlinkSync(ranp)
+					if (err) return reply(mess.error.stick)
+					Fg.sendMessage(from, fs.readFileSync(rano), sticker, {quoted: mek})
+					console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('📤 Enviando sticker...'))
+					fs.unlinkSync(rano)
+					})
+					
+					} else {
+					reply('✳️ Envia o responde a una imagen')
+					}
+				 break
 
 
 case 'stickmeme':							
@@ -1402,7 +1531,7 @@ await fs.writeFileSync(`./stickmeme.jpeg`, owgi)
 var imgbb = require('imgbb-uploader')
 anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", './stickmeme.jpeg')
 teks = `${anu.display_url}`
-sendStickerUrl(from, `https://pecundang.herokuapp.com/api/memegen3?teks=${value}&img_url=${teks}`, mek)
+Fg.sendMessage(from, `https://pecundang.herokuapp.com/api/memegen3?teks=${value}&img_url=${teks}`, mek)
 fs.unlinkSync('./stickmeme.jpeg')
 }
 limitAdd(sender, limit)
