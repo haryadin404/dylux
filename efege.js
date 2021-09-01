@@ -1182,7 +1182,7 @@ Fg.sendMessage(from, st, sticker, {quoted: mek})
 const encmedia2 = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.
 contextInfo : mek
 const media2 = await Fg.downloadAndSaveMediaMessage(encmedia2, `./sticker/${sender}`)
-const packname101 = `DyLux Bot\n\n\nFG98`  //animados
+const packname101 = `DyLux Bot\n\n\n\n     FG98`  //animados
 const author101 = args.join(' ')
 exif.create(packname101, author101, `stickwm_${sender}`)
 reply(wait())
@@ -1217,12 +1217,20 @@ reply(`  *STICKER MAKER*\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n\
 break         
 
 
-case 'stickwm': 
-case 'swm':
+
+//////𝗦𝗧𝗜𝗖𝗞𝗘𝗥 𝗠𝗔𝗞𝗘𝗥 𝗦𝗪𝗠 𝗻𝗼𝗺𝗯𝗿𝗲 | 𝗮𝘂𝘁𝗼𝗿
+case 'stiker2': 
+	case 'sticker2':
+    case 'swm': 
+    case 'stickergif2':
+    case 's2':
+    case 'sgif2':
+        if (!isVerify) return reply(userB(prefix))
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if (isMedia && !mek.message.videoMessage || isQuotedImage) {
 let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-if(!value)return reply(`Example : ${prefix + command} nama|author`)
+if (!value.includes('|')) return reply(`✳️Envia una imagen con *${prefix + command}* Nombre|Autor`)
+if(!value)return reply(`✳️Envia una imagen con *${prefix + command}* Nombre|Autor`)
 let media = await Fg.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
 var packname = value.split('|')[0]
 var author = value.split('|')[1]
@@ -1281,19 +1289,21 @@ fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
 .toFormat('webp')
 .save(`./sticker/${sender}.webp`)
 } else  {
-reply(`*Format Error!*\n\n*Example :*\n*_Reply gambar/video dengan Caption ${prefix + command} Nama|Author_*`)
+reply(`  *STICKER MAKER*\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n\n✳️ Envia una imagen con *${prefix + command}* Nombre | Autor \o etiqueta una imagen que se haya enviado, *Videos 1-9 segundos*\n\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n*ALIAS DEL COMAMDO*\n\n${prefix}s2\n${prefix}sticker2\n${prefix}stickergif2\n${prefix}swm`)
 }
 limitAdd(sender, limit)
 break
 
-case 'sticknobg': case 'snobg': case 'stickernobg':
+case 'sticknobg': 
+case 'snobg': 
+case 'stickernobg':
 if ((isMedia && !mek.message.videoMessage || isQuotedImage) && args.length == 0) {
 const encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : sen
 filePath = await Fg.downloadAndSaveMediaMessage(encmedia)
 file_name = getRandom('.png')
 file_name = getRandom('.webp')
 request({
-url: `https://api.lolhuman.xyz/api/removebg?apikey=${lol}`,
+url: `https://api.lolhuman.xyz/api/removebg?apikey=${lolkey}`,
 method: 'POST',
 formData: {
 "img": fs.createReadStream(filePath)
