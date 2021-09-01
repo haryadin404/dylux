@@ -473,6 +473,29 @@ fs.unlinkSync(filename)
 					});
 				});
 			}
+//-------
+const sendStickerUrl = async(to, url) => {
+console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('✅ Descargando sticker..'))
+var names = getRandom('.webp')
+var namea = getRandom('.png')
+var download = function (uri, filename, callback) {
+request.head(uri, function (err, res, body) {
+request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+});
+};
+download(url, namea, async function () {
+let filess = namea
+let asw = names
+require('./libreria/exif.js')
+exec(`ffmpeg -i ${filess} -vcodec libwebp -filter:v fps=fps=20 -lossless 1 -loop 0 -preset default -an -vsync 0 -s 512:512 ${asw}`, (err) => {
+exec(`webpmux -set exif ./sticker/data.exif ${asw} -o ${asw}`, async (error) => {
+let media = fs.readFileSync(asw)
+senku.sendMessage(from, media, sticker, {quoted: mek})
+console.log(color(time, 'magenta'), color(moment.tz('America/La_Paz').format('HH:mm:ss'), "gold"), color('💎 Enviando sticker..'))  
+});
+});
+});
+} 
 
             
 //------------ 𝗕𝗔𝗡𝗖𝗛𝗔𝗧 ----------
@@ -1531,7 +1554,7 @@ await fs.writeFileSync(`./stickmeme.jpeg`, owgi)
 var imgbb = require('imgbb-uploader')
 anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", './stickmeme.jpeg')
 teks = `${anu.display_url}`
-Fg.sendMessage(from, `https://pecundang.herokuapp.com/api/memegen3?teks=${value}&img_url=${teks}`, mek)
+sendStickerUrl(from, `https://pecundang.herokuapp.com/api/memegen3?teks=${value}&img_url=${teks}`, mek)
 fs.unlinkSync('./stickmeme.jpeg')
 }
 limitAdd(sender, limit)
