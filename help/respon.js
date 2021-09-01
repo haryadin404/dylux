@@ -4,10 +4,6 @@
 const wait = () => { 
 return '*⌛ _Cargando..._ ▬▬▬▭*\n\n*🧘🏻‍♂️ Espere por favor,* esto puede tomar unos segundos.'
 }
-//--
-const pagado = () => {
-  return '*💎 -1 Diamante*'
-}
 
 //--
 const fdiama = (prefix) => {
@@ -36,8 +32,13 @@ const banf = () => {
 
 //--
 const ownerB = () => {
-  return '❎  Esta función es solo para *FG98*'
+  return '❎  Esta función es solo para *Para el dueño del Bot*'
 }
+//--
+const modsB = () => {
+  return `❎ Este comando es solo para el *Dueño y Moderadores del Bot*`
+}
+
 
 //--
 const premi = (prefix) => {
@@ -70,4 +71,4 @@ const fgnsfw = () => {
   return 'Lo siento pero no puedo ejecutar este comando, este grupo no permite contenido +18'
 }
 
-module.exports =  { wait, stick, errorfg, group, banf, ownerB, premi, userB, admin, Badmin, leveloff, lvlnul, pagado, fdiama, fgnsfw} 
+module.exports =  { wait, stick, errorfg, group, banf, ownerB, premi, userB, modsB, admin, Badmin, leveloff, lvlnul, fdiama, fgnsfw} 
