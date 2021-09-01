@@ -1296,7 +1296,7 @@ fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
 .save(`./sticker/${sender}.webp`)
 	} else if ((isMedia && mek.message.videoMessage.fileLength < 10000000 || isQuotedVideo && mek.message.extendedTextMessage.contextInfo.quotedMessage.videoMessage.fileLength < 10000000)) {
 let encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
-var pembawm = body.slice(9)
+var pembawm = args.join('')
 let media = await Fg.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
 var packname = pembawm.split('|')[0]
 var author = pembawm.split('|')[1]
@@ -1525,68 +1525,19 @@ break
 					}
 				 break
 
-
-case 'stickmeme':							
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))		
-if(!value) return reply(`Example :Reply sticker dengan Caption  ${prefix + command} Fg` )
-if (mek.message.extendedTextMessage != undefined || mek.message.extendedTextMessage != null) {
-ger = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-reply(wait())
-owgi = await Fg.downloadMediaMessage(ger)
-await fs.writeFileSync(`./stickmeme.jpeg`, owgi)
-var imgbb = require('imgbb-uploader')
-anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", './stickmeme.jpeg')
-teks = `${anu.display_url}`
-sendStickerUrl(from, `https://pecundang.herokuapp.com/api/stickermeme?url=${teks}&teks=${value}`, mek)
-fs.unlinkSync('./stickmeme.jpeg')
-}
-limitAdd(sender, limit)
-break
-
-case 'stickmeme2':									
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if(!value) return reply(`Example : Reply sticker dengan Caption ${prefix + command} Sen`)
-if (mek.message.extendedTextMessage != undefined || mek.message.extendedTextMessage != null) {
-ger = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-reply(wait())
-owgi = await Fg.downloadMediaMessage(ger)
-await fs.writeFileSync(`./stickmeme.jpeg`, owgi)
-var imgbb = require('imgbb-uploader')
-anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", './stickmeme.jpeg')
-teks = `${anu.display_url}`
-sendStickerUrl(from, `https://pecundang.herokuapp.com/api/memegen3?teks=${value}&img_url=${teks}`, mek)
-fs.unlinkSync('./stickmeme.jpeg')
-}
-limitAdd(sender, limit)
-break
-
-case 'stickmeme3':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isQuotedSticker) return reply(`Format salah! Reply sticker\nContoh ${prefix + command} text|text`)
-var tex1 = body.slice(12).split('|')[0]
-var tex2 = body.slice(12).split('|')[1]
-if (!tex2) return reply(`Format salah! Reply sticker\nContoh ${prefix + command} text|text`)
-if (mek.message.extendedTextMessage != undefined || mek.message.extendedTextMessage != null) {
-ger = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
-reply(wait())
-owgi = await Fg.downloadMediaMessage(ger)
-await fs.writeFileSync(`./stickmeme.jpeg`, owgi)
-var imgbb = require('imgbb-uploader')
-anu = await imgbb("68cb5bee517bce4f74b0e910a5d96346", './stickmeme.jpeg')
-teks = `${anu.display_url}`
-sendStickerUrl(from, `https://pecundang.herokuapp.com/api/memegen2?teks1=${tex1}&teks2=${tex2}&img_url=${teks}`, mek)
-fs.unlinkSync('./stickmeme.jpeg')
-}
-limitAdd(sender, limit)
-break
-
 case 'take':
-if (!isQuotedSticker) return reply(`Reply sticker dengan caption *${prefix}take nama|author*`)
-var pembawm = body.slice(6)
+         case 'takestick':
+         case 'robar':
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+if (!isQuotedSticker) return reply(`✳️ Responde a un sticker\n\n*USO DEL COMAMDO*\n*${prefix + command}* Nombre|Autor\n\n📌Ejemplo *${prefix + command}* Memes|FG98`)
+var pembawm = args.join('')
 var encmedia = JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 var media = await Fg.downloadAndSaveMediaMessage(encmedia, `./sticker/${sender}`)
 var packname = pembawm.split('|')[0]
 var author = pembawm.split('|')[1]
+if (!value) return reply(`✳️ Uso del comamdo\n\n*${prefix + command}* Nombre|Autor`)
+if (!value.includes('|')) return reply(`✳️ Uso del comamdo\n\n*${prefix + command}* Nombre|Autor`)
 exif.create(packname, author, `takestick_${sender}`)
 exec(`webpmux -set exif ./sticker/takestick_${sender}.exif ./sticker/${sender}.webp -o ./sticker/${sender}.webp`, async (error) => {
 if (error) return reply('Error')
@@ -1597,11 +1548,11 @@ fs.unlinkSync(`./sticker/takestick_${sender}.exif`)
 break
 				
 case 'exif':
-if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
-if (args.length < 1) return reply(`Penggunaan ${prefix}exif nama|author`)
-if (!arg.split('|')) return reply(`Penggunaan ${prefix}exif nama|author`)
+if (!isOwner)return mentions(`*❎ Esta orden es especial para @${owner} !*`, [`${owner}@s.whatsapp.net`], true)
+if (args.length < 1) return reply(`✳️ Uso del comamdo ${prefix +command} nombre|autor`)
+if (!arg.split('|')) return reply(`📌Ejemplo ${prefix + command}nombre|autor`)
 exif.create(arg.split('|')[0], arg.split('|')[1])
-reply('sukses')
+reply('✅ Listo')
 break
 	        
 case 'colong':
@@ -3226,7 +3177,7 @@ break
 case 'addstick':
 if (!isGroup) return reply(group())
 if (!isQuotedSticker) return reply('Reply stiker nya')
-svst = body.slice(10)
+svst = args.join('')
 if (!svst) return reply('Nama sticker nya apa?')
 boij = JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo
 delb = await Fg.downloadMediaMessage(boij)
