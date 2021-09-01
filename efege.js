@@ -1693,13 +1693,31 @@ Fg.sendMessage(from, anu, video, {mimetype: 'video/gif', caption: '✅ Aquí tie
 limitAdd(sender, limit)
 break
 						
-						case 'attp2':  
+						case 'p1':  
                   if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())     
                     if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
                     reply(wait())
                 
                     anu1 = await getBuffer(`https://pecundang.herokuapp.com/api/texttopng?teks=${value}`)
+                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
+                    break
+                    case 'p2':  
+                  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())     
+                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
+                    reply(wait())
+                
+                    anu1 = await getBuffer(`https://pecundang.herokuapp.com/api/ttpcolor?teks=${value}&color=black`)
+                    Fg.sendMessage(from, anu1, sticker, {quoted: mek})
+                    break
+                    case 'p3':  
+                  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())     
+                    if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
+                    reply(wait())
+                
+                    anu1 = await getBuffer(`https://pecundang.herokuapp.com/api/attp?teks=${value}`)
                     Fg.sendMessage(from, anu1, sticker, {quoted: mek})
                     break
 case 'ttp':            
