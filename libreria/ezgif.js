@@ -26,7 +26,7 @@ function uploadwebp(path) {
                if (err) {
                     reject({
                          status: false,
-                         message: "Created By MRHRTZ"
+                         message: "✅ Completado by FG98"
                     });
                     return
                }
@@ -66,7 +66,7 @@ function png2webpUrl(url) {
                          const result = 'https:' + $('div#output > p.outfile > img').attr('src')
                          resolve({
                               status: true,
-                              message: "Created By MRHRTZ",
+                              message: "✅ Completado by FG98",
                               result: result
                          })
                     }).catch(reject)
@@ -105,7 +105,7 @@ function apng2webpUrl(url) {
                          const result = 'https:' + $('div#output > p.outfile > img').attr('src')
                          resolve({
                               status: true,
-                              message: "Created By MRHRTZ",
+                              message: "✅ Completado by FG98",
                               result: result
                          })
                     }).catch(reject)
@@ -143,7 +143,7 @@ function webp2mp4Url(url) {
                          const result = 'https:' + $('div#output > p.outfile > video > source').attr('src')
                          resolve({
                               status: true,
-                              message: "Created By MRHRTZ",
+                              message: "✅ Completado by FG98",
                               result: result
                          })
                     }).catch(reject)
@@ -196,7 +196,7 @@ function reverseVideoFile(path) {
                     const result = 'https:' + $('p.outfile > video > source').attr('src')
                     resolve({
                          status: true,
-                         message: "Created By MRHRTZ",
+                         message: "✅ Completado by FG98",
                          result: result,
                          ext: ext
                     })
@@ -245,7 +245,7 @@ function webp2gifFile(path) {
                     const result = 'https:' + $('div#output > p.outfile > video > source').attr('src')
                     resolve({
                          status: true,
-                         message: "Created By MRHRTZ",
+                         message: "✅ completado... BY FG98",
                          result: result
                     })
                }).catch(reject)
@@ -331,7 +331,7 @@ function getStikerLine(url) {
                     }
                     resolve({
                          status: true,
-                         message: "Created By MRHRTZ",
+                         message: "✅ Completado by FG98",
                          result: {
                               author: author,
                               id: id,
