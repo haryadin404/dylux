@@ -307,7 +307,7 @@ const budy = (type === 'conversation') ? mek.message.conversation : (type === 'e
 
 var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
 const messagesC = pes.slice(0).trim()
-const tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
+tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
 q2 = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.singleSelectReply.selectedRowId: ""
 q3 = Object.keys(mek.message)[0] == "buttonsResponseMessage" ? mek.message.buttonsResponseMessage.selectedButtonId : ""
 
@@ -1698,7 +1698,7 @@ break
   if (isBanned) return reply(banf())     
                     if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix}ttp* DyLux`)
                     reply(wait())
-                    F = body.slice(5)
+                    F = value
                     anu1 = await getBuffer(`https://lolhuman.herokuapp.com/api/ttp3?apikey=${lolkey}&text=${F}`)
                     Fg.sendMessage(from, anu1, sticker, {quoted: mek})
                     break
@@ -1709,7 +1709,6 @@ break
   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 					if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
 					  reply(wait())
-					reply(pagado())
 					var teks = encodeURIComponent(args.join(' '))
 					const attp = await getBuffer(`https://api.xteam.xyz/attp?file&text=${teks}`)
 					Fg.sendMessage(from, attp, sticker, {quoted: mek})
@@ -1721,7 +1720,7 @@ break
   if (isBanned) return reply(banf())     
                     if (args.length < 1) return reply(`✳️ _Envie el texto_\n\n📌Ejemplo *${prefix + command}* DyLux`)
                     reply(wait())
-                    F = body.slice(7)
+                    F = value
                     anu1 = await getBuffer(`https://lolhuman.herokuapp.com/api/attp?apikey=${lolkey}&text=${F}`)
                     Fg.sendMessage(from, anu1, sticker, {quoted: mek})
                     break
@@ -1751,9 +1750,9 @@ if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(
 if(!isGroup)return reply(group())
 po1 = Fg.prepareMessageFromContent(from, {
   "listMessage":{
-"title": "*Asupan nya Kack :v*",
-"description": `\nPilih salah satu asupan di bawah ini..`,
-"buttonText": "Click Here!",
+"title": "*Asupan Lista :v*",
+"description": `\nElija una de las tomas a continuación..`,
+"buttonText": "Click Aquí!",
 "listType": "SINGLE_SELECT",
 "sections": [
   {
