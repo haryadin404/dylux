@@ -43,8 +43,9 @@ const fetch = require('node-fetch')
 const ffmpeg = require('fluent-ffmpeg')
 const lolis = require('lolis.life')
 const loli = new lolis()
-//--New 
+//--New
 const crypto = require('crypto');
+const {convertSticker} = require("./libreria/swm.js") 
 const Exif = require('./libreria/exif');
 const exif = new Exif();
 
