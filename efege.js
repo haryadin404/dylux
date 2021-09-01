@@ -128,8 +128,8 @@ const lolkey = '51762aa98877b6dc21112b1a'
 
 //-----fakethumb-----
 gambar1 = fs.readFileSync('./image/emror.jpg')
-gambar2 = fs.readFileSync('./image/Fg.jpeg')
-gambar3 = fs.readFileSync('./image/Fg.jpg')
+gambar2 = fs.readFileSync('./image/senku.jpeg')
+gambar3 = fs.readFileSync('./image/senku.jpg')
 gambar4 = fs.readFileSync('./image/senku2.jpeg')
 fakeg = fs.readFileSync('./image/fake.jpg')
 
