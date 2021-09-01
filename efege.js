@@ -1775,9 +1775,9 @@ case '+62':
                    
             reply(wait())
             ojan = await fetchJson(`https://dapuhy-api.herokuapp.com/api/asupan/asupan?apikey=ItsMeVean`)
-     		pideo = await getBuffer(ojan.result.url)
+     		
         
-	    	Fg.sendMessage(from, pideo, video, {quoted: mek, caption: '✅Aquí tienes'})
+	    	Fg.sendMessage(from, ojan, video, {quoted: mek, caption: '✅Aquí tienes'})
 			await limitAdd(sender)
             break
             
