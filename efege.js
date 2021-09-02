@@ -1852,7 +1852,7 @@ case 'xnxxsearch':
 if(!isPremium)return reply(premi(prefix))
 if (!isGroup)return reply(group())
 if (!value) return reply(`Example: ${prefix + command} Japanese`)
-get_result = await fetchJson(`https://api.lolhuman.xyz/api/xnxxsearch?apikey=${lol}&query=${value}`)
+get_result = await fetchJson(`https://api.lolhuman.xyz/api/xnxxsearch?apikey=${lolkey}&query=${value}`)
 reply(wait())
 get_result = get_result.result
 ini_txt = ""
@@ -1871,7 +1871,7 @@ case 'xnxx': case 'xnxxstalk':
 if(!isPremium)return replyl(premi(prefix))
 if (!isGroup)return reply(group())
 if (!value) return reply(`Example: ${prefix + command} https://www.xnxx.com/video-uy5a73b/mom_is_horny_-_brooklyn`)
-get_result = await fetchJson(`https://api.lolhuman.xyz/api/xnxx?apikey=${lol}&url=${value}`)
+get_result = await fetchJson(`https://api.lolhuman.xyz/api/xnxx?apikey=${lolkey}&url=${value}`)
 reply(wait())
 get_result = get_result.result
 ini_txt = `Title : ${get_result.title}\n`
@@ -2146,7 +2146,7 @@ case 'tiktokwm':
 if (!isGroup) return reply(group())
 if (!value) return reply(`Example : ${prefix + command} https://vt.tiktok.com/ZSJxamaTs/`)
 reply(wait())
-buffer = await getBuffer(`http://lolhuman.herokuapp.com/api/tiktokwm?apikey=${lol}&url=${value}`)
+buffer = await getBuffer(`http://lolhuman.herokuapp.com/api/tiktokwm?apikey=${lolkey}&url=${value}`)
 Fg.sendMessage(from, buffer, video, {mimetype: 'video/mp4', quoted: mek})
 break
 					
@@ -2154,7 +2154,7 @@ case 'tiktoknowm':
 if (!isGroup) return reply(group())
 if (!value) return reply(`Example : ${prefix + command} https://vt.tiktok.com/ZSJxamaTs/`)
 reply(wait())
-ttnwm = await fetchJson(`http://lolhuman.herokuapp.com/api/tiktok?apikey=${lol}&url=${value}`, {method: 'get'})
+ttnwm = await fetchJson(`http://lolhuman.herokuapp.com/api/tiktok?apikey=${lolkey}&url=${value}`, {method: 'get'})
 if (anu.error) return reply(anu.error)
 tt = `「 *TIKTOK NO WM* 」\n\n*Judul:* ${ttnwm.result.title}\n*Keywords:* ${ttnwm.result.keywords}\n*Desc:* ${ttnwm.result.description}`
  buff = await getBuffer(ttnwm.result.link)
@@ -2177,7 +2177,7 @@ jmlh = value.split('|')[1]
 if(!jmlh) return reply(`Format Salah!\nExample : ${prefix + command} n.lidiawaty|1`)
 if(isNaN(jmlh)) return reply('Jumlah harus berupa angka!')
 reply(wait())
-data = await axios.get(`http://lolhuman.herokuapp.com/api/igstory/${usrnm}?apikey=${lol}`)
+data = await axios.get(`http://lolhuman.herokuapp.com/api/igstory/${usrnm}?apikey=${lolkey}`)
 for(let i=0; i<jmlh; i++){
 sendMediaURL(from, data.data.result[i], `Instagram Story ${usrnm}`)
 }
@@ -3432,7 +3432,7 @@ case 'family100':{
   if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
 if (!isGroup) return reply(group())
 if (game.isfam(from, family100)) return reply(`Masih ada soal yang belum di selesaikan`)
-let anu = await axios.get(`http://api.lolhuman.xyz/api/tebak/family100?apikey=${lol}`)
+let anu = await axios.get(`http://api.lolhuman.xyz/api/tebak/family100?apikey=${lolkey}`)
 reply(`*JAWABLAH SOAL BERIKUT*\n\n*Soal :* ${anu.data.result.question}\n*Total Jawaban :* ${anu.data.result.aswer.length}\n\nWaktu : ${gamewaktu}s`)
 let anoh = anu.data.result.aswer
 let rgfds = []
