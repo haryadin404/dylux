@@ -2306,7 +2306,7 @@ if(!antidel)return reply('✳️ Ya ha sido desactivado antes!')
 antidel = false
 reply(`✅ Se desactivo Anti - Delete`)
 } else {
-reply(✳️ Anti mensajes eliminados\n\n📌 Para activar Escriba *${prefix +command} on* \nPara desactivar *${prefix +command} off*)
+reply(`✳️ Anti mensajes eliminados\n\n📌 Para activar Escriba *${prefix +command} on* \nPara desactivar *${prefix +command} off*`)
 }
 break
                 
