@@ -90,6 +90,10 @@ const _welcom = JSON.parse(fs.readFileSync('./data/welcom.json'))
 const _user = JSON.parse(fs.readFileSync('./data/register.json'))
 const hit = JSON.parse(fs.readFileSync('./data/totalhit.json'))
 
+//-- Resultados
+const _verdad = JSON.parse(fs.readFileSync('./result/verdad.json'));
+const _reto = JSON.parse(fs.readFileSync('./result/reto.json'));
+
 //-- Help
 const { help } = require('./help/menu')
 const { wait, stick, errorfg, group, banf, ownerB, modsB, premi, userB, admin, Badmin, leveloff, lvlnul, fdiama, fgnsfw} = require('./help/respon');
@@ -1721,13 +1725,16 @@ if (!isQuotedSticker) return reply(`STICKER a IMAGEN\n▁▁▁▁▁▁▁▁�
 					})
 limitAdd(sender, limit)
 break
-
+//----𝗔𝗦𝗨𝗣𝗔𝗡 
 case 'asupan':
+ if (!isVerify) return reply(userB(prefix))
+                   if (isBanned) return reply(banf())
+if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
 if(!isGroup)return reply(group())
 po1 = Fg.prepareMessageFromContent(from, {
   "listMessage":{
 "title": "*Asupan Lista :v*",
-"description": `\nElija una de las tomas a continuación..`,
+"description": `\nElija uno a continuación..`,
 "buttonText": "Click Aquí!",
 "listType": "SINGLE_SELECT",
 "sections": [
@@ -1747,10 +1754,8 @@ po1 = Fg.prepareMessageFromContent(from, {
   ]
 }}, {quoted : mek}) 
 Fg.relayWAMessage(po1)
+limitAdd(sender, limit)
 break
-
-
-//--asupan
 case 'indonesia':
               if (!isVerify) return reply(userB(prefix))
                    if (isBanned) return reply(banf())
@@ -1773,38 +1778,27 @@ case 'indonesia':
                    Fg.sendMessage(from, buffer, video, { quoted: mek})
                    limitAdd(sender, limit)
                     break
-//--
-case 'tod':
-reply(`Sebelum bermain berjanjilah akan melaksanakan apapun perintah yang diberikan.\n\nSilahkan Pilih:\n➥ ${prefix}truth\n➥ ${prefix}dare`)
+                    
+//-- Verdad Roto
+
+case 'verdad':
+if (!isGroup) return reply(group())
+  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  const verdad = _verdad[Math.floor(Math.random() * _verdad.length)]
+  reply(`‣ *Verdad*\n${verdad}`)
 break
 
-case 'truth':
-if (!isGroup) return reply( 'Perintah ini hanya bisa digunakan didalam grup!')
-fetch('https://raw.githubusercontent.com/AlvioAdjiJanuar/random/main/truth.txt')
-.then(res => res.text())
-.then(body => {
-let truthx = body.split('\n')
-let truthz = truthx[Math.floor(Math.random() * truthx.length)]
-reply(truthz)
-})
-.catch(() => {
-reply('Hayolohhh, ada yang error!!')
-})
+//-- Tod reto
+case 'reto':
+if (!isGroup) return reply(group())
+  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  const reto = _reto[Math.floor(Math.random() * _reto.length)]
+  reply(`‣ *Reto*\n${reto}`)
 break
-            
-case 'dare':
-if (!isGroup) return reply( 'Perintah ini hanya bisa digunakan didalam grup!')
-fetch('https://raw.githubusercontent.com/AlvioAdjiJanuar/random/main/dare.txt')
-.then(res => res.text())
-.then(body => {
-let darex = body.split('\n')
-let darez = darex[Math.floor(Math.random() * darex.length)]
-/reply(darez)
-})
-.catch(() => {
-reply('Hayolohhh, ada yang error!!')
-})
-break
+
+
 
 case 'tts':
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
