@@ -1804,18 +1804,26 @@ break
 			
 //******************** 》DOWNLOAD 《 ********************\\
   
-
-
-//CAN BE USED AFTER UPDATE LAST BAILEYS
-case 'play':
-if (!isGroup)return reply(group())
-if (args.length < 1) return reply(`Kirim perintah *${prefix}play query*`)
+case 'play2':
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+if (args.length < 1) return reply(`✳️ *Ingresa el título de una canción*\n\n📌Ejemplo *${prefix + command}* Lil Peep broken smile`)
 reply(wait())
 let yut = await yts(value)
 yta(yut.videos[0].url)
 .then(async(res) => {
 const { thumb, title, filesizeF, filesize } = res
-const capti = `*P L A Y*\n\n Title : ${title}\n\n Size : ${filesizeF}\n\n Views: ${yut.videos[0].views}\n\n Duration : ${yut.videos[0].timestamp}\n\n URL : ${yut.videos[0].url}`
+const capti = `
+*🎶Musica encontrada*
+
+
+‣ *📌Título* : ${title}
+‣ *⚖️Tamaño* : ${filesizeF}
+‣ *🎈Vistas :* ${yut.videos[0].views}
+‣ *⏱️Duración* : ${yut.videos[0].timestamp}
+
+‣ *🔗 Link* : ${yut.videos[0].url}`
 //sendMediaURL(from, thumb, capti)
 ya = await getBuffer(thumb)
 py =  await Fg.prepareMessage(from, ya, image)
@@ -1826,177 +1834,300 @@ gbutsan = [
 gbuttonan = {
 imageMessage: py.message.imageMessage,
 contentText: capti,
-footerText: 'Pilih di bawah y bang',
+footerText: 'Elija a continuación',
 buttons: gbutsan,
 headerType: 4
 }
-await Fg.sendMessage(from, gbuttonan, MessageType.buttonsMessage, {quoted:mek})
-})
-break
-
-
-case 'playmp3': {
-if (!isGroup)return reply(group())
-if (args.length < 1) return reply(`Kirim perintah *${prefix}play query*`)
-try {
-reply('_Lagu yang anda cari Sedang DiProsess.._')
-let yut = await yts(value)
-yta(yut.videos[0].url)
-.then((res) => {
-const { dl_link, thumb, title, filesizeF, filesize } = res
-axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-.then((a) => {
-if (Number(filesize) >= 30000) return sendMediaURL(from, thumb, `*P L A Y  M P 3*\n\n${shp} Title : ${title}\n${shp} Ext : MP3\n${shp} Filesize : ${filesizeF}\n${shp} Upload : ${yut.videos[0].ago}\n${shp} Views : ${yut.videos[0].views}\n${shp} Duration : ${yut.videos[0].timestamp}\n${shp} Link : ${a.data}\n\n_Untuk durasi lebih dari batas disajikan dalam bentuk link_`)
-
-const captionis = `*P L A Y  M P 3*\n\n${shp} Title : ${title}\n${shp} Size : ${filesizeF}\n${shp} Views: ${yut.videos[0].views}\n${shp} Duration : ${yut.videos[0].timestamp}\n${shp} URL : ${yut.videos[0].url}\n\n*_Permintaan Anda Sedang Di Prosess!_*`
-sendMediaURL(from, thumb, captionis)
-sendMediaURL(from, dl_link, '')
-
-})
-})
-.catch((err) => reply(`${err}`))
-} catch (err) {
-sendMess(ownerNumber, 'PlayMp3 Error : ' + err)
-console.log(color('[PlayMp3]', 'red'), err)
-reply(mess.error.api)
-}
-}
-break
-
-case 'playmp4':{
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply (`Limit kamu sudah habis silahkan kirim ${prefix}limit untuk mengecek limit`)
-if (args.length < 1) return reply(`Kirim perintah *${prefix}playmp4 query*`)
-try {
-reply(wait())
-let yut = await yts(value)
-ytv(yut.videos[0].url)
-.then((res) => {
-const { dl_link, thumb, title, filesizeF, filesize } = res
-axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-.then((a) => {
-if (Number(filesize) >= 40000) return sendMediaURL(from, thumb, `*P L A Y  M P 4*\n\n • Judul : ${title}\n • Size : ${filesizeF}\n • Upload : ${yut.videos[0].ago}\n • Ditonton : ${yut.videos[0].views}\n • Duration : ${yut.videos[0].timestamp}\n • Link : ${a.data}\n\n_Ukuran File Terlalu besar, anda bisa download sendiri lewat Link Diatas!!_`)
-                       
-const mp4 = `
-*PLAY MP4*\n\nData DiTemukan!\n • Judul : ${title}\n • Size : ${filesizeF}\n • Upload : ${yut.videos[0].ago}\n • Ditonton : ${yut.videos[0].views}\n • Duration : ${yut.videos[0].timestamp}\n • Url : ${yut.videos[0].url}\n\n_Tunggu Sebentar File sedang Di Kirim!!_`
-sendMediaURL(from, thumb, mp4)
-sendMediaURL(from, dl_link, '')
 limitAdd(sender, limit)
-})
-})
-.catch((err) => reply(`${err}`))
-} catch (err) {
-sendMess(ownerNumber, 'PlayMp4 Error : ' + err)
-console.log(color('[PlayMp4]', 'red'), err)
-reply(mess.error)
-}}
-break
-         
-case 'playvid':   
-if (!isGroup) return reply(group())
-if (!value) return reply(`Example : _${prefix + command} Melukis Senja_`)
-reply(wait())
-anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp4?q=${value}&apikey=${Vkey}`)
-if (anu.error) return reply(anu.error)
-infomp3 = `*「 PLAY VIDEO 」*\n\n⌬  *Judul : ${anu.result.title}*\n⌬  *Source : ${anu.result.source}*\n⌬  *Durasi : ${anu.result.duration}*\n⌬  *Quality : ${anu.result.quality}*\n⌬  *Size : ${anu.result.size}*\n\n*[Wait] Tunggu Sebentar..*`
-buffer = await getBuffer(anu.result.thumbnail)
-buffer1 = await getBuffer(anu.result.url_video)
-Fg.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
-Fg.sendMessage(from, buffer1, video, {mimetype: 'video/mp4', filename: `${anu.result.video}.mp4`, quoted:mek, caption: 'Nih Gan'})
-break 
-		
-case 'joox':   
-if (!isGroup) return reply(group())
-if (!value) return reply(`Example : _${prefix + command} Melukis Senja_`)
-reply(wait())
-kntl = await fetchJson(`https://api.zeks.xyz/api/joox?apikey=${Vkey}&q=${value}`)
-if (kntl.error) return reply(kntl.error)
-infomp3 = `*「 JOOX MUSIC 」*\n\n⌬  *Judul : ${kntl.data[0].judul}*\n⌬  *Album : ${kntl.data[0].album}*\n⌬  *Artis : ${kntl.data[0].artist}*\n⌬  *Size : ${kntl.data[0].size}*\n\n\n*[Wait] Tunggu sebentar kak..*`
-buffer = await getBuffer(kntl.data[0].thumb)
-Fg.sendMessage(from, buffer, image, {quoted: mek, caption: infomp3})
-lagu = await getBuffer(kntl.data[0].audio)
-Fg.sendMessage(from, lagu, audio, {mimetype: 'audio/mp4', filename: `${kntl.data[0].audio}.mp3`, quoted: mek})
-break
-
-case 'tiktok':
-if(!value) return reply('Masukkan linknya!')
-reply(wait())
-try{
-data = await  fetchJson(`https://api.dhnjing.xyz/downloader/tiktok/nowatermark?url=${value}`)
-buff = await  getBuffer(data.result.media_resources.image.contentUrl)
-cap = monospace(`T I K T O K  D O W N L O A D E R`) + '\n\n'
-cap += shp + ' Username : ' + data.result.author_metadata.username + '\n'
-cap += shp + ' Judul : ' + data.result.media_metadata.title.split(' |')[0] + '\n'
-cap += '\n\n'
-cap += monospace('V I D E O  I N F O') + '\n\n'
-cap += shp + ' Durasi : ' + data.result.media_resources.video.duration + 'Detik \n'
-cap += shp + ' Kualitas : ' + data.result.media_resources.video.quality + '\n'
-cap += shp + ' Width : ' + data.result.media_resources.video.width + '\n'
-cap += shp + ' Height : ' + data.result.media_resources.video.height + '\n'
-cap += shp + ' Ratio : ' + data.result.media_resources.video.ratio + '\n'
-cap += '\n\n'
-cap += monospace('S O U N D  I N F O') + '\n\n'
-cap += shp + ' Judul : ' + data.result.media_resources.music.title + '\n'
-cap += shp + ' Author : ' + data.result.media_resources.music.authorName + '\n'
-cap += shp + ' Durasi : ' + data.result.media_resources.music.duration + 'Detik \n'
-tta = await Fg.prepareMessage(from, buff, image)
-gbutsan = [
-{buttonId: `${value}`, buttonText: {displayText: 'WM'}, type: 1},
-{buttonId: `${value}`, buttonText: {displayText: 'NOWM'}, type: 1},
-{buttonId: `${value}`, buttonText: {displayText: 'MUSIC'}, type: 1}
-]
-gbuttonan = {
-imageMessage: tta.message.imageMessage,
-contentText: cap,
-footerText: 'Pilih di bawah y bang',
-buttons: gbutsan,
-headerType: 4
-}
 await Fg.sendMessage(from, gbuttonan, MessageType.buttonsMessage, {quoted:mek})
-}catch{
-	reply(mess.error)
-}
+})
 break
 
-case 'tiktokwm':
-if (!isGroup) return reply(group())
-if (!value) return reply(`Example : ${prefix + command} https://vt.tiktok.com/ZSJxamaTs/`)
+
+case 'play': 
+{
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if(!isPremium)return reply(premi())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+if (args.length < 1) return reply(`✳️ *Ingresa el título de una canción*\n\n📌Ejemplo *${prefix + command}* Lil Peep broken smile`)
+try {
 reply(wait())
-buffer = await getBuffer(`http://lolhuman.herokuapp.com/api/tiktokwm?apikey=${lolkey}&url=${value}`)
-Fg.sendMessage(from, buffer, video, {mimetype: 'video/mp4', quoted: mek})
-break
-					
-case 'tiktoknowm':
-if (!isGroup) return reply(group())
-if (!value) return reply(`Example : ${prefix + command} https://vt.tiktok.com/ZSJxamaTs/`)
-reply(wait())
-ttnwm = await fetchJson(`http://lolhuman.herokuapp.com/api/tiktok?apikey=${lolkey}&url=${value}`, {method: 'get'})
-if (anu.error) return reply(anu.error)
-tt = `「 *TIKTOK NO WM* 」\n\n*Judul:* ${ttnwm.result.title}\n*Keywords:* ${ttnwm.result.keywords}\n*Desc:* ${ttnwm.result.description}`
- buff = await getBuffer(ttnwm.result.link)
- Fg.sendMessage(from, buff, video, {mimetype: 'video/mp4', quoted: mek,caption : tt})
+var srch = args.join('')
+    		ytfg = await yts(srch);
+    		aramat = ytfg.all 
+   			var mulaikah = aramat[0].url							
+                  try {
+                  	reply(pagado()) 
+                    yta(mulaikah)
+                    .then((res) => {
+                        const { dl_link, thumb, title, filesizeF, filesize } = res
+                        axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                        .then(async (a) => {
+                        if (Number(filesize) >= 100000) return sendMediaURL(from, thumb, `
+*🎶Musica encontrada*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp3
+‣ *⚖️Tamaño* : ${filesizeF}
+‣ *🎈Subido* : ${ytfg.videos[0].ago}
+‣ *⏱️Duración* : ${ytfg.videos[0].timestamp}
+‣ *🔗 Link* : ${a.data}
+
+_📤 Enviando, espere si el audio no aparece, descargue por el link_`)
+                        const captions = `
+*🎶Musica encontrada*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp3
+‣ *⚖️Tamaño* : ${filesizeF}
+‣ *🎈Subido* : ${ytfg.videos[0].ago}
+‣ *⏱️Duración* : ${ytfg.videos[0].timestamp}
+‣ *🔗 Link* : ${a.data}
+
+_📤 Enviando, espere si el audio no aparece, descargue por el link_`
+                        sendMediaURL(from, thumb, captions)
+                        await sendMediaURL(from, dl_link).catch(() => reply('error'))
+                        limitAdd(sender, limit)
+                        })                
+                        })
+                        } catch (err) {
+                        reply(mess.error.api) }
 break
 
-case 'ig':
-if (!isGroup) return reply(group())
-if (!value)return reply(`Example : ${prefix + command} [Link]`)
-reply(wait())
-y = await fetchJson(`http://zekais-api.herokuapp.com/igdl?url=${value}`)
-t = `*「 IG DOWNLOADER 」*\n\n*Deskripsi :* ${y.capt}`
-sendMediaURL(from,y.result[0].url,t)
-break
+case 'ytmp3':
+			if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if(!isPremium)return reply(premi())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+					if (args.length < 1) return reply(`✳️ Use en comando más el link de YouTube\n\n📌 Ejemplo: *${prefix + command}* https://www.youtube.com/watch?v=_aelrhBsIRE`)
+			let isLinks = args[0].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
+			if (!isLinks) return reply(err(prefix))
+				try {
+				reply(wait()) 
+				yta(args[0])
+				.then((res) => {
+				const { dl_link, thumb, title, filesizeF, filesize } = res
+				axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+				.then((a) => {
 					
-case 'igstory':
-if(!value) return reply(`Example : ${prefix}igstory n.lidiawaty|1`)
-usrnm = value.split('|')[0]
-jmlh = value.split('|')[1]
-if(!jmlh) return reply(`Format Salah!\nExample : ${prefix + command} n.lidiawaty|1`)
-if(isNaN(jmlh)) return reply('Jumlah harus berupa angka!')
-reply(wait())
-data = await axios.get(`http://lolhuman.herokuapp.com/api/igstory/${usrnm}?apikey=${lolkey}`)
-for(let i=0; i<jmlh; i++){
-sendMediaURL(from, data.data.result[i], `Instagram Story ${usrnm}`)
-}
-break
+			    if (Number(filesize) >= 30000) return sendMediaURL(from, thumb, `
+*✅ Descarga Completa*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp3
+‣ *⚖️Tamaño* : ${filesizeF}
+‣ *🔗 Link* : ${a.data}
+
+_📤 La música se está enviando, si no llega descargue por el link_`)
+				const captions = `
+*✅ Descarga Completa*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp3
+‣ *⚖️Tamaño* : ${filesizeF}
+‣ *🔗 Link* : ${a.data}
+
+_📤 La música se está enviando, si no llega descargue por el link_`
+				sendMediaURL(from, thumb, captions)
+				sendMediaURL(from, dl_link).catch(() => reply(mess.error.api))
+				limitAdd(sender, limit)
+				})
+				})
+				} catch (err) {
+				reply(mess.error.api)}
+				break
+				
+ 		case 'ytmp4':
+			if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if(!isPremium)return reply(premi())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+					if (args.length < 1) return reply(`✳️ Use en comando más el link de YouTube\n\n📌 Ejemplo: *${prefix + command}* https://www.youtube.com/watch?v=_aelrhBsIRE`)
+			let isLinks2 = args[0].match(/(?:https?:\/{2})?(?:w{3}\.)?youtu(?:be)?\.(?:com|be)(?:\/watch\?v=|\/)([^\s&]+)/)
+			if (!isLinks2) return reply(err(prefix))
+				try {
+				reply(wait()) 
+				ytv(args[0])
+				.then((res) => {
+					
+				const { dl_link, thumb, title, filesizeF, filesize } = res
+				axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+				.then((a) => {
+				if (Number(filesize) >= 40000) return sendMediaURL(from, thumb, `
+*✅ Descarga Completa*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp4
+‣ *⚖️Tamaño* : ${filesizeF}
+‣ *🔗 Link* : ${a.data}
+
+_📤 El video se está enviando, si no llega descargue por el link_`)
+				const captionsYtmp4 = `
+*✅ Descarga Completa*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp4
+‣ *⚖️Tamaño* : ${filesizeF}
+‣ *🔗 Link* : ${a.data}
+
+_📤 El video se está enviando, si no llega descargue por el link_`
+				sendMediaURL(from, thumb, captionsYtmp4)
+				sendMediaURL(from, dl_link).catch(() => reply(mess.error.api))
+				limitAdd(sender, limit)
+				})		
+				})
+				} catch (err) {
+			    reply(mess.error.api)
+				}
+				break
+				
+				case 'video':
+				case 'plavideo':
+				case 'plavid':
+				case 'playmp4':
+				if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if(!isPremium)return reply(premi())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+           if (args.length < 1) return reply(`✳️ *Ingresa el título de un video*\n\n📌Ejemplo *${prefix + command}* Lil Peep broken smile`)
+            var srch = args.join('')
+            vidfg = await yts(srch);
+            aramat = vidfg.all 
+            var mulaikah = aramat[0].url                            
+                  try {
+                  	reply(wait()) 
+                    ytv(mulaikah)
+                    .then((res) => {
+                    	
+                        const { dl_link, thumb, title, filesizeF, filesize } = res
+                        axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+                        .then(async (a) => {
+                        if (Number(filesize) >= 100000) return sendMediaURL(from, thumb, `
+*🎥 Video econtrado*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp4
+‣ *⚖️ Tamaño* : ${filesizeF}
+‣ *🎈 Subido* : ${vidfg.videos[0].ago}
+‣ *⏱️ Duración* : ${vidfg.videos[0].timestamp}
+‣ *🔗 Link* : ${a.data}
+
+_📤 Enviando, espere si el video no aparece, descargue por el link_`)
+                        const captions = `
+*🎥 Video econtrado*
+
+‣ *📌Título* : ${title}
+‣ *📟 Ext* : mp4
+‣ *⚖️ Tamaño* : ${filesizeF}
+‣ *🎈 Subido* : ${vidfg.videos[0].ago}
+‣ *⏱️ Duración* : ${vidfg.videos[0].timestamp}
+‣ *🔗 Link* : ${a.data}
+
+_📤 Enviando, espere si el video no aparece, descargue por el link_`
+                        sendMediaURL(from, thumb, captions)
+                        await sendMediaURL(from, dl_link).catch(() => reply('❎ Ocurrió un error'))
+                        limitAdd(sender, limit)
+                        })                
+                        })
+                        } catch (err) {
+                        reply(mess.error.api)} 
+            
+                   break
+		
+//-------(𝗗𝗘𝗦𝗖𝗔𝗥𝗚A𝗦 -  𝗦𝗧𝗔𝗟𝗞𝗦) 𝗜𝗡𝗦𝗧𝗔 - 𝗧𝗜𝗞𝗧𝗢𝗞------
+
+                  case 'tiktok':
+                  (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+  if (args.length < 1) return reply(`✳️ Ingrese el link de un video`)
+ 		if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.link)
+ 		
+ 		reply(wait())
+		hx.ttdownloader(`${args[0]}`)
+    		.then(result => {
+    		const { wm, nowm, audio } = result
+    		axios.get(`https://tinyurl.com/api-create.php?url=${nowm}`)
+    		.then(async (a) => {
+    		me = `✅ Aquí tienes`
+		Fg.sendMessage(from,{url:`${nowm}`},video,{mimetype:'video/mp4',quoted:mek,caption:me})
+		})
+		})
+		limitAdd(sender, limit)
+     		.catch(e => console.log(e))
+     		break
+     case 'tiktokaudio':
+     (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+ 		if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.link)
+ 		if (args.length < 1) return reply(`✳️ Ingrese el link de un video`)
+ 		reply(wait())
+ 		hx.ttdownloader(`${args[0]}`)
+    		.then(result => {
+    	limitAdd(sender, limit)
+    		const { audiotk} = result
+            sendMediaURL(from,audiotk,'')
+    		})
+     		.catch(e => console.log(e))
+     		break
+     
+
+case 'igstalk':
+case 'stalking':
+      (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+                   if (args.length < 1) return reply(`✳️ Escriba un Nombre de Usuario\n\n📌Ejemplo : *${prefix + command}* fg98._`)
+                   reply(wait()) 
+            insta.fetchUser(`${args.join(' ')}`).then(Y => {
+            console.log(`${args.join(' ')}`)
+            ten = `${Y.profile_pic_url_hd}`
+            teks = `───「 *STALKING* 」
+‣ *🆔 ID :* ${Y.profile_id}
+‣ *🔖 Username* : ${args.join('')}
+‣ *🔖 Nombre Completo* : ${Y.full_name}
+‣ *📌 Bio* : ${Y.biography}
+‣ *👥 Seguidores* : ${Y.following} 
+‣ *🫂 Siguiendo* : ${Y.followers}
+‣ *🔐 Privado* : ${Y.is_private}
+‣ *✅ Verificado* : ${Y.is_verified}
+‣ *🔗 Link* : https://instagram.com/${args.join('')}
+`
+
+            sendMediaURL(from,ten,teks) 
+            })     
+            limitAdd(sender, limit)
+            break
+     
+     case 'igfoto':       
+                 case 'igvideo':    
+                    case 'ig':
+                    case 'instagram':
+                    (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+                       if (args.length < 1) return reply(`✳️ Ingrese un link de una foto o video de Instagram`)
+        if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.link)
+       
+                    reply(wait())
+	    hx.igdl(args[0])
+	    .then(async(result) => {
+		reply(pagado())
+            for(let i of result.medias){
+                if(i.url.includes('mp4')){
+                    let link = await getBuffer(i.url)
+                    Fg.sendMessage(from,link,video,{quoted: mek,caption: `✅ Aquí está`})
+                } else {
+                    let link = await getBuffer(i.url)
+                    Fg.sendMessage(from,link,image,{quoted: mek,caption: `✅ Aquí tienes`})                  
+                }
+            }
+            });
+            limitAdd(sender, limit)
+	    break
+	
 
 case 'fb': 
 case 'facebook':{
@@ -2009,36 +2140,13 @@ sendMediaURL(from, res.result.links[0].url)
 limitAdd(sender, limit)
 })
 .catch((err) => {
-sendMess(ownerNumber, 'FB Error : ' + err)
 console.log(color('[FB]', 'red'), err)
 reply(mess.error.api)
 })
 }
 break
 			
-case 'ytmp4':
-if (!isGroup) return reply(group())
-if (!value)return reply(`Example : ${prefix + command} [Link]`)
-mp4 = await fetchJson(`http://zekais-api.herokuapp.com/ytmp4?url=${value}`)
-if (mp4.error) return reply(mp4.error)
-ytt3 = `「 *YOUTUBE MP4* 」\n\n▢ *Judul :* ${mp4.title}\n▢ *Size : ${mp4.size}*\n▢ *Ext: Mp4*\n▢ *Quality : ${mp4.quality}*\n▢ *Like : ${mp4.likes}*\n▢ *Dislike : ${mp4.dislike}*\n▢ *Views : ${mp4.views}*\n▢ *Upload : ${mp4.uploadDate}*\n\n*[ Wait ]Tunggu Sebentar kak...*`
-buff = await getBuffer(mp4.thumb)
-reply(wait())
-Fg.sendMessage(from, buff, image, {quoted: mek, caption: ytt3})
-sendMediaURL(from,mp4.result,`「 *YOUTUBE MP4* 」\n*Data Berhasil diDapatkan!*\n\n▢ *Judul : ${mp4.title}*\n▢ *Size : ${mp4.size}*\n▢ *Ext: Mp4*\n▢ *Quality : ${mp4.quality}*\n▢ *Like : ${mp4.likes}*\n▢ *Dislike : ${mp4.dislike}*\n▢ *Views : ${mp4.views}*\n▢ *Upload : ${mp4.uploadDate}*`)
-break 
 
-case 'ytmp3':
-if (!isGroup) return reply(group())
-if (!value)return reply(`Example : ${prefix + command} [Link]`)
-ppec = await fetchJson(`http://zekais-api.herokuapp.com/ytmp3?url=${value}`)
-if (ppec.error) return reply(ppec.error)
-ytt = `「 *YOUTUBE MP3* 」\n\n▢ *Judul :* ${ppec.title}\n▢ *Size : ${ppec.size}*\n▢ *Ext: Mp3*\n▢ *Like : ${ppec.likes}*\n▢ *Dislike : ${ppec.dislike}*\n▢ *Views : ${ppec.views}*\n▢ *Upload : ${ppec.uploadDate}*\n\n*[ Wait ]Tunggu Sebentar kak...*`
-buff = await getBuffer(ppec.thumb)
-reply(wait())
-Fg.sendMessage(from, buff, image, {quoted: mek, caption: ytt})
-sendMediaURL(from,ppec.result)
-break 
 				
 case 'ytsearch':
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
