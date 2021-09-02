@@ -2340,7 +2340,10 @@ case 'owner':
 case 'creator':
 case 'creador':
 case 'dueño':
-Fg.sendMessage(from, {displayname: "jeff", vcard: vcard1}, MessageType.contact ,{sendEphemeral: false,
+Fg.sendMessage(from, {displayname: "jeff", vcard: vcard1}, MessageType.contact ,{contextInfo :{text: 'hi',
+"forwardingScore": 10,
+isForwarded: true,
+sendEphemeral: false,
 "externalAdReply": {
                 "title": `•Instagram`,
                 "body": "",
