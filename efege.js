@@ -2077,7 +2077,7 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
 
 case 'igstalk':
 case 'stalking':
-      (!isVerify) return reply(userB(prefix))
+  if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
                    if (args.length < 1) return reply(`✳️ Escriba un Nombre de Usuario\n\n📌Ejemplo : *${prefix + command}* fg98._`)
@@ -2105,7 +2105,7 @@ case 'stalking':
                  case 'igvideo':    
                     case 'ig':
                     case 'instagram':
-                    (!isVerify) return reply(userB(prefix))
+                    if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
                        if (args.length < 1) return reply(`✳️ Ingrese un link de una foto o video de Instagram`)
