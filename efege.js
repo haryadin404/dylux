@@ -2074,31 +2074,7 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
      		break
      
 
-case 'igstalk':
-case 'stalking':
-      (!isVerify) return reply(userB(prefix))
-  if (isBanned) return reply(banf())
-  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-                   if (args.length < 1) return reply(`✳️ Escriba un Nombre de Usuario\n\n📌Ejemplo : *${prefix + command}* fg98._`)
-                   reply(wait()) 
-            insta.fetchUser(`${args.join(' ')}`).then(Y => {
-            console.log(`${args.join(' ')}`)
-            ten = `${Y.profile_pic_url_hd}`
-            teks = `───「 *STALKING* 」
-‣ *🆔 ID :* ${Y.profile_id}
-‣ *🔖 Username* : ${args.join('')}
-‣ *🔖 Nombre Completo* : ${Y.full_name}
-‣ *📌 Bio* : ${Y.biography}
-‣ *👥 Seguidores* : ${Y.following} 
-‣ *🫂 Siguiendo* : ${Y.followers}
-‣ *🔐 Privado* : ${Y.is_private}
-‣ *✅ Verificado* : ${Y.is_verified}
-‣ *🔗 Link* : https://instagram.com/${args.join('')}`
 
-            sendMediaURL(from,ten,teks) 
-            })     
-            limitAdd(sender, limit)
-            break
      
      case 'igfoto':       
                  case 'igvideo':    
