@@ -2052,8 +2052,9 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
 		Fg.sendMessage(from,{url:`${nowm}`},video,{mimetype:'video/mp4',quoted:mek,caption:me})
 		})
 		})
-		limitAdd(sender, limit)
+		
      		.catch(e => console.log(e))
+     limitAdd(sender, limit)
      		break
      case 'tiktokaudio':
      if (!isVerify) return reply(userB(prefix))
@@ -2064,17 +2065,18 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
  		reply(wait())
  		hx.ttdownloader(`${args[0]}`)
     		.then(result => {
-    	limitAdd(sender, limit)
+    	
     		const { audiotk} = result
             sendMediaURL(from,audiotk,'')
     		})
      		.catch(e => console.log(e))
+     limitAdd(sender, limit)
      		break
      
 
 case 'igstalk':
 case 'stalking':
-
+      (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
                    if (args.length < 1) return reply(`✳️ Escriba un Nombre de Usuario\n\n📌Ejemplo : *${prefix + command}* fg98._`)
