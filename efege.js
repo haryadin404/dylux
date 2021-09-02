@@ -127,6 +127,7 @@ vn = true
 const soportefg = 'https://chat.whatsapp.com/G5sXrkhJ0pb0Tu8nhWLaFK' 
 
 //--------𝗔𝗣𝗜𝗞𝗘𝗬----------
+const Vkey = 'apivinz'
 const lolkey = '51762aa98877b6dc21112b1a'
 
 
@@ -1834,7 +1835,7 @@ if (!isGroup) return reply(group())
 if (args.length < 1) return reply('*Teks nya mana?*')
 reply(wait())
 tahta = args.join(" ")
-tahta = await getBuffer(`https://api.zeks.xyz/api/hartatahta?apikey=${zeks}&text=${tahta}`)
+tahta = await getBuffer(`https://api.zeks.xyz/api/hartatahta?apikey=${Vkey}&text=${tahta}`)
 Fg.sendMessage(from,tahta,image,{quoted:mek})
 limitAdd(sender, limit)
 break
@@ -1845,7 +1846,7 @@ if (!isGroup) return reply(group())
 if (args.length < 1) return reply('*Teks nya mana?*')
 reply(wait())
 thunder = args.join(" ")
-thunder = await getBuffer(`https://api.zeks.xyz/api/thundertext?apikey=${zeks}&text=${thunder}`)
+thunder = await getBuffer(`https://api.zeks.xyz/api/thundertext?apikey=${Vkey}&text=${thunder}`)
 Fg.sendMessage(from,thunder,image,{quoted:mek})
 limitAdd(sender, limit)
 break
@@ -1856,7 +1857,7 @@ if (!isGroup) return reply(group())
 if (args.length < 1) return reply('*Teks nya mana?*')
 reply(wait())
 bp = args.join(" ")
-bp = await getBuffer(`https://api.zeks.xyz/api/logobp?apikey=${zeks}&text=${bp}`)
+bp = await getBuffer(`https://api.zeks.xyz/api/logobp?apikey=${Vkey}&text=${bp}`)
 Fg.sendMessage(from,bp,image,{quoted:mek})
 limitAdd(sender, limit)
 break
@@ -1868,7 +1869,7 @@ if(!value) return reply(`Example : ${prefix}glitch nama|autor`)
 g1 = value.split('|')[0]
 g2 = value.split('|')[1]
 reply(wait())
-glitch = await getBuffer(`https://api.zeks.xyz/api/gtext?apikey=${zeks}&text1=${g1}&text2=${g2}`)
+glitch = await getBuffer(`https://api.zeks.xyz/api/gtext?apikey=${Vkey}&text1=${g1}&text2=${g2}`)
 Fg.sendMessage(from,glitch,image,{quoted:mek})
 limitAdd(sender, limit)
 break
@@ -1880,7 +1881,7 @@ if(!value) return reply(`Example : ${prefix}marvel nama|autor`)
 m1 = value.split('|')[0]
 m2 = value.split('|')[1]
 reply(wait())
-marvel = await getBuffer(`https://api.zeks.xyz/api/marvellogo?apikey=${zeks}&text1=${m1}&text2=${m2}`)
+marvel = await getBuffer(`https://api.zeks.xyz/api/marvellogo?apikey=${Vkey}&text1=${m1}&text2=${m2}`)
 Fg.sendMessage(from,marvel,image,{quoted:mek})
 limitAdd(sender, limit)
 break
@@ -2000,7 +2001,7 @@ if (!isGroup)return reply(group())
 if(args.length < 1)return reply(`Example : ${prefix + command} 3 Sayang\n\nCommand :\n• ${prefix + command} 3\n• ${prefix + command} 4`)
 if ((args[0]) === '3') {
 reply(wait())
-anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?apikey=${zeks}&q=${args[1]}`)
+anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?apikey=${Vkey}&q=${args[1]}`)
 yt = `*MP3*\n\n_Title : ${anu.result.title}_\n_Size : ${anu.result.size}_`
 sendMediaURL(from,anu.result.thumbnail,yt)
 //buf = await getBuffer(anu.result.url_audio)
@@ -2023,7 +2024,7 @@ sendEphemeral: false,
 sendMediaURL(from,anu.result.url_audio)
 } else if ((args[0]) === '4') {
 reply(wait())
-anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp4?apikey=${zeks}&q=${args[1]}`)
+anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp4?apikey=${Vkey}&q=${args[1]}`)
 yt1 = `*MP4*\n\n_Title : ${anu.result.title}_\n_Size : ${anu.result.size}_`
 sendMediaURL(from,anu.result.thumbnail,yt1)
 sendMediaURL(from,anu.result.url_video,yt1)
@@ -2119,7 +2120,7 @@ case 'playvid':
 if (!isGroup) return reply(group())
 if (!value) return reply(`Example : _${prefix + command} Melukis Senja_`)
 reply(wait())
-anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp4?q=${value}&apikey=${zeks}`)
+anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp4?q=${value}&apikey=${Vkey}`)
 if (anu.error) return reply(anu.error)
 infomp3 = `*「 PLAY VIDEO 」*\n\n⌬  *Judul : ${anu.result.title}*\n⌬  *Source : ${anu.result.source}*\n⌬  *Durasi : ${anu.result.duration}*\n⌬  *Quality : ${anu.result.quality}*\n⌬  *Size : ${anu.result.size}*\n\n*[Wait] Tunggu Sebentar..*`
 buffer = await getBuffer(anu.result.thumbnail)
@@ -2132,7 +2133,7 @@ case 'joox':
 if (!isGroup) return reply(group())
 if (!value) return reply(`Example : _${prefix + command} Melukis Senja_`)
 reply(wait())
-kntl = await fetchJson(`https://api.zeks.xyz/api/joox?apikey=${zeks}&q=${value}`)
+kntl = await fetchJson(`https://api.zeks.xyz/api/joox?apikey=${Vkey}&q=${value}`)
 if (kntl.error) return reply(kntl.error)
 infomp3 = `*「 JOOX MUSIC 」*\n\n⌬  *Judul : ${kntl.data[0].judul}*\n⌬  *Album : ${kntl.data[0].album}*\n⌬  *Artis : ${kntl.data[0].artist}*\n⌬  *Size : ${kntl.data[0].size}*\n\n\n*[Wait] Tunggu sebentar kak..*`
 buffer = await getBuffer(kntl.data[0].thumb)
@@ -2299,7 +2300,7 @@ if (isQuotedAudio){
 const dlfile = await Fg.downloadMediaMessage(JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo)
 const bodyForm = new FormData()
 bodyForm.append('audio', dlfile, 'music.mp3')
-bodyForm.append('apikey', `${zeks}`)
+bodyForm.append('apikey', `${Vkey}`)
 axios('https://api.zeks.xyz/api/searchmusic', {
 method: 'POST',
 headers: {
@@ -3431,7 +3432,7 @@ case 'tebakgambar':{
   if (isGame(sender, isOwner, gcount, glimit)) return reply(`Limit game kamu sudah habis`)
 if (!isGroup) return reply(group())
 if (game.isTebakGambar(from, tebakgambar)) return reply(`Masih ada soal yang belum di selesaikan`)
-let tbg = await axios.get(`https://api.zeks.xyz/api/tebakgambar?apikey=${zeks}`)
+let tbg = await axios.get(`https://api.zeks.xyz/api/tebakgambar?apikey=${Vkey}`)
 const petunjuk = tbg.data.result.jawaban.replace(/[b|c|d|f|g|h|j|k|l|m|n|p|q|r|s|t|v|w|x|y|z]/gi, '_')
 sendMediaURL(from, tbg.data.result.soal, monospace(`Silahkan jawab soal berikut ini\n\nPetunjuk : ${petunjuk}\nWaktu : ${gamewaktu}s`), mek)
 let anih = tbg.data.result.jawaban.toLowerCase()
