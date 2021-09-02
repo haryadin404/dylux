@@ -1803,114 +1803,10 @@ break
 		
 			
 //******************** 》DOWNLOAD 《 ********************\\
-  case 'ytplay':
-if(!isGroup)return reply(group())
-if(!value) return reply(`✳️Ingrese el de un video de YouTube`)
-reply(wait())
-datai = [];
-try{
-ysearch = await yts(value)
-hdata = ysearch.all
-}catch(e){
-return reply(mess.error.api)
-}
-num = 1
-for(let i=0; i<hdata.length; i++){
-datai.push({
-"rows": [
-{
-"title": "MP3",
-description: `Title: ${hdata[i].title}\n\nUploader: ${hdata[i].author.name}`,
-"rowId": hdata[i].url
-},
-{
-"title": "MP4",
-description: `Title: ${hdata[i].title}\n\nUploader: ${hdata[i].author.name}`,
-"rowId": hdata[i].url
-}
-], title: num})
-num += 1
-}
-po = Fg.prepareMessageFromContent(from, {
-"listMessage":{
-"title": "*YOUTUBE DESCARGA*",
-"description": `Pedido por : *${pushname}*\n📌Resultado de búsqueda : *${value}*\n\nDescarga haciendo click en el botón de abajo`,
-"buttonText": "Result",
-"listType": "SINGLE_SELECT",
-"sections": datai}}, {}) 
-Fg.relayWAMessage(po, {waitForAck: true})
-break
-
-case 'MP3':
-reply(wait())
-try{
-downm = await yta(q2)
-const { dl_link, thumb, title, filesizeF, filesize } = downm
-if(Number(filesize) >= 50000){
-short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-return sendMediaURL(from, thumb, `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
-}
-teks = `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Type : MP3\n\nTunggu sebentar\nMusic segera dikirim`
-sendMediaURL(from, thumb, teks)
-sendMediaURL(from, dl_link)
-}catch(e){
-reply(mess.error)
-}
-break
-
-case 'MP4':
-reply(wait())
-try{
-downm = await ytv(q2)
-const { dl_link, thumb, title, filesizeF, filesize } = downm
-if(Number(filesize) >= 50000){
-short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-return sendMediaURL(from, thumb, `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
-        }
-teks = `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Type : MP4\n\nTunggu sebentar\nMusic segera dikirim`
-sendMediaURL(from, thumb, teks)
-sendMediaURL(from, dl_link)
-}catch(e){
-reply(mess.error)
-}
-break
   
-case 'mp':
-if (!isGroup)return reply(group())
-if(args.length < 1)return reply(`Example : ${prefix + command} 3 Sayang\n\nCommand :\n• ${prefix + command} 3\n• ${prefix + command} 4`)
-if ((args[0]) === '3') {
-reply(wait())
-anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp3?apikey=${Vkey}&q=${args[1]}`)
-yt = `*MP3*\n\n_Title : ${anu.result.title}_\n_Size : ${anu.result.size}_`
-sendMediaURL(from,anu.result.thumbnail,yt)
-//buf = await getBuffer(anu.result.url_audio)
-/*Fg.sendMessage(from, buf, MessageType.audio, {
-"contextInfo": {
-mimetype: 'audio/mp4',
-text: 'hi',
-"forwardingScore": 1000000000,
-isForwarded: false,
-sendEphemeral: false,
-"externalAdReply": {
-"title": '</ 𝘚𝘦𝘯𝘬𝘶𝘶⁴̅⁰͍⁴',
-"body": `${pushname}`,
-"previewType": "PHOTO",
-"thumbnailUrl": "",
-"thumbnail": gambar5,
-"sourceUrl": ""
-            }},quoted:mek
-})*/
-sendMediaURL(from,anu.result.url_audio)
-} else if ((args[0]) === '4') {
-reply(wait())
-anu = await fetchJson(`https://api.zeks.xyz/api/ytplaymp4?apikey=${Vkey}&q=${args[1]}`)
-yt1 = `*MP4*\n\n_Title : ${anu.result.title}_\n_Size : ${anu.result.size}_`
-sendMediaURL(from,anu.result.thumbnail,yt1)
-sendMediaURL(from,anu.result.url_video,yt1)
-}
-break
 
-/* CAN BE USED AFTER UPDATE LAST BAILEYS
+
+//CAN BE USED AFTER UPDATE LAST BAILEYS
 case 'play':
 if (!isGroup)return reply(group())
 if (args.length < 1) return reply(`Kirim perintah *${prefix}play query*`)
@@ -1937,7 +1833,7 @@ headerType: 4
 await Fg.sendMessage(from, gbuttonan, MessageType.buttonsMessage, {quoted:mek})
 })
 break
-*/
+
 
 case 'playmp3': {
 if (!isGroup)return reply(group())
