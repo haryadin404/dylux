@@ -1874,9 +1874,6 @@ sendMediaURL(from, dl_link)
 reply(mess.error)
 }
 break
-}
-}catch{
-}
   
 case 'mp':
 if (!isGroup)return reply(group())
