@@ -353,7 +353,7 @@ const isMods = mods.includes(senderNumber)
  
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
-const isPremium = _prem.checkPremiumUser(sender,premium) || false
+const isPremium = _prem.checkPremiumUser(sender,premium) || false || isOwner
 const isGroupAdmins = groupAdmins.includes(sender) || false
 const isWelcom = isGroup ? _welcom.includes(from) : false
 const isLeft = isGroup ? left.includes(from) : false
