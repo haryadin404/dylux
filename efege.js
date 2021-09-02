@@ -2036,7 +2036,7 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
 //-------(𝗗𝗘𝗦𝗖𝗔𝗥𝗚A𝗦 -  𝗦𝗧𝗔𝗟𝗞𝗦) 𝗜𝗡𝗦𝗧𝗔 - 𝗧𝗜𝗞𝗧𝗢𝗞------
 
                   case 'tiktok':
-                  (!isVerify) return reply(userB(prefix))
+           if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
   if (args.length < 1) return reply(`✳️ Ingrese el link de un video`)
@@ -2056,7 +2056,7 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
      		.catch(e => console.log(e))
      		break
      case 'tiktokaudio':
-     (!isVerify) return reply(userB(prefix))
+     if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
  		if (!isUrl(args[0]) && !args[0].includes('tiktok.com')) return reply(mess.link)
