@@ -1786,7 +1786,7 @@ if (!isGroup) return reply(group())
   if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   const verdad = _verdad[Math.floor(Math.random() * _verdad.length)]
-  reply(`‣ *Verdad*\n${verdad}`)
+  reply(`‣ *Verdad*\n\n${verdad}`)
 break
 
 //-- Tod reto
@@ -1800,19 +1800,32 @@ break
 
 
 
+//--- texto a voz
 case 'tts':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if(!value) return reply(`Example : ${prefix}tts id|Teks lu`)
-var tt = value.split("|")[0]
-var es = value.split("|")[1]
-if (es > 10) return reply('Maksimal 10 kata')
-reply(wait())
-tts = await getBuffer(`http://zekais-api.herokuapp.com/speech?lang=${tt}&text=${es}`)
-Fg.sendMessage(from, tts, audio, {mimetype: 'audio/mp4', filename: `${tts}.mp3`, quoted: mek,ptt : true})
-limitAdd(sender, limit)
+case 'voz': 
+  if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+ 
+				if (args.length < 1) return Fg.sendMessage(from, `❎ Ingrese el código de idioma y el texto\n\n*Ejemplo* : ${prefix}tts es Hola puercos`, text, {quoted: mek})
+				const gtts = require('./libreria/gtts')(args[0])
+				if (args.length < 2) return Fg.sendMessage(from, `❎ Ingrese el texto\n\n*Ejemplo* : ${prefix}tts es Hola puercos`, text, {quoted: mek})
+				dtt = body.slice(8)
+				
+				ranm = getRandom('.mp3')
+				rano = getRandom('.ogg')
+				dtt.length > 300
+				? reply('❎ El texto es demasiado largo, tampoco de voy a leer la Biblia')
+				: gtts.save(ranm, dtt, function() {
+				exec(`ffmpeg -i ${ranm} -ar 48000 -vn -c:a libopus ${rano}`, (err) => {
+				fs.unlinkSync(ranm)
+				buff = fs.readFileSync(rano)
+				if (err) return reply('❎ Lo siento ocurrió un error')
+				Fg.sendMessage(from, buff, audio, {quoted: mek, ptt:true})
+				fs.unlinkSync(rano)
+				})
+				})
 break
-		 
+
 //******************** 》 MAKER 《 ********************\\
 case 'tahta':
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
