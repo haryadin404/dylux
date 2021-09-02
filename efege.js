@@ -353,7 +353,7 @@ const isMods = mods.includes(senderNumber)
  
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
-const isPremium = isGroup ? _prem.checkPremiumUser(sender,premium) : false
+const isPremium = _prem.checkPremiumUser(sender,premium) : false || isOwner
 const isGroupAdmins = groupAdmins.includes(sender) || false
 const isWelcom = isGroup ? _welcom.includes(from) : false
 const isLeft = isGroup ? left.includes(from) : false
@@ -1849,7 +1849,7 @@ break
 //******************** 》DOWNLOAD 《 ********************\\
 
 case 'xnxxsearch':
-if(!isPremium && isOwner)return reply(premi(prefix))
+if(!isPremium)return reply(premi(prefix))
 if (!isGroup)return reply(group())
 if (!value) return reply(`Example: ${prefix + command} Japanese`)
 get_result = await fetchJson(`https://api.lolhuman.xyz/api/xnxxsearch?apikey=${lol}&query=${value}`)
