@@ -1845,7 +1845,6 @@ break
 
 
 case 'play': 
-{
 if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   if(!isPremium)return reply(premi())
@@ -1858,7 +1857,7 @@ var srch = args.join('')
     		aramat = ytfg.all 
    			var mulaikah = aramat[0].url							
                   try {
-                  	reply(pagado()) 
+                  	
                     yta(mulaikah)
                     .then((res) => {
                         const { dl_link, thumb, title, filesizeF, filesize } = res
