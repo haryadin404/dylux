@@ -1844,20 +1844,19 @@ await Fg.sendMessage(from, gbuttonan, MessageType.buttonsMessage, {quoted:mek})
 break
 
 
-case 'play': 
-if (!isVerify) return reply(userB(prefix))
+case 'play':
+			if (!isVerify) return reply(userB(prefix))
   if (isBanned) return reply(banf())
   if(!isPremium)return reply(premi())
   if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (args.length < 1) return reply(`✳️ *Ingresa el título de una canción*\n\n📌Ejemplo *${prefix + command}* Lil Peep broken smile`)
-try {
-reply(wait())
-var srch = args.join('')
+  if (args.length < 1) return reply(`✳️ *Ingresa el título de una canción*\n\n📌Ejemplo *${prefix + command}* Lil Peep broken smile`)
+  reply(wait())
+            var srch = args.join('')
     		ytfg = await yts(srch);
     		aramat = ytfg.all 
    			var mulaikah = aramat[0].url							
                   try {
-                  	
+                  	reply(pagado()) 
                     yta(mulaikah)
                     .then((res) => {
                         const { dl_link, thumb, title, filesizeF, filesize } = res
@@ -1892,7 +1891,7 @@ _📤 Enviando, espere si el audio no aparece, descargue por el link_`
                         })
                         } catch (err) {
                         reply(mess.error.api) }
-break
+                   break 
 
 case 'ytmp3':
 			if (!isVerify) return reply(userB(prefix))
