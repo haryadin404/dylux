@@ -2338,19 +2338,21 @@ break
 					
 case 'owner': 
 case 'creator':
+case 'creador':
+case 'dueño':
 Fg.sendMessage(from, {displayname: "jeff", vcard: vcard1}, MessageType.contact ,{contextInfo :{text: 'hi',
 "forwardingScore": 1000000000,
 isForwarded: true,
 sendEphemeral: false,
 "externalAdReply": {
-                "title": `S e n. (@021Fgu_) •Instagram Story's`,
+                "title": `•Instagram`,
                 "body": "",
                 "previewType": "PHOTO",
-                "thumbnailUrl": "https://telegra.ph/file/bbb5eca08130920edbcb4.jpg",
+                "thumbnailUrl": "https://i.ibb.co/fHCkFT5/3c450a2595ae.jpg",
                 "thumbnail": gambar3,
-                "sourceUrl": ``
+                "sourceUrl": `https://instagram.com/fg98._`
 },mentionedJid:[sender]}, quoted : mek})
-.then((res) => Fg.sendMessage(from, 'Nih kontak ownerku', text, {quoted: res}))
+.then((res) => Fg.sendMessage(from, '✅ Aqui mi dueño, solo chatea si es necesario', text, {quoted: res}))
 break
 
 
