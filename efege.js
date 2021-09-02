@@ -1344,6 +1344,7 @@ reply(`✅ Nombre y autor guardado\n\n📌Use el comando ${prefix}stickfg`)
 break
 	        
 case 'stickfg':
+case 'fgstick':
 if (!isQuotedSticker) return reply(`Reply sticker dengan caption *${prefix}colong*`)
 const encmediia = JSON.parse(JSON.stringify(sen).replace('quotedM','m')).message.extendedTextMessage.contextInfo
 const meidia = await Fg.downloadAndSaveMediaMessage(encmediia, `./sticker/${sender}`)
