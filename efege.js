@@ -2091,8 +2091,7 @@ case 'stalking':
 ‣ *🫂 Siguiendo* : ${Y.followers}
 ‣ *🔐 Privado* : ${Y.is_private}
 ‣ *✅ Verificado* : ${Y.is_verified}
-‣ *🔗 Link* : https://instagram.com/${args.join('')}
-`
+‣ *🔗 Link* : https://instagram.com/${args.join('')}`
 
             sendMediaURL(from,ten,teks) 
             })     
