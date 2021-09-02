@@ -2266,73 +2266,79 @@ break
 case 'listgroup': 
 case 'grouplist': 
 case 'listgc':
+if (!isOwner) return replyfg(ownerB()) 
 const txs = Fg.chats.all().filter(v => v.jid.endsWith('g.us')).map(v =>`
+❉─────────────────────❉
 • *🔖Nombre* : ${Fg.getName(v.jid)}*
 • *🛡️ID de Grupo : ${v.jid}*
-• *🏮Estado* : ${v.read_only ? 'noUnido' : 'Unido'}*`).join`\n\n`
-reply('≡ *Lista Grupos*\n\n' + txs)
+• *🏮Estado* : ${v.read_only ? 'noUnido' : 'Unido'}
+❉─────────────────────❉`).join`\n\n`
+reply('≡ *LISTA de Grupos*\n\n' + txs)
 break
 
 case 'anticall':
+case 'antillamada':
+case 'antillamadas':
 if (!isOwner) return
-if (args.length < 1) return reply('Pilih on atau off')
+if (args.length < 1) return reply(`✳️ Anti llamadas\n\n📌Escribe :\n ${prefix + command} *on* para activar\n${prefix +command} *off* para desactivar`)
 if (args[0] === "on") {
-if(antical)return reply('Sudah diaktifkan sebelumnya!')
+if(antical)return reply('✳️ Ha sido activado antes!')
 antical = true
-reply(`Succes mengaktifkan anticall`)
+reply(`✅ Se activo anti-llamdas`)
 } else if (args[0] === "off") {
-if(!antical)return reply('Sudah di NonAktifkan sebelumnya!')
+if(!antical)return reply('✳️ Ha sido desactivado antes!')
 antical = false
-reply(`Succes mematikan anticall`)
+reply(`✅ Se desactivo anti-llamadas`)
 } else {
-reply(`Pilih on atau off`)
+reply(`✳️ Anti llamadas\n\n📌Escribe :\n ${prefix + command} *on* para activar\n${prefix +command} *off* para desactivar`)
 }
 break
 
 case 'antidelete':
-if (!isOwner) return
-if (args.length < 1) return reply('Pilih on atau off')
+if (!isOwner) return replyfg(ownerB()) 
+if (args.length < 1) return reply(`✳️ Anti mensajes eliminados\n\n📌 Para activar Escriba *${prefix +command} on* \nPara desactivar *${prefix +command} off*`)
 if (args[0] === "on") {
-if(antidel)return reply('Sudah diaktifkan sebelumnya!')
+if(antidel)return reply('✳️ Ha sido activado antes!')
 antidel = true
-reply(`Succes mengaktifkan antidelete`)
+reply(`✅ Se actico Anti - Delete`)
 } else if (args[0] === "off") {
-if(!antidel)return reply('Sudah di NonAktifkan sebelumnya!')
+if(!antidel)return reply('✳️ Ya ha sido desactivado antes!')
 antidel = false
-reply(`Succes mematikan antidelete`)
+reply(`✅ Se desactivo Anti - Delete`)
 } else {
-reply(`Pilih on atau off`)
+reply(✳️ Anti mensajes eliminados\n\n📌 Para activar Escriba *${prefix +command} on* \nPara desactivar *${prefix +command} off*)
 }
 break
                 
 case 'bc':
-if (!isOwner)return reply(ownerB()) 
-if (!value)return reply(`Reply image , video , atau teks biasa dan Masukan Ingfo`)
+if (!isOwner && !isMods)return reply(modsB()) 
+if (args.length < 1) return reply('✳️ Que quieres transmitir?')
 bcc = await Fg.chats.all()
 if (isMedia && !mek.message.imageMessage || isQuotedImage) {
 let encmedia = isQuotedImage ? JSON.parse(JSON.stringify(mek).replace('quotedM', 'm')).message.extendedTextMessage.contextInfo : mek
 let media = await Fg.downloadMediaMessage(encmedia)
 for (let i of bcc){
-Fg.sendMessage(i.jid, media, image, {contextInfo: { forwardingScore: 9999, isForwarded:true},caption: `*「 RAPAA BROADCAST 」*\n\n${value}`})
+Fg.sendMessage(i.jid, media, image, {caption: `*TRANSMISIÓN ┃ STAFF*\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n\n${value}`})
 }
-reply(`Sukses`)
+reply(`*✅ Transmision realizada*`)
 } else if (isMedia && !mek.message.videoMessage || isQuotedVideo) {
 const encmedia = isQuotedVideo ? JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo : mek
 bc = await Fg.downloadMediaMessage(encmedia)
 for (let _ of bcc) {
-Fg.sendMessage(_.jid, bc, video, {caption: `*「 Fgu BROADCAST 」*\n\n${value}`})
+Fg.sendMessage(_.jid, bc, video, {caption: `*TRANSMISIÓN ┃ STAFF*\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n\n${value}`})
 }
-reply('Suksess broadcast')
+reply('*✅ Transmision realizada* ')
 }	else {
 for (let _ of bcc) {
-sendMess(_.jid, `*「 Fgu BROADCAST 」*\n\n${value}`)
+sendMess(_.jid, `*TRANSMISIÓN ┃ STAFF*\n▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁\n\n${value}`)
 	}
-reply(`Succses BroadCast ${totalchat.length} Total chat`)
+reply(`✅ Transmision realizada *${totalchat.length} Total chats*`)
 		}
 break
 					
-case 'owner': case 'creator':
-Fg.sendMessage(from, {displayname: "jeff", vcard: vcard}, MessageType.contact ,{contextInfo :{text: 'hi',
+case 'owner': 
+case 'creator':
+Fg.sendMessage(from, {displayname: "jeff", vcard: vcard1}, MessageType.contact ,{contextInfo :{text: 'hi',
 "forwardingScore": 1000000000,
 isForwarded: true,
 sendEphemeral: false,
