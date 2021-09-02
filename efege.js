@@ -3,7 +3,7 @@
 //       🇩 🇾 🇱 🇺 🇽  𝗩4
 //
 //============ FG98 ============//
- 
+  
  //--  Conectar a WhatsApp
 const {
 WAConnection: _WAConnection,
@@ -340,7 +340,7 @@ const sender = mek.key.fromMe ? Fg.user.jid : isGroup ? mek.participant : mek.ke
 const senderNumber = sender.split("@")[0]
 const groupMetadata = isGroup ? await Fg.groupMetadata(from) : ''
 //const isOwner = ownerNumber.includes(sender)
-const isPremium = isGroup ? _prem.checkPremiumUser(sender,premium) : false
+const isPremium = isGroup ? _prem.checkPremiumUser(sender,premium) : false || isOwner 
 const groupDesc = isGroup ? groupMetadata.desc : ''
 const groupName = isGroup ? groupMetadata.subject : ''
 const groupId = isGroup ? groupMetadata.jid : ''
@@ -1829,32 +1829,14 @@ case 'voz':
 break
 
 //******************** 》 MAKER 《 ********************\\
-case 'tahta':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if (args.length < 1) return reply('*Teks nya mana?*')
-reply(wait())
-tahta = args.join(" ")
-tahta = await getBuffer(`https://api.zeks.xyz/api/hartatahta?apikey=${Vkey}&text=${tahta}`)
-Fg.sendMessage(from,tahta,image,{quoted:mek})
-limitAdd(sender, limit)
-break
+
 			
-case 'thunder':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if (args.length < 1) return reply('*Teks nya mana?*')
-reply(wait())
-thunder = args.join(" ")
-thunder = await getBuffer(`https://api.zeks.xyz/api/thundertext?apikey=${Vkey}&text=${thunder}`)
-Fg.sendMessage(from,thunder,image,{quoted:mek})
-limitAdd(sender, limit)
-break
-			
+
 case 'blackpink':
+ if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if (args.length < 1) return reply('*Teks nya mana?*')
+if (args.length < 1) return reply(`✳️ Ingrese el texto\n\n📌 Ejemplo : *${prefix + command}* FG98`)
 reply(wait())
 bp = args.join(" ")
 bp = await getBuffer(`https://api.zeks.xyz/api/logobp?apikey=${Vkey}&text=${bp}`)
@@ -1862,29 +1844,7 @@ Fg.sendMessage(from,bp,image,{quoted:mek})
 limitAdd(sender, limit)
 break
 			
-case 'glitch':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if(!value) return reply(`Example : ${prefix}glitch nama|autor`)
-g1 = value.split('|')[0]
-g2 = value.split('|')[1]
-reply(wait())
-glitch = await getBuffer(`https://api.zeks.xyz/api/gtext?apikey=${Vkey}&text1=${g1}&text2=${g2}`)
-Fg.sendMessage(from,glitch,image,{quoted:mek})
-limitAdd(sender, limit)
-break
-			
-case 'marvel':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if(!value) return reply(`Example : ${prefix}marvel nama|autor`)
-m1 = value.split('|')[0]
-m2 = value.split('|')[1]
-reply(wait())
-marvel = await getBuffer(`https://api.zeks.xyz/api/marvellogo?apikey=${Vkey}&text1=${m1}&text2=${m2}`)
-Fg.sendMessage(from,marvel,image,{quoted:mek})
-limitAdd(sender, limit)
-break
+		
 			
 //******************** 》DOWNLOAD 《 ********************\\
 
