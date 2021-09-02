@@ -44,6 +44,7 @@ const ffmpeg = require('fluent-ffmpeg')
 const lolis = require('lolis.life')
 const loli = new lolis()
 //--New
+const insta = require('insta-fetcher')
 const crypto = require('crypto');
 const {convertSticker} = require("./libreria/swm.js") 
 const Exif = require('./libreria/exif');
@@ -2073,6 +2074,59 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
      limitAdd(sender, limit)
      		break
      
+
+case 'igstalk':
+case 'stalking':
+      (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+                   if (args.length < 1) return reply(`✳️ Escriba un Nombre de Usuario\n\n📌Ejemplo : *${prefix + command}* fg98._`)
+                   reply(wait()) 
+            insta.fetchUser(`${args.join(' ')}`).then(Y => {
+            console.log(`${args.join(' ')}`)
+            ten = `${Y.profile_pic_url_hd}`
+            teks = `───「 *STALKING* 」
+‣ *🆔 ID :* ${Y.profile_id}
+‣ *🔖 Username* : ${args.join('')}
+‣ *🔖 Nombre Completo* : ${Y.full_name}
+‣ *📌 Bio* : ${Y.biography}
+‣ *👥 Seguidores* : ${Y.following} 
+‣ *🫂 Siguiendo* : ${Y.followers}
+‣ *🔐 Privado* : ${Y.is_private}
+‣ *✅ Verificado* : ${Y.is_verified}
+‣ *🔗 Link* : https://instagram.com/${args.join('')}`
+
+            sendMediaURL(from,ten,teks) 
+            })     
+            limitAdd(sender, limit)
+            break
+     
+     case 'igfoto':       
+                 case 'igvideo':    
+                    case 'ig':
+                    case 'instagram':
+                    (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
+  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+                       if (args.length < 1) return reply(`✳️ Ingrese un link de una foto o video de Instagram`)
+        if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.link)
+       
+                    reply(wait())
+	    hx.igdl(args[0])
+	    .then(async(result) => {
+		
+            for(let i of result.medias){
+                if(i.url.includes('mp4')){
+                    let link = await getBuffer(i.url)
+                    Fg.sendMessage(from,link,video,{quoted: mek,caption: `✅ Aquí está`})
+                } else {
+                    let link = await getBuffer(i.url)
+                    Fg.sendMessage(from,link,image,{quoted: mek,caption: `✅ Aquí tienes`})                  
+                }
+            }
+            });
+            limitAdd(sender, limit)
+	    break
 	
 
 case 'fb': 
