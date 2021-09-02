@@ -340,7 +340,6 @@ const sender = mek.key.fromMe ? Fg.user.jid : isGroup ? mek.participant : mek.ke
 const senderNumber = sender.split("@")[0]
 const groupMetadata = isGroup ? await Fg.groupMetadata(from) : ''
 //const isOwner = ownerNumber.includes(sender)
-const isPremium = isGroup ? _prem.checkPremiumUser(sender,premium) : false || isOwner 
 const groupDesc = isGroup ? groupMetadata.desc : ''
 const groupName = isGroup ? groupMetadata.subject : ''
 const groupId = isGroup ? groupMetadata.jid : ''
@@ -354,6 +353,7 @@ const isMods = mods.includes(senderNumber)
  
 const isVerify = _user.includes(sender)
 const isAntilink = isGroup ? _antilink.includes(from) : false
+const isPremium = isGroup ? _prem.checkPremiumUser(sender,premium) : false || isOwner 
 const isGroupAdmins = groupAdmins.includes(sender) || false
 const isWelcom = isGroup ? _welcom.includes(from) : false
 const isLeft = isGroup ? left.includes(from) : false
