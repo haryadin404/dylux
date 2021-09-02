@@ -312,7 +312,6 @@ const budy = (type === 'conversation') ? mek.message.conversation : (type === 'e
 
 var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
 const messagesC = pes.slice(0).trim()
-const tmplt = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.selectedDisplayText : ""
 q2 = Object.keys(mek.message)[0] == "listResponseMessage" ? mek.message.listResponseMessage.singleSelectReply.selectedRowId: ""
 q3 = Object.keys(mek.message)[0] == "buttonsResponseMessage" ? mek.message.buttonsResponseMessage.selectedButtonId : ""
 
@@ -911,49 +910,6 @@ mentions(_vote,_p,true)
 }
 }
 }		
-
-//******************** 》listMessage《 ********************\\
-try{
-	
-switch(tmplt){
-
-
-case 'MP3':
-reply(wait())
-try{
-downm = await yta(q2)
-const { dl_link, thumb, title, filesizeF, filesize } = downm
-if(Number(filesize) >= 50000){
-short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-return sendMediaURL(from, thumb, `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
-}
-teks = `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Type : MP3\n\nTunggu sebentar\nMusic segera dikirim`
-sendMediaURL(from, thumb, teks)
-sendMediaURL(from, dl_link)
-}catch(e){
-reply(mess.error)
-}
-break
-
-case 'MP4':
-reply(wait())
-try{
-downm = await ytv(q2)
-const { dl_link, thumb, title, filesizeF, filesize } = downm
-if(Number(filesize) >= 50000){
-short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-return sendMediaURL(from, thumb, `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
-        }
-teks = `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Type : MP4\n\nTunggu sebentar\nMusic segera dikirim`
-sendMediaURL(from, thumb, teks)
-sendMediaURL(from, dl_link)
-}catch(e){
-reply(mess.error)
-}
-break
-}
-}catch{
-}
 
 
 //-- 𝗖𝗢𝗠𝗔𝗡𝗗𝗢𝗦
@@ -1847,80 +1803,9 @@ break
 		
 			
 //******************** 》DOWNLOAD 《 ********************\\
-
-case 'xnxxsearch':
-if(!isPremium)return reply(premi(prefix))
-if (!isGroup)return reply(group())
-if (!value) return reply(`Example: ${prefix + command} Japanese`)
-get_result = await fetchJson(`https://api.lolhuman.xyz/api/xnxxsearch?apikey=${lolkey}&query=${value}`)
-reply(wait())
-get_result = get_result.result
-ini_txt = ""
-for (var x of get_result) {
-ini_txt += `Title : ${x.title}\n`
-ini_txt += `Views : ${x.views}\n`
-ini_txt += `Duration : ${x.duration}\n`
-ini_txt += `Uploader : ${x.uploader}\n`
-ini_txt += `Link : ${x.link}\n`
-ini_txt += `Thumbnail : ${x.thumbnail}\n\n`
-}
-reply(ini_txt)
-break
-
-case 'xnxx': case 'xnxxstalk':
-if(!isPremium)return replyl(premi(prefix))
-if (!isGroup)return reply(group())
-if (!value) return reply(`Example: ${prefix + command} https://www.xnxx.com/video-uy5a73b/mom_is_horny_-_brooklyn`)
-get_result = await fetchJson(`https://api.lolhuman.xyz/api/xnxx?apikey=${lolkey}&url=${value}`)
-reply(wait())
-get_result = get_result.result
-ini_txt = `Title : ${get_result.title}\n`
-ini_txt += `Duration : ${get_result.duration}\n`
-ini_txt += `View : ${get_result.view}\n`
-ini_txt += `Rating : ${get_result.rating}\n`
-ini_txt += `Like : ${get_result.like}\n`
-ini_txt += `Dislike : ${get_result.dislike}\n`
-ini_txt += `Comment : ${get_result.comment}\n`
-ini_txt += `Tag : ${get_result.tag.join(", ")}\n`
-ini_txt += `Description : ${get_result.description}\n`
-ini_txt += "Link : \n"
-ini_link = get_result.link
-                    for (var x of ini_link) {
-ini_txt += `${x.type} - ${x.link}\n\n`
-                    }
-thumbnail = await getBuffer(get_result.thumbnail)
-Fg.sendMessage(from, thumbnail, image, { quoted: mek, caption: ini_txt })
-break
- 
-case 'xnxxdownload': case 'xnxxdl':
-if(!isPremium)return replyl(premi(prefix))
-if (!isGroup)return reply(group())
-if(!value)return reply(`Search link di Fitur xnxxstalk`)
-reply(wait())
-sendMediaURL(from, `${value}`)
-break
-
-case 'ytdown':
-if(!value) return reply(`*Example : ${prefix + command} Melukis senja`)
-try{
-	ysearch = await yts(value)
-}catch(e){
-	return reply(mess.error)
-}
-p = 0
-teks = `Y T  D O W N\nTotal : ${ysearch.all.length}\n\n`
-for(let i of ysearch.all){
-	teks += `${p+=1}.\nTitle :` + i.title + '\n'
-	teks += `Url :` + i.url + '\n'
-	teks += `Durasi :` + i.timestamp + '\n\n-----------------------------\n\n'
-}
-teks +=  `Ketik # 1 atau angka selanjutnya untuk mengambil Music!\nKetik ! 1 atau angka selanjutnya untuk mengambil Video!\n\nNote :\n  • # : GetMusic\n  • ! : GetVideo`
-reply(monospace(teks))
-break
-
   case 'ytplay':
 if(!isGroup)return reply(group())
-if(!value) return reply('Mau cari apa diyoutube?')
+if(!value) return reply(`✳️Ingrese el de un video de YouTube`)
 reply(wait())
 datai = [];
 try{
@@ -1948,13 +1833,50 @@ num += 1
 }
 po = Fg.prepareMessageFromContent(from, {
 "listMessage":{
-"title": "*YOUTUBE DOWNLOAD*",
-"description": `Request By : ${pushname}\n*Hasil Pencarian : ${value}*\n*Download dengan klik tombol dibawah*`,
+"title": "*YOUTUBE DESCARGA*",
+"description": `Pedido por : *${pushname}*\n📌Resultado de búsqueda : *${value}*\n\nDescarga haciendo click en el botón de abajo`,
 "buttonText": "Result",
 "listType": "SINGLE_SELECT",
 "sections": datai}}, {}) 
 Fg.relayWAMessage(po, {waitForAck: true})
 break
+
+case 'MP3':
+reply(wait())
+try{
+downm = await yta(q2)
+const { dl_link, thumb, title, filesizeF, filesize } = downm
+if(Number(filesize) >= 50000){
+short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+return sendMediaURL(from, thumb, `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
+}
+teks = `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Type : MP3\n\nTunggu sebentar\nMusic segera dikirim`
+sendMediaURL(from, thumb, teks)
+sendMediaURL(from, dl_link)
+}catch(e){
+reply(mess.error)
+}
+break
+
+case 'MP4':
+reply(wait())
+try{
+downm = await ytv(q2)
+const { dl_link, thumb, title, filesizeF, filesize } = downm
+if(Number(filesize) >= 50000){
+short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
+return sendMediaURL(from, thumb, `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
+        }
+teks = `*Y O U T U B E  D O W N L O A D E R*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Type : MP4\n\nTunggu sebentar\nMusic segera dikirim`
+sendMediaURL(from, thumb, teks)
+sendMediaURL(from, dl_link)
+}catch(e){
+reply(mess.error)
+}
+break
+}
+}catch{
+}
   
 case 'mp':
 if (!isGroup)return reply(group())
