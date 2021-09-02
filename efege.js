@@ -2073,35 +2073,6 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
      limitAdd(sender, limit)
      		break
      
-
-
-     
-     case 'igfoto':       
-                 case 'igvideo':    
-                    case 'ig':
-                    case 'instagram':
-                    (!isVerify) return reply(userB(prefix))
-  if (isBanned) return reply(banf())
-  if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-                       if (args.length < 1) return reply(`✳️ Ingrese un link de una foto o video de Instagram`)
-        if (!isUrl(args[0]) && !args[0].includes('instagram.com')) return reply(mess.link)
-       
-                    reply(wait())
-	    hx.igdl(args[0])
-	    .then(async(result) => {
-		reply(pagado())
-            for(let i of result.medias){
-                if(i.url.includes('mp4')){
-                    let link = await getBuffer(i.url)
-                    Fg.sendMessage(from,link,video,{quoted: mek,caption: `✅ Aquí está`})
-                } else {
-                    let link = await getBuffer(i.url)
-                    Fg.sendMessage(from,link,image,{quoted: mek,caption: `✅ Aquí tienes`})                  
-                }
-            }
-            });
-            limitAdd(sender, limit)
-	    break
 	
 
 case 'fb': 
