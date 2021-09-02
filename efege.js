@@ -50,6 +50,7 @@ const {convertSticker} = require("./libreria/swm.js")
 const Exif = require('./libreria/exif');
 const { webp2mp4File} = require('./libreria/webp2mp4')
 const exif = new Exif();
+const hx = require('hxz-api')
 
 //---- Funcion
 
@@ -113,9 +114,6 @@ const owner = confi.ownerN
 const mods = confi.mods
 
 wa = '0@s.whatsapp.net'
-shp = '⬡'
-nama = 'Dylux BOT'
-fake = '@fg98_'
 
 //--anti delete 
 antidel = false
@@ -941,7 +939,7 @@ Fg.sendMessage(from, help(prefix,pushname,usrr,tag,wa,THit,njing,premm,premi,lim
 isForwarded: false,
 sendEphemeral: false,
 "externalAdReply": {
-                "title": `Hallo ${pushname}\nS e n. (@021Fgu_) •Instagram Story's`,
+                "title": `Hola ${pushname}\nFG98. (@fg98._) `,
                 "body": "",
                 "previewType": "PHOTO",
                 "thumbnailUrl": "https://telegra.ph/file/bbb5eca08130920edbcb4.jpg",
@@ -2073,6 +2071,27 @@ _📤 Enviando, espere si el video no aparece, descargue por el link_`
      		.catch(e => console.log(e))
      limitAdd(sender, limit)
      		break
+    
+    case 'tiktokstalk':
+if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
+if (!isGroup) return reply(group())
+if (!value)return reply(`Example : ${prefix + command} Jessnolimit`)
+reply(wait())
+ttst = await fetchJson(`http://zekais-api.herokuapp.com/tiktokstalk?query=${value}`)
+ig = `*「 TIKTOK STALK 」*
+
+ ‣ *🔖 Username* : ${ttst.username}
+ ‣ *🔖 Nombre* : ${ttst.nickname}
+ ‣ *🎥 Videos* : ${ttst.videoCount}
+ ‣ *👍🏻 Likes* : ${ttst.likes}
+ ‣ *👥 Seguidores* : ${ttst.follower}
+ ‣ *🫂 Siguiendo* : ${ttst.following}
+ ‣ *📌 Bio* : ${ttst.bio}`
+buff = await getBuffer(ttst.prof_pic)
+Fg.sendMessage(from, buff, image,{quoted:mek,caption:ig})
+limitAdd(sender, limit)
+break
+
      
 
 case 'igstalk':
@@ -2128,220 +2147,130 @@ case 'stalking':
             limitAdd(sender, limit)
 	    break
 	
-
-case 'fb': 
-case 'facebook':{
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!value) return reply(`Kirim perintah *${prefix}fb* url`)
-reply(wait())
-fbdl(value)
-.then((res) => {
-sendMediaURL(from, res.result.links[0].url)
-limitAdd(sender, limit)
-})
-.catch((err) => {
-console.log(color('[FB]', 'red'), err)
-reply(mess.error.api)
-})
-}
-break
-			
-
-				
+	//******************** 》 SEARCH 《 ********************\\
 case 'ytsearch':
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (args.length < 1) return reply('Tolong masukan query!')
-var srch = args.join('');
-try {
-	var aramas = await yts(srch);
-	} catch {
-return await Fg.sendMessage(from, 'Error!', MessageType.text, dload)
-}
-aramat = aramas.all 
-var tbuff = await getBuffer(aramat[0].image)
-var ytresult = '';
-ytresult += '「 *YOUTUBE SEARCH* 」'
-ytresult += '\n________________________\n\n'
-aramas.all.map((video) => {
-ytresult += '❏ Title: ' + video.title + '\n'
-ytresult += '❏ Link: ' + video.url + '\n'
-ytresult += `❏ Use Dowbload Typing ${prefix}ytmp3 [Link] Or ${prefix}ytmp4 [Link]` +'\n'
-ytresult += '❏ Durasi: ' + video.timestamp + '\n'
-ytresult += '❏ Upload: ' + video.ago + '\n________________________\n\n'
-});
-ytresult += '◩ *BOT*'
-Fg.sendMessage(from,tbuff,image,{quoted:mek,caption:ytresult})
-limitAdd(sender, limit)
-break
+if (args.length < 1) return reply(`✳️ Ejemplo : ${prefix + command} Lil Peep`)
+                    reply(wait())
+				var srch = args.join('');
+					try {
+		        	var aramas = await yts(srch);
+		   			} catch {
+		        	return await Fg.sendMessage(from, 'Error!', MessageType.text, dload)
+		    		}
+		    		aramat = aramas.all 
+		    		var tbuff = await getBuffer(aramat[0].image)
+		    		var ytresult = '';
+		    		ytresult += '「 *YOUTUBE SEARCH* 」'
+		    		ytresult += '\n________________________\n\n'
+		   			aramas.all.map((video) => {
+		        	ytresult += '📌 *Título :* ' + video.title + '\n'
+		            ytresult += '*🔗 Link* : ' + video.url + '\n'
+		            ytresult += '*⏳ Duración* : ' + video.timestamp + '\n'
+		            ytresult += '*📤 Publicado* : ' + video.ago + '\n________________________\n\n'
+		    		});
+		    		ytresult += '─── DyLux ┃ ᴮᴼᵀ ───'
+		    		
+		            Fg.sendMessage(from, tbuff, image, {thumbnail:fs.readFileSync(`./image/fake.jpg`), quoted: mek, caption: ytresult})
+		            limitAdd(sender, limit)
+					break
 				
-//******************** 》 SEARCH 《 ********************\\
+
 			
-case 'searchmusic':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if (isQuotedAudio){
-const dlfile = await Fg.downloadMediaMessage(JSON.parse(JSON.stringify(mek).replace('quotedM','m')).message.extendedTextMessage.contextInfo)
-const bodyForm = new FormData()
-bodyForm.append('audio', dlfile, 'music.mp3')
-bodyForm.append('apikey', `${Vkey}`)
-axios('https://api.zeks.xyz/api/searchmusic', {
-method: 'POST',
-headers: {
-"Content-Type": "multipart/form-data",
-...bodyForm.getHeaders()
-},
-data: bodyForm
-})
-.then(({data}) =>{
-if (data.status){
-reply(`*「 Search Music 」*\n\n\n• *Title*: ${data.data.title}\n\n• *Artists*: ${data.data.artists}\n\n• *Genre*: ${data.data.genre}\n\n• *Album*: ${data.data.album}\n\n• *Release date*: ${data.data.release_date}`)
-} else reply(data.message)
-}).catch(() => reply('Internal server error!, try again later'))
-} else {
-reply('Wrong format!')
-}
-limitAdd(sender, limit)
-break
-				
-case 'covidindo':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-anu = await fetchJson('https://lindow-api.herokuapp.com/api/covidindo?apikey=LindowApi')
-covid = `❒ *「 Covid Indo 」* ❒ \n\n*Total Kasus : ${anu.result.positif}*\n*Total Sembuh : ${anu.result.sembuh}*\n*Di Rawat : ${anu.result.dirawat}*\n*Total meninggal : ${anu.result.meninggal}*`
-reply(covid)
-limitAdd(sender, limit)
-break
 					
 case 'covid':
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!value) return reply(`Example : ${prefix + command} japan`)
+if (!value) return reply(`✳️ Nombre de un país \n\n📌 Ejemplo : ${prefix + command} Argentina`)
 cvd = await fetchJson(`http://zekais-api.herokuapp.com/corona?country=${value}`)
-copid = `❒ *「 Covid ${value} 」* ❒ \n\n*Total Kasus :* _${cvd.result.total_case}_\n*Total Meninggal :* _${cvd.result.total_deaths}_\n*Total Sembuh :* _${cvd.result.total_tests}_\n*Kasus Hari Ini :* _${cvd.result.today_cases}_\n*Meninggal Hari Ini :* _${cvd.result.today_deaths}_\n*Total Dirawat :* _${cvd.result.total_active}_`
+copid = `❒ *「 Covid ${value} 」* ❒ 
+
+‣ *Total de casos :* _${cvd.result.total_case}_
+‣ *Muertos :* _${cvd.result.total_deaths}_
+‣ *Recuperados :* _${cvd.result.total_tests}_
+‣ *Casos de hoy :* _${cvd.result.today_cases}_
+‣ *Muertos de hoy :* _${cvd.result.today_deaths}_
+‣ *Total tratados :* _${cvd.result.total_active}_`
 reply(copid)
 limitAdd(sender, limit)
 break
 					
-case 'covidglobal':
+				
+case 'lyrics':
+case 'letra':
+case 'letras':
+if (!isVerify) return reply(userB(prefix))
+  if (isBanned) return reply(banf())
 if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-cvdg = await fetchJson(`https://jar-api.xyz/api/covidworld?apikey=${ai}`)
-coped = `❒ *「 Covid World 」* ❒ \n\n*Total Kasus :* _${cvdg.result.totalCases}_\n*Total Meninggal :* _${cvdg.result.deaths}_\n*Total Sembuh :* _${cvdg.result.recovered}_\n*Kasus Tertutup :* _${cvdg.result.closedCases}_\n*Total Dirawat :* _${cvdg.result.activeCases}_`
-reply(coped)
+if (args.length < 1) return reply('✳️ Ingrese el nombre de la canción')
+  reply(wait())
+  
+  try {
+    let song = await hx.lirik(value)
+            sendMediaURL(from,song.thumb,song.lirik)
+            reply(pagado())
+  } catch {
+    reply(mess.ferr)
+  }
 limitAdd(sender, limit)
 break
 				
-case 'lirik':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if(!value) return reply(`Example : ${prefix + command} melukis senja`)
-lrk = await fetchJson(`http://zekais-api.herokuapp.com/lirik?query=${value}`)
-lirik = `❒ *「 Lirik Lagu 」* ❒ \n\n*Judul : ${lrk.title}*\n*Author : ${lrk.author}*\n\n*Lirik :* \n${lrk.lirik} `
-buf = await getBuffer(lrk.thumb)
-Fg.sendMessage(from,buf,image,{quoted:mek,caption:lirik})
-limitAdd(sender, limit)
-break
-				
-//******************** 》 STALKER 《 ********************\\
 
-case 'igstalk':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if (!value)return reply(`Example : ${prefix + command} Livyrenata`)
-reply(wait())
-igst = await fetchJson(`http://zekais-api.herokuapp.com/igs?username=${value}`)
-ig = `*I N S T A G R A M  S T A L K*
-
- *Username : ${igst.data.username}*
-
- *Full Name : ${igst.data.fullname}*
-
- *Followers : ${igst.data.follower}*
-
- *Following : ${igst.data.following}*
-
- *BIO : ${igst.data.bio}*`
-buff = await getBuffer(igst.data.profilehd)
-Fg.sendMessage(from, buff, image,{quoted:mek,caption:ig})
-limitAdd(sender, limit)
-break
-
-
-case 'tiktokstalk':
-if (isLimit(sender, isPremium, isOwner, limitCount, limit)) return reply(fdiama(prefix))
-if (!isGroup) return reply(group())
-if (!value)return reply(`Example : ${prefix + command} Jessnolimit`)
-reply(wait())
-ttst = await fetchJson(`http://zekais-api.herokuapp.com/tiktokstalk?query=${value}`)
-ig = `*T I K T O K  S T A L K*
-
- *Username : ${ttst.username}*
-
- *Nick Name : ${ttst.nickname}*
-
- *Video : ${ttst.videoCount}*
-
- *Likes : ${ttst.likes}*
-
- *Followers : ${ttst.follower}*
-
- *Following : ${ttst.following}*
-
- *BIO : ${ttst.bio}*`
-buff = await getBuffer(ttst.prof_pic)
-Fg.sendMessage(from, buff, image,{quoted:mek,caption:ig})
-limitAdd(sender, limit)
-break
 
 //******************** 》 OWNER CMD 《 ********************\\
-case 'setshape':
-if (args.length < 1) return
-if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
-shpp = args[0]
-confi.shape.Fg = shpp
-fs.writeFileSync('./data/settings.json', JSON.stringify(confi, null, '\t'))
-reply(`Shape berhasil di ubah menjadi : ${shpp}`)
-break
-
 case 'setprefix':
-if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
-if (args.length < 1) return reply(`*Format Error!*\n\n*Example :*\n •${prefix + command} multi\n •${prefix + command} nopref\n •${prefix + command} # (Custom!)\n\n*Thanks To : ${fake}*`)
+if (!isOwner)return reply(ownerB())
+if (args.length < 1) return reply(`*✳️Formato del comando!*\n\n*📌 Ejemplo :*\n •${prefix + command} multi\n •${prefix + command} nopref\n •${prefix + command} # (Personalizado!)`)
 if((args[0]) == 'multi'){
-if(multi)return reply('_Sudah diaktifkan sebelumnya!_')
+if(multi)return reply('_✳️ Ha sido activado antes!_')
 multi = true
 nopref = false
 single = false
-reply(`_Succses mengganti Prefix ke Multiprefix!_`)
+reply(`✅ Se cambio el prefijo a *multiprefijo*`)
 }else
 if ((args[0]) == 'nopref'){
-if(nopref)return reply('_Sudah diaktifkan sebelumnya!_')
+if(nopref)return reply('_✳️ Ha sido activado antes!_')
 multi = false
 single = false
 nopref = true
-reply(`_Succses mengganti Prefix ke noprefix!_`)
+reply(`✅ Se cambió de prefijo a *noprefix*\n\n📌Ya no necesitas un prefijo para usar los comandos`)
 }else
 if((args[0]) == `${value}`){
 multi = false
 nopref = false
 single = true
 prefa = `${value}`
-reply(`_Succses mengganti Prefix ke ${value}_`)
+reply(`✅ Prefijo cambiado a : *${value}*`)
 }
 break
-			
-case 'clearall':{
-if (!isOwner)return mentions(`*Perintah ini Khusus @${ownerN} !*`, [`${ownerN}@s.whatsapp.net`], true)
+
+//--borrar chats del bot
+case 'clearchat':
+case 'clearall':
+{
+if (!isOwner)return reply(ownerB()) 
 let chiit = await Fg.chats.all()
 for (let i of chiit){
 Fg.modifyChat(i.jid, 'delete', {
 includeStarred: false
   })
 }
-reply(`*_Succses_*`)
+reply(`😔 borre todos mis chats`)
   }
 break
 
-// List Group ( MyMans APIs & Nurutomo )
-case 'listgroup': case 'grouplist': case 'listgc':
-const txs = Fg.chats.all().filter(v => v.jid.endsWith('g.us')).map(v =>`*Nama Group : ${Fg.getName(v.jid)}*\n*Id Group : ${v.jid}*\n*Status : ${v.read_only ? 'Left' : 'Joined'}*`).join`\n\n`
-reply('*List Group*\n\n' + txs)
+// Lista de Grupos ( MyMans APIs & Nurutomo )
+case 'listgroup': 
+case 'grouplist': 
+case 'listgc':
+const txs = Fg.chats.all().filter(v => v.jid.endsWith('g.us')).map(v =>`
+• *🔖Nombre* : ${Fg.getName(v.jid)}*
+• *🛡️ID de Grupo : ${v.jid}*
+• *🏮Estado* : ${v.read_only ? 'noUnido' : 'Unido'}*`).join`\n\n`
+reply('≡ *Lista Grupos*\n\n' + txs)
 break
 
 case 'anticall':
@@ -2527,7 +2456,7 @@ if (!value.includes('chat.whatsapp.com')) return reply(`❎ asegúrese de que el
 let code = args[0].replace('https://chat.whatsapp.com/', '')
 Fg.acceptInvite(code)
 .then((res) => {
-Fg.sendMessage(res.gid,`*Halo saya ${nama}!*\n_Saya di invit oleh @${sender.split("@")[0]} Untuk masuk ke dalam Group!_\n_Ketik ${prefix}menu untuk Melihat Fitur Bot!_`,text,{contextInfo:{mentionedJid:[sender]} })
+Fg.sendMessage(res.gid,`*Halo saya !*\n_Saya di invit oleh @${sender.split("@")[0]} Untuk masuk ke dalam Group!_\n_Ketik ${prefix}menu untuk Melihat Fitur Bot!_`,text,{contextInfo:{mentionedJid:[sender]} })
 reply(`_Succses Join Group!_`)
 })
 .catch((err) => reply(err))
@@ -2586,7 +2515,7 @@ var nom = mek.participant
 members_id = []
 	teks = '\n'
 	for (let mem of groupMembers) {
-	teks += `┃${shp}  *@${mem.jid.split('@')[0]}*\n`
+	teks += `┃ *@${mem.jid.split('@')[0]}*\n`
 	members_id.push(mem.jid)
 	}
 mentions(`┏━━⬣ 𝙄𝙉𝙁𝙊 \n┃\n┃ *From : @${sender.split("@")[0]}*\n┃ *Info :  ${value}*\n┃ *Total Member : ${groupMembers.length}*\n┃ *Nama Group : ${groupName}*\n┃\n┗⬣\n\n┏━━⬣ 𝙏𝘼𝙂 𝘼𝙇𝙇\n┃`+teks+'┃\n┗⬣', members_id, false)
@@ -2966,12 +2895,12 @@ return bul;
 }
 teksx = `「 *Telah Dibaca* 」\n\n`
 for (let i of hemm) {
-teksx += `${shp} Nama : @${i.jid.split('@')[0]}\n${shp} Waktu : ${toTime(i.t, true)}\n${shp} fecha : ${toBulan(i.t, true)}\n\n`
+teksx += `Nama : @${i.jid.split('@')[0]}\n Waktu : ${toTime(i.t, true)}\n fecha : ${toBulan(i.t, true)}\n\n`
 }
 teksx1 = `「 *Belum DiBaca* 」\n\n`
 for (let i of hemms){
-teksx1 += `${shp} Nama : @${i.jid.split('@')[0]}\n`
-teksx1 += `${shp} Waktu : ${toTime(i.t, true)}\n${shp} fecha : ${toBulan(i.t, true)}\n\n`
+teksx1 += ` Nama : @${i.jid.split('@')[0]}\n`
+teksx1 += ` Waktu : ${toTime(i.t, true)}\n fecha : ${toBulan(i.t, true)}\n\n`
 }
 Fg.sendMessage(from, teksx, text, { sendEphemeral: false, quoted: mek, thumbnail: gambar3, contextInfo: { forwardingScore:999, isForwarded:false, mentionedJid: readdin }})
 Fg.sendMessage(from, teksx1, text, { sendEphemeral: false, quoted: mek, thumbnail: gambar3, contextInfo: { forwardingScore:999, isForwarded:false, mentionedJid: readon }})
@@ -3135,7 +3064,7 @@ break
 
 case 'addprem':
 if (!isOwner)return reply(ownerB()) 
-if (!value)return reply(`*Format Error!*\n\n*Example :*\n• *${prefix + command} @tag 10d*\n\n*Note :*\n• s : detik\n• m : menit\n• h : jam\n• d : hari\n\n*Tq To : ${fake}*`)
+if (!value)return reply(`*Format Error!*\n\n*Example :*\n• *${prefix + command} @tag 10d*\n\n*Note :*\n• s : detik\n• m : menit\n• h : jam\n• d : hari*`)
 expired = value.split(" ")[1]
 const pnom = {id: `${value.split(" ")[0].replace("@",'')}@s.whatsapp.net`,expired: Date.now() + toMs(expired) }
 premium.push(pnom) 
@@ -3488,10 +3417,10 @@ if(args[0].text > jmlh) return reply(`Hanya Tersedia ${jmlh} Pilihan\nSilahkan c
  const { dl_link, thumb, title, filesizeF, filesize } = downm
  if(Number(filesize) >= 30000){
  short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
- //return sendMediaURL(from, thumb, `*P L A Y V I D E O*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
+ //return sendMediaURL(from, thumb, `*P L A Y V I D E O*\n\n Judul : ${title}\n Size : ${filesizeF}\nLink : ${short.data}\n\n${mess.oversize}`)
  reply(`*Ukuran file Terlalu besar!!*\n*Size : ${filesizeF}*\n*Link : ${short.data}*\n\n_Silahkan download Link diatas!!_`)
  }
- teks = `*P L A Y  V I D E O*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}`
+ teks = `*P L A Y  V I D E O*\n\nJudul : ${title}\nSize : ${filesizeF}`
  //wa.sendFileFromUrl(from, thumb, tod, teks)
  sendMediaURL(from, dl_link, teks)
  }catch(e){
@@ -3516,10 +3445,10 @@ if(args[0].text > jmlh) return reply(`Hanya Tersedia ${jmlh} Pilihan\nSilahkan c
  const { dl_link, thumb, title, filesizeF, filesize } = downm
  if(Number(filesize) >= 30000){
  short = await axios.get(`https://tinyurl.com/api-create.php?url=${dl_link}`)
-// return sendMediaURL(from, thumb, `*P L A Y M U S I C*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n${shp} Link : ${short.data}\n\n${mess.oversize}`)
+// return sendMediaURL(from, thumb, `*P L A Y M U S I C*\n\n Judul : ${title}\n Size : ${filesizeF}\nLink : ${short.data}\n\n${mess.oversize}`)
 reply(`*Ukuran file Terlalu besar!!*\n*Size : ${filesizeF}*\n*Link : ${short.data}*\n\n_Silahkan download Link diatas!!_`)
  }
-teks = `*P L A Y M U S I C*\n\n${shp} Judul : ${title}\n${shp} Size : ${filesizeF}\n\nTunggu sebentar\nMusic segera dikirim`
+teks = `*P L A Y M U S I C*\n\n Judul : ${title}\nSize : ${filesizeF}\n\nTunggu sebentar\nMusic segera dikirim`
  //sendMediaURL(from,thumb,teks)
  sendMediaURL(from, dl_link)
  }catch(e){
